@@ -11,7 +11,7 @@
     <groupId>br.ueg</groupId>
     <artifactId>cons.soft.estoqfacil</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cons.soft.estoqfacil</name>
+    <name>EstoqFacil_Back</name>
     <description>Sistema desenvolvido para a disciplina de construção de software. Sistema de Estoque/MarketPlace</description>
 
     <properties>
