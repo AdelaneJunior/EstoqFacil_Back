@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.ueg</groupId>
-    <artifactId>EstoqFacil_Back</artifactId>
+    <artifactId>cons.soft.estoqfacil</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>EstoqFacil_Back</name>
+    <name>cons.soft.estoqfacil</name>
     <description>Sistema desenvolvido para a disciplina de construção de software. Sistema de Estoque/MarketPlace</description>
 
     <properties>
