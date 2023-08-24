@@ -1,4 +1,4 @@
-package br.ueg.cons.soft.estoqfacil.service;
+package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.prog.webi.api.dto.CredencialDTO;
 import br.ueg.prog.webi.api.dto.UsuarioSenhaDTO;
