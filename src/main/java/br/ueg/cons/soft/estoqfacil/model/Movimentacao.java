@@ -19,7 +19,7 @@ public @Data class Movimentacao implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "movimentacao";
 
-    public static final class Coluna{
+    public static final class Coluna {
 
         public static final String ID = "movt_codigo";
 
@@ -34,7 +34,7 @@ public @Data class Movimentacao implements IEntidade<Long> {
         public static final String ACAO = "movt_acao";
     }
 
-    public static final class Atributo{
+    public static final class Atributo {
         public static final String CODIGO = "codigo";
     }
 
@@ -55,11 +55,15 @@ public @Data class Movimentacao implements IEntidade<Long> {
     private Long codigo;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_PRODUTO, referencedColumnName = Produto.Coluna.ID, nullable = false)
+    @JoinColumn(name = Coluna.ID_PRODUTO, nullable = false,
+            referencedColumnName = Produto.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_movimentacao_produto"))
     private Produto movimentacaoProduto;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_USUARIO, referencedColumnName = Usuario.Coluna.ID, nullable = false)
+    @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
+            referencedColumnName = Usuario.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_movimentacao_usuario"))
     private Usuario movimentacaoUsuario;
 
     @Column(name = Coluna.QUANTIDADE, nullable = false)

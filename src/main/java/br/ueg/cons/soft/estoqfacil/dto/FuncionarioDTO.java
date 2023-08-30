@@ -6,13 +6,12 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDTO{
+public class FuncionarioDTO {
 
     private Long codigo;
 
-    private String login;
+    private Long pessoaID;
 
-    private String senha;
+    private String cargo;
 
-    private Long funcionarioCodigo;
 }

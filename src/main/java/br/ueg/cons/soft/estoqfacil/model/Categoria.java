@@ -16,7 +16,7 @@ public @Data class Categoria implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "categoria";
 
-    public static final class Coluna{
+    public static final class Coluna {
 
         public static final String ID = "catg_codigo";
 
@@ -27,7 +27,7 @@ public @Data class Categoria implements IEntidade<Long> {
         public static final String ID_USUARIO = "catg_usuario";
     }
 
-    public static final class Atributo{
+    public static final class Atributo {
 
     }
 
@@ -50,11 +50,13 @@ public @Data class Categoria implements IEntidade<Long> {
     @Column(name = Coluna.NOME, nullable = false)
     private String nomeCategoria;
 
-    @Column(name = Coluna.DESCRICAO,nullable = false)
+    @Column(name = Coluna.DESCRICAO, nullable = false)
     private String descricaoCategoria;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_USUARIO, referencedColumnName = Usuario.Coluna.ID, nullable = false)
+    @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
+            referencedColumnName = Usuario.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_categoria_usuario"))
     private Usuario categoriaUsuario;
 
     @Override

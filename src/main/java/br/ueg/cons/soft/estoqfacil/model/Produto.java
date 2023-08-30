@@ -16,7 +16,7 @@ public @Data class Produto implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "produto";
 
-    public static final class Coluna{
+    public static final class Coluna {
 
         public static final String ID = "prod_codigo";
 
@@ -33,7 +33,7 @@ public @Data class Produto implements IEntidade<Long> {
         public static final String PRECO = "prod_preco";
     }
 
-    public static final class Atributo{
+    public static final class Atributo {
         public static final String CODIGO = "codigo";
     }
 
@@ -54,21 +54,25 @@ public @Data class Produto implements IEntidade<Long> {
     private Long codigo;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_CATEGORIA, referencedColumnName = Categoria.Coluna.ID, nullable = false)
+    @JoinColumn(name = Coluna.ID_CATEGORIA, nullable = false,
+            referencedColumnName = Categoria.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_produto_categoria"))
     private Categoria produtoCategoria;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_USUARIO, referencedColumnName = Usuario.Coluna.ID, nullable = false)
+    @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
+            referencedColumnName = Usuario.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_produto_usuario"))
     private Usuario produtoUsuario;
 
     @Column(name = Coluna.NOME, nullable = false)
-    private String nomeProduto;
+    private String nome;
 
     @Column(name = Coluna.DESCRICAO, nullable = false)
-    private String descricaoProduto;
+    private String descricao;
 
     @Column(name = Coluna.QUANTIDADE, nullable = false)
-    private Long quantidadeProduto;
+    private Long quantidade;
 
     @Column(name = Coluna.PRECO, nullable = false)
     private Double preco;

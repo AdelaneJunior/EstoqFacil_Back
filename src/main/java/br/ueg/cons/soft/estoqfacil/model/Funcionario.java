@@ -17,7 +17,7 @@ public @Data class Funcionario implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "funcionario";
 
-    public static final class Coluna{
+    public static final class Coluna {
 
         public static final String ID = "func_codigo";
 
@@ -27,7 +27,7 @@ public @Data class Funcionario implements IEntidade<Long> {
 
     }
 
-    public static final class Atributo{
+    public static final class Atributo {
 
     }
 
@@ -48,7 +48,9 @@ public @Data class Funcionario implements IEntidade<Long> {
     private Long codigo;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = Coluna.ID_PESSOA, unique = true, nullable = false)
+    @JoinColumn(name = Coluna.ID_PESSOA, unique = true, nullable = false,
+            referencedColumnName = Pessoa.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
     private Pessoa codigoPessoa;
 
     @Column(name = Coluna.CARGO, nullable = false)

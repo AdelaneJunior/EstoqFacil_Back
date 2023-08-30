@@ -11,7 +11,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Entity
 @Getter
 @Table(name = Usuario.NOME_TABELA)
-public class Usuario  implements IEntidade<Long> {
+public class Usuario implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "usuario";
 
@@ -47,9 +47,11 @@ public class Usuario  implements IEntidade<Long> {
     private String senha;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false, referencedColumnName = Funcionario.Coluna.ID)
+    @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false,
+            referencedColumnName = Funcionario.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_usuario_funcionario"))
     private Funcionario usuarioFuncionario;
-
+    
     @Override
     public String getTabelaNome() {
         return NOME_TABELA;
