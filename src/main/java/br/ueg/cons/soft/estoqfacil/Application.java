@@ -18,7 +18,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		System.out.println("Hello world coroi");
+		System.out.println("Hello world");
 	}
 
 	//TODO resolver toda a questão do usuario e validar se os joinCollum estão funcionando, criar o resto das classes importantes
