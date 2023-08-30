@@ -22,7 +22,6 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String senhaCodificada = bCryptPasswordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCodificada);
-        usuario.setRole("ROLE_USER");
 
     }
 
@@ -40,10 +39,6 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
         return this.repository.obterPeloLogin(login);
 
-    }
-
-    public Usuario obterPeloUsername(String username){
-        return this.repository.obterPeloUsername(username);
     }
 
     public Usuario incluir(Usuario usuario) {

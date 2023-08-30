@@ -16,7 +16,12 @@ public class Usuario  implements IEntidade<Long> {
     public static final String NOME_TABELA = "usuario";
 
     public static final class Coluna {
-        public static final String ID = "userid";
+        public static final String ID = "usuo_codigo";
+        public static final String LOGIN = "usuo_login";
+        public static final String STATUS = "usuo_status";
+        public static final String SENHA = "usuo_senha";
+        public static final String ID_FUNCIONARIO = "usuo_funcionario";
+
     }
 
     @SequenceGenerator(
@@ -35,23 +40,15 @@ public class Usuario  implements IEntidade<Long> {
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @Column(name = "userlgin", length = 200, nullable = false, unique = true)
+    @Column(name = Coluna.LOGIN, length = 30, nullable = false, unique = true)
     private String login;
 
-    @Column(name = "usersnha", length = 200, nullable = false)
+    @Column(name = Coluna.SENHA, nullable = false)
     private String senha;
 
-    @Column(name = "usernome", length = 200, nullable = false, unique = true)
-    private String nome;
-
-    @Column(name = "usermail", length = 200, nullable = false)
-    private String email;
-
-    @Column(name = "userstat", nullable = false)
-    private boolean status;
-
-    @Column(name = "userrole", length = 200, nullable = true)
-    private String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false, referencedColumnName = Funcionario.Coluna.ID)
+    private Funcionario usuarioFuncionario;
 
     @Override
     public String getTabelaNome() {

@@ -16,10 +16,6 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         Usuario usuario = new Usuario();
         usuario.setCodigo(modelo.getCodigo());
         usuario.setLogin(modelo.getLogin());
-        usuario.setStatus(modelo.isStatus());
-        usuario.setRole(modelo.getRole());
-        usuario.setEmail(modelo.getEmail());
-        usuario.setNome(modelo.getNome());
         usuario.setSenha(modelo.getSenha());
         return usuario;
     }
@@ -31,10 +27,6 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         return UsuarioDTO.builder()
                 .codigo(modelo.getCodigo())
                 .login(modelo.getLogin())
-                .status(modelo.isStatus())
-                .role(modelo.getRole())
-                .email(modelo.getEmail())
-                .nome(modelo.getNome())
                 .senha(modelo.getSenha())
                 .build()
                 ;
@@ -44,9 +36,7 @@ public class UsuarioMapperImpl implements UsuarioMapper {
     public List<UsuarioDTO> toDTO(List<Usuario> lista) {
         List<UsuarioDTO> listaDTO = new ArrayList<>();
 
-        lista.forEach(item -> {
-            listaDTO.add(toDTO(item));
-        });
+        lista.forEach(item -> listaDTO.add(toDTO(item)));
 
         return listaDTO;
     }
