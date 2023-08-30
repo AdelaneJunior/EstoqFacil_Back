@@ -22,5 +22,5 @@ public class Application {
 	}
 
 	//TODO resolver toda a questão do usuario e validar se os joinCollum estão funcionando, criar o resto das classes importantes
-
+	//TODO testar pull request automatico
 }
