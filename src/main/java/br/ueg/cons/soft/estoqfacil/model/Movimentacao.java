@@ -3,9 +3,7 @@ package br.ueg.cons.soft.estoqfacil.model;
 import br.ueg.cons.soft.estoqfacil.enums.ACAO;
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,6 +13,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Getter
 @Setter
 @Table(name = Movimentacao.NOME_TABELA)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public @Data class Movimentacao implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "movimentacao";

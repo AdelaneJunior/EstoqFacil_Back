@@ -4,24 +4,29 @@ import br.ueg.cons.soft.estoqfacil.controller.UsuarioController;
 import br.ueg.cons.soft.estoqfacil.dto.CategoriaDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.CategoriaMapper;
 import br.ueg.cons.soft.estoqfacil.model.Categoria;
+import br.ueg.cons.soft.estoqfacil.service.impl.CategoriaServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.ClienteServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public class CategoriaMapperImpl implements CategoriaMapper {
-    UsuarioController usuarioController = new UsuarioController();
-    UsuarioMapperImpl usuarioMapper = new UsuarioMapperImpl();
+
+    @Autowired
+    UsuarioServiceImpl usuarioService;
 
     @Override
     public Categoria toModelo(CategoriaDTO categoriaDTO) {
-        Categoria categoria = new Categoria();
-        categoria.setCategoriaUsuario();
-        categoria.setDescricaoCategoria(categoriaDTO.getDescricao());
-        categoria.setNomeCategoria(categoriaDTO.getNome());
-        categoria.setCodigo(categoriaDTO.getCodigo());
-        return categoria;
+        return Categoria.builder()
+                .categoriaUsuario(usuarioService.obterPeloId(categoriaDTO.getUsuarioID()))
+                .descricaoCategoria(categoriaDTO.getDescricao())
+                .nomeCategoria(categoriaDTO.getNome())
+                .codigo(categoriaDTO.getCodigo())
+                .build();
     }
 
     @Override
@@ -30,9 +35,7 @@ public class CategoriaMapperImpl implements CategoriaMapper {
                 .codigo(modelo.getCodigo())
                 .descricao(modelo.getDescricaoCategoria())
                 .nome(modelo.getNomeCategoria())
-                .usuarioID(
-                        usuarioController.obterPorLogin(
-                                modelo.getCategoriaUsuario())
+                .usuarioID(modelo.getCategoriaUsuario().getId())
                 .build();
     }
 

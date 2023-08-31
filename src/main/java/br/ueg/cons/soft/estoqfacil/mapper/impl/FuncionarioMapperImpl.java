@@ -5,7 +5,10 @@ import br.ueg.cons.soft.estoqfacil.dto.FuncionarioDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.FuncionarioMapper;
 import br.ueg.cons.soft.estoqfacil.model.Funcionario;
 import br.ueg.cons.soft.estoqfacil.model.Pessoa;
+import br.ueg.cons.soft.estoqfacil.service.impl.PessoaServiceImpl;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,19 +16,16 @@ import java.util.Objects;
 @Mapper(componentModel = "spring")
 public class FuncionarioMapperImpl implements FuncionarioMapper {
 
-    PessoaController pessoaController = new PessoaController();
-    PessoaMapperImpl pessoaMapper = new PessoaMapperImpl();
+    @Autowired
+    PessoaServiceImpl pessoaService;
 
     @Override
     public Funcionario toModelo(FuncionarioDTO funcionarioDTO) {
-        Pessoa pessoa = pessoaMapper.toModelo(
-                Objects.requireNonNull(pessoaController.ObterPorId(
-                        funcionarioDTO.getPessoaID()).getBody()));
-        Funcionario funcionario = new Funcionario();
-        funcionario.setCodigoPessoa(pessoa);
-        funcionario.setCodigo(funcionarioDTO.getCodigo());
-        funcionario.setCargo(funcionarioDTO.getCargo());
-        return funcionario;
+        return Funcionario.builder()
+                .cargo(funcionarioDTO.getCargo())
+                .codigo(funcionarioDTO.getCodigo())
+                .codigoPessoa(pessoaService.obterPeloId(funcionarioDTO.getPessoaID()))
+                .build();
     }
 
     @Override

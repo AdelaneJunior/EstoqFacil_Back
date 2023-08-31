@@ -2,9 +2,7 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -13,6 +11,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Getter
 @Setter
 @Table(name = Funcionario.NOME_TABELA)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public @Data class Funcionario implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "funcionario";

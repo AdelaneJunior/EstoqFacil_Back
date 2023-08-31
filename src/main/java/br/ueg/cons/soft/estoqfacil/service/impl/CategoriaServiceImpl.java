@@ -30,4 +30,9 @@ public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, Categ
     protected void validarCamposObrigatorios(Categoria entidade) {
 
     }
+
+    @Override
+    protected Categoria recuperarEntidadeOuGeraErro(Long id) {
+        return super.recuperarEntidadeOuGeraErro(id);
+    }
 }

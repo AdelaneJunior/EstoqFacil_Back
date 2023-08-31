@@ -3,7 +3,10 @@ package br.ueg.cons.soft.estoqfacil.mapper.impl;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.MovimentacaoMapper;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
+import br.ueg.cons.soft.estoqfacil.service.impl.ProdutoServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 =import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +14,21 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public class MovimentacaoMapperImpl implements MovimentacaoMapper {
 
+    @Autowired
+    ProdutoServiceImpl produtoService;
+
+    @Autowired
+    UsuarioServiceImpl usuarioService;
+
     @Override
     public Movimentacao toModelo(MovimentacaoDTO movimentacaoDTO) {
-        Movimentacao movimentacao = new Movimentacao();
-        movimentacao.setMovimentacaoAcao(movimentacaoDTO.getAcao());
-        movimentacao.setMovimentacaoData(movimentacaoDTO.getData());
-        movimentacao.setMovimentacaoProduto(movimentacaoDTO.getProdutoID());
-        movimentacao.setMovimentacaoUsuario(movimentacaoDTO.getUsuarioID());
-        movimentacao.setQuantidadeMovimentada(movimentacaoDTO.getQuantidade());
-        return movimentacao;
+        return Movimentacao.builder()
+                .movimentacaoAcao(movimentacaoDTO.getAcao())
+                .movimentacaoData(movimentacaoDTO.getData())
+                .movimentacaoProduto(produtoService.obterPeloId(movimentacaoDTO.getProdutoID()))
+                .movimentacaoUsuario(usuarioService.obterPeloId(movimentacaoDTO.getUsuarioID()))
+                .quantidadeMovimentada(movimentacaoDTO.getQuantidade())
+                .build();
     }
 
     @Override

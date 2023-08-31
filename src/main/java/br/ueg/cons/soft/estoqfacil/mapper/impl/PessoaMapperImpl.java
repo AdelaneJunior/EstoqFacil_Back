@@ -13,14 +13,13 @@ public class PessoaMapperImpl implements PessoaMapper {
 
     @Override
     public Pessoa toModelo(PessoaDTO pessoaDTO) {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setCodigo(pessoaDTO.getCodigo());
-        pessoa.setCpf(pessoaDTO.getCpf());
-        pessoa.setNome(pessoaDTO.getNome());
-        pessoa.setEmail(pessoaDTO.getEmail());
-        pessoa.setNascimento(pessoaDTO.getNascimento());
-        pessoa.setTelefone(pessoaDTO.getTelefone());
-        return pessoa;
+        return Pessoa.builder()
+                .codigo(pessoaDTO.getCodigo())
+                .cpf(pessoaDTO.getCpf())
+                .email(pessoaDTO.getEmail())
+                .nascimento(pessoaDTO.getNascimento())
+                .telefone(pessoaDTO.getTelefone())
+                .build();
     }
 
     @Override
