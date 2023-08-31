@@ -1,11 +1,9 @@
 package br.ueg.cons.soft.estoqfacil.mapper.impl;
 
-
 import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapper;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import org.mapstruct.Mapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +26,7 @@ public class UsuarioMapperImpl implements UsuarioMapper {
                 .codigo(modelo.getCodigo())
                 .login(modelo.getLogin())
                 .senha(modelo.getSenha())
-                .build()
-                ;
+                .build();
     }
 
     @Override
