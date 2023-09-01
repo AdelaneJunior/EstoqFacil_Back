@@ -9,14 +9,13 @@ import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
+@Data
 @Entity
-@Getter
-@Setter
 @Table(name = Movimentacao.NOME_TABELA)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public @Data class Movimentacao implements IEntidade<Long> {
+public class Movimentacao implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "movimentacao";
 

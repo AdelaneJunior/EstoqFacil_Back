@@ -2,13 +2,13 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
+
 import lombok.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity
-@Getter
 @Table(name = Usuario.NOME_TABELA)
 @Builder
 @AllArgsConstructor
@@ -53,7 +53,7 @@ public class Usuario implements IEntidade<Long> {
             referencedColumnName = Funcionario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_usuario_funcionario"))
     private Funcionario usuarioFuncionario;
-    
+
     @Override
     public String getTabelaNome() {
         return NOME_TABELA;

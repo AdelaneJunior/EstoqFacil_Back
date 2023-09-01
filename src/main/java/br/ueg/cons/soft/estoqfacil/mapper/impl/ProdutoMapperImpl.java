@@ -2,8 +2,13 @@ package br.ueg.cons.soft.estoqfacil.mapper.impl;
 
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.ProdutoMapper;
+import br.ueg.cons.soft.estoqfacil.model.Imagem;
 import br.ueg.cons.soft.estoqfacil.model.Produto;
+import br.ueg.cons.soft.estoqfacil.service.impl.CategoriaServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.ImagemServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +16,33 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public class ProdutoMapperImpl implements ProdutoMapper {
 
+    @Autowired
+    private CategoriaServiceImpl categoriaService;
+
+    @Autowired
+    private UsuarioServiceImpl usuarioService;
+
+    @Autowired
+    private ImagemServiceImpl imagemService;
+
     @Override
     public Produto toModelo(ProdutoDTO produtoDTO) {
-        Produto produto = new Produto();
-        produto.setCodigo(produtoDTO.getCodigo());
-        produto.setProdutoCategoria(produtoDTO.getCategoriaID());
-        produto.setNome(produtoDTO.getNome());
-        produto.setPreco(produto.getPreco());
-        produto.setProdutoUsuario(produtoDTO.getUsuarioID());
-        produto.setDescricao(produtoDTO.getDescricao());
-        produto.setQuantidade(produtoDTO.getQuantidade());
-        return produto;
+        return Produto.builder()
+                .codigo(produtoDTO.getCodigo())
+                .nome(produtoDTO.getNome())
+                .descricao(produtoDTO.getDescricao())
+                .quantidade(produtoDTO.getQuantidade())
+                .preco(produtoDTO.getPreco())
+                .produtoCategoria(categoriaService.obterPeloId(produtoDTO.getCategoriaID()))
+                .produtoUsuario(usuarioService.obterPeloId(produtoDTO.getUsuarioID()))
+                .produtoImagem(imagemService.obterPeloId(produtoDTO.getImagemID()))
+                .build();
     }
 
     @Override
     public ProdutoDTO toDTO(Produto modelo) {
+        Imagem imagem = imagemService.obterPeloId(modelo.getProdutoImagem().getCodigo());
+
         return ProdutoDTO.builder()
                 .codigo(modelo.getCodigo())
                 .categoriaID(modelo.getProdutoCategoria().getId())
@@ -34,6 +51,8 @@ public class ProdutoMapperImpl implements ProdutoMapper {
                 .preco(modelo.getPreco())
                 .quantidade(modelo.getQuantidade())
                 .usuarioID(modelo.getProdutoUsuario().getId())
+                .imagemID(imagem.getCodigo())
+                .imagemCaminho(imagem.getPathReference())
                 .build();
     }
 

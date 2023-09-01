@@ -6,14 +6,13 @@ import lombok.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
+@Data
 @Entity
-@Getter
-@Setter
 @Table(name = Produto.NOME_TABELA)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public @Data class Produto implements IEntidade<Long> {
+public class Produto implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "produto";
 
@@ -24,6 +23,8 @@ public @Data class Produto implements IEntidade<Long> {
         public static final String ID_CATEGORIA = "prod_categoria";
 
         public static final String ID_USUARIO = "prod_usuario";
+
+        public static final String ID_IMAGEM = "prod_imagem";
 
         public static final String NOME = "prod_nome";
 
@@ -65,6 +66,12 @@ public @Data class Produto implements IEntidade<Long> {
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_usuario"))
     private Usuario produtoUsuario;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = Coluna.ID_IMAGEM, nullable = false,
+            referencedColumnName = Imagem.COLUNA.ID,
+            foreignKey = @ForeignKey(name = "fk_produto_imagem"))
+    private Imagem produtoImagem;
 
     @Column(name = Coluna.NOME, nullable = false)
     private String nome;

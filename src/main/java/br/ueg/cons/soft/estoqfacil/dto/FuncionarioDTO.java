@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FuncionarioDTO extends PessoaDTO{
+public class FuncionarioDTO{
 
     private Long codigo;
 

@@ -8,15 +8,13 @@ import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity
-@Getter
-@Setter
-@Table(name = Pessoa.NOME_TABELA)
-@Inheritance(strategy = InheritanceType.JOINED)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public @Data class Pessoa  implements IEntidade<Long> {
+@Data
+@Entity
+@Table(name = Pessoa.NOME_TABELA)
+public class Pessoa  implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "pessoa";
 

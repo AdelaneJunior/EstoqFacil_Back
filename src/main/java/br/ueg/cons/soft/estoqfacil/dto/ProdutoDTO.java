@@ -13,10 +13,6 @@ public class ProdutoDTO {
 
     private Long codigo;
 
-    private Long categoriaID;
-
-    private Long usuarioID;
-
     private String nome;
 
     private String descricao;
@@ -25,4 +21,11 @@ public class ProdutoDTO {
 
     private Double preco;
 
+    private Long imagemID;
+
+    private String imagemCaminho;
+
+    private Long categoriaID;
+
+    private Long usuarioID;
 }

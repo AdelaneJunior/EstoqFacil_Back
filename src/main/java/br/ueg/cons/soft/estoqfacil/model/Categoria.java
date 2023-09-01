@@ -6,14 +6,15 @@ import lombok.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
+@Data
 @Entity
-@Getter
-@Setter
 @Table(name = Categoria.NOME_TABELA)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public @Data class Categoria implements IEntidade<Long> {
+public class Categoria implements IEntidade<Long> {
+
+
 
     public static final String NOME_TABELA = "categoria";
 

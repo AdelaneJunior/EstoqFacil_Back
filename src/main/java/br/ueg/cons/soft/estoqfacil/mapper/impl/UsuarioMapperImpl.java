@@ -2,8 +2,11 @@ package br.ueg.cons.soft.estoqfacil.mapper.impl;
 
 import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapper;
+import br.ueg.cons.soft.estoqfacil.model.Funcionario;
+import br.ueg.cons.soft.estoqfacil.model.Pessoa;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.service.impl.FuncionarioServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.PessoaServiceImpl;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +17,10 @@ import java.util.List;
 public class UsuarioMapperImpl implements UsuarioMapper {
 
     @Autowired
-    FuncionarioServiceImpl funcionarioService;
+    private FuncionarioServiceImpl funcionarioService;
+
+    @Autowired
+    private PessoaServiceImpl pessoaService;
 
     @Override
     public Usuario toModelo(UsuarioDTO usuarioDTO) {
@@ -29,11 +35,17 @@ public class UsuarioMapperImpl implements UsuarioMapper {
     @Override
     public UsuarioDTO toDTO(Usuario modelo) {
 
+        Funcionario funcionario = funcionarioService.obterPeloId(modelo.getUsuarioFuncionario().getCodigo());
+        Pessoa pessoa = pessoaService.obterPeloId(funcionario.getPessoa().getCodigo());
 
         return UsuarioDTO.builder()
                 .codigo(modelo.getCodigo())
                 .login(modelo.getLogin())
                 .senha(modelo.getSenha())
+                .funcionarioCodigo(funcionario.getCodigo())
+                .funcionarioNome(pessoa.getNome())
+                .funcionarioEmail(pessoa.getEmail())
+                .funcionarioCargo(funcionario.getCargo())
                 .build();
     }
 
