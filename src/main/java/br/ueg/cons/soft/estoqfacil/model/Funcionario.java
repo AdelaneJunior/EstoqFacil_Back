@@ -7,14 +7,13 @@ import lombok.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity
-@Getter
-@Setter
-@Table(name = Funcionario.NOME_TABELA)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public @Data class Funcionario implements IEntidade<Long> {
+@Data
+@Entity
+@Table(name = Funcionario.NOME_TABELA)
+public class Funcionario implements IEntidade<Long> {
 
     public static final String NOME_TABELA = "funcionario";
 
@@ -52,7 +51,7 @@ public @Data class Funcionario implements IEntidade<Long> {
     @JoinColumn(name = Coluna.ID_PESSOA, unique = true, nullable = false,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
-    private Pessoa codigoPessoa;
+    private Pessoa pessoa;
 
     @Column(name = Coluna.CARGO, nullable = false)
     private String cargo;

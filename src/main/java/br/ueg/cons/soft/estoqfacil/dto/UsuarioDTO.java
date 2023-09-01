@@ -15,4 +15,10 @@ public class UsuarioDTO{
     private String senha;
 
     private Long funcionarioCodigo;
+
+    private String funcionarioNome;
+
+    private String funcionarioEmail;
+
+    private String funcionarioCargo;
 }

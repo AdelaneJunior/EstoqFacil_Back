@@ -39,14 +39,13 @@ public class UserProviderService implements br.ueg.prog.webi.api.service.UserPro
         return CredencialDTO.builder()
                 .login(user.getLogin())
                 .id(user.getCodigo())
-                .nome(user.getNome())
-                .email(user.getEmail())
-                .roles(Collections.singletonList(user.getRole()))
+                .nome(user.getFuncionarioNome())
+                .email(user.getFuncionarioEmail())
+                .roles(Collections.singletonList(user.getFuncionarioCargo()))
                 .statusAtivo(true)
                 .senha(user.getSenha())
                 .build();
     }
-
 
 
     @Override

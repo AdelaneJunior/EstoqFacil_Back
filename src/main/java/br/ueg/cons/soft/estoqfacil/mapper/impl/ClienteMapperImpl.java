@@ -1,6 +1,5 @@
 package br.ueg.cons.soft.estoqfacil.mapper.impl;
 
-import br.ueg.cons.soft.estoqfacil.controller.PessoaController;
 import br.ueg.cons.soft.estoqfacil.dto.ClienteDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.ClienteMapper;
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Mapper(componentModel = "spring")
 public class ClienteMapperImpl implements ClienteMapper {

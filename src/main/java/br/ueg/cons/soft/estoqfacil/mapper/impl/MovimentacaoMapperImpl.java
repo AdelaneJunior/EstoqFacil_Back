@@ -8,7 +8,7 @@ import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-=import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")

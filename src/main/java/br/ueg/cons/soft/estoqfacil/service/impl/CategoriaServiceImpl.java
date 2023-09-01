@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, CategoriaRepository>
         implements CategoriaService {
 
-
     @Autowired
     CategoriaRepository repository;
-
 
     @Override
     protected void prepararParaIncluir(Categoria entidade) {

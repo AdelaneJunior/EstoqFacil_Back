@@ -1,11 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.mapper.impl;
 
-import br.ueg.cons.soft.estoqfacil.controller.UsuarioController;
 import br.ueg.cons.soft.estoqfacil.dto.CategoriaDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.CategoriaMapper;
 import br.ueg.cons.soft.estoqfacil.model.Categoria;
-import br.ueg.cons.soft.estoqfacil.service.impl.CategoriaServiceImpl;
-import br.ueg.cons.soft.estoqfacil.service.impl.ClienteServiceImpl;
 import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
