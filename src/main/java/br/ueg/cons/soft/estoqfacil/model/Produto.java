@@ -30,6 +30,8 @@ public class Produto implements IEntidade<Long> {
 
         public static final String DESCRICAO = "prod_descricao";
 
+        public static final String MARCA = "prod_marca";
+
         public static final String QUANTIDADE = "prod_quantidade";
 
         public static final String PRECO = "prod_preco";
@@ -84,6 +86,9 @@ public class Produto implements IEntidade<Long> {
 
     @Column(name = Coluna.PRECO, nullable = false)
     private Double preco;
+
+    @Column(name = Coluna.MARCA, nullable = false)
+    private String marca;
 
 
     @Override

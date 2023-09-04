@@ -17,6 +17,8 @@ public class ProdutoDTO {
 
     private String descricao;
 
+    private String marca;
+
     private Long quantidade;
 
     private Double preco;
