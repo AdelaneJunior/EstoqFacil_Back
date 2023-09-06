@@ -1,6 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
-import br.ueg.prog.webi.api.model.IEntidade;
+import br.ueg.cons.soft.estoqfacil.enums.StatusUser;
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -13,13 +14,12 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario implements IEntidade<Long> {
+public class Usuario extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "usuario";
 
     public static final class Coluna {
         public static final String ID = "usuo_codigo";
-        public static final String LOGIN = "usuo_login";
         public static final String STATUS = "usuo_status";
         public static final String SENHA = "usuo_senha";
         public static final String ID_FUNCIONARIO = "usuo_funcionario";
@@ -42,10 +42,7 @@ public class Usuario implements IEntidade<Long> {
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @Column(name = Coluna.LOGIN, length = 30, nullable = false, unique = true)
-    private String login;
-
-    @Column(name = Coluna.SENHA, nullable = false)
+    @Column(name = Coluna.SENHA, nullable = false, length = 40)
     private String senha;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -54,18 +51,8 @@ public class Usuario implements IEntidade<Long> {
             foreignKey = @ForeignKey(name = "fk_usuario_funcionario"))
     private Funcionario usuarioFuncionario;
 
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
+    @Column(name = Coluna.STATUS)
+    private StatusUser statusUser;
 
-    @Override
-    public Long getId() {
-        return codigo;
-    }
 
-    @Override
-    public void setId(Long id) {
-        this.codigo = id;
-    }
 }

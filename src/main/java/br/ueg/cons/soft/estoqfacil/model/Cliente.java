@@ -1,5 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.cons.soft.estoqfacil.model.pks.PkCliente;
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +14,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente implements IEntidade<Long> {
+@IdClass(PkCliente.class)
+public class Cliente extends BaseEntidade<PkCliente> {
 
     public static final String NOME_TABELA = "cliente";
 
@@ -24,10 +27,7 @@ public class Cliente implements IEntidade<Long> {
 
     }
 
-    public static final class Atributo {
-
-    }
-
+    @Id
     @SequenceGenerator(
             name = "a_gerador_sequence",
             sequenceName = "cliente_sequence",
@@ -39,29 +39,14 @@ public class Cliente implements IEntidade<Long> {
             generator = "a_gerador_sequence"
 
     )
-
-    @Id
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = Coluna.ID_PESSOA, unique = true, nullable = false,
+    @Id
+    @ManyToOne
+    @JoinColumn(name = Coluna.ID_PESSOA,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))
-    private Pessoa codigoPessoa;
+    private Pessoa pessoa;
 
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
-
-    @Override
-    public Long getId() {
-        return getCodigo();
-    }
-
-    @Override
-    public void setId(Long id) {
-        setCodigo(id);
-    }
 }

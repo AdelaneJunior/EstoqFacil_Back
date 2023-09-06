@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categoria implements IEntidade<Long> {
+public class Categoria extends BaseEntidade<Long> {
 
 
 
@@ -60,19 +61,4 @@ public class Categoria implements IEntidade<Long> {
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_categoria_usuario"))
     private Usuario categoriaUsuario;
-
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
-
-    @Override
-    public Long getId() {
-        return getCodigo();
-    }
-
-    @Override
-    public void setId(Long id) {
-        setCodigo(id);
-    }
 }

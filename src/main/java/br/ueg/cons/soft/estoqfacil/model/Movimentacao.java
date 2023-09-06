@@ -1,7 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
-import br.ueg.cons.soft.estoqfacil.enums.ACAO;
-import br.ueg.prog.webi.api.model.IEntidade;
+import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +15,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movimentacao implements IEntidade<Long> {
+public class Movimentacao extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "movimentacao";
 
@@ -32,6 +32,8 @@ public class Movimentacao implements IEntidade<Long> {
         public static final String QUANTIDADE = "prod_quantidade";
 
         public static final String ACAO = "movt_acao";
+
+        public static final String OBSERVACAO = "movt_obersavacao";
     }
 
     public static final class Atributo {
@@ -54,40 +56,29 @@ public class Movimentacao implements IEntidade<Long> {
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = Coluna.ID_PRODUTO, nullable = false,
             referencedColumnName = Produto.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_movimentacao_produto"))
-    private Produto movimentacaoProduto;
+    private Produto produto;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_movimentacao_usuario"))
-    private Usuario movimentacaoUsuario;
+    private Usuario usuario;
 
     @Column(name = Coluna.QUANTIDADE, nullable = false)
-    private Long quantidadeMovimentada;
+    private Long quantidade;
 
     @Temporal(TemporalType.DATE)
     @Column(name = Coluna.DATA_MOVIMENTACAO, nullable = false)
-    private LocalDate movimentacaoData;
+    private LocalDate data;
 
     @Column(name = Coluna.ACAO, nullable = false)
-    private ACAO movimentacaoAcao;
+    private AcaoMovimentacao acao;
 
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
+    @Column(name = Coluna.OBSERVACAO, nullable = false)
+    private String observacao;
 
-    @Override
-    public Long getId() {
-        return getCodigo();
-    }
-
-    @Override
-    public void setId(Long id) {
-        setCodigo(id);
-    }
 }

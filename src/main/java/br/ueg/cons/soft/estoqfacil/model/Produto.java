@@ -1,6 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
-import br.ueg.prog.webi.api.model.IEntidade;
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto implements IEntidade<Long> {
+public class Produto extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "produto";
 
@@ -34,7 +34,9 @@ public class Produto implements IEntidade<Long> {
 
         public static final String QUANTIDADE = "prod_quantidade";
 
-        public static final String PRECO = "prod_preco";
+        public static final String PRECO = "prod_preco_venda";
+
+        public static final String CUSTO = "prod_custo_aquisicao";
     }
 
     public static final class Atributo {
@@ -54,55 +56,43 @@ public class Produto implements IEntidade<Long> {
     )
 
     @Id
-    @Column(name = Coluna.ID)
+    @Column(name = Produto.Coluna.ID)
     private Long codigo;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_CATEGORIA, nullable = false,
+    @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
     private Categoria produtoCategoria;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
+    @JoinColumn(name = Produto.Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_usuario"))
     private Usuario produtoUsuario;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = Coluna.ID_IMAGEM, nullable = false,
+    @JoinColumn(name = Produto.Coluna.ID_IMAGEM, nullable = false,
             referencedColumnName = Imagem.COLUNA.ID,
             foreignKey = @ForeignKey(name = "fk_produto_imagem"))
     private Imagem produtoImagem;
 
-    @Column(name = Coluna.NOME, nullable = false)
+    @Column(name = Produto.Coluna.NOME, nullable = false)
     private String nome;
 
-    @Column(name = Coluna.DESCRICAO, nullable = false)
+    @Column(name = Produto.Coluna.DESCRICAO, nullable = false)
     private String descricao;
 
-    @Column(name = Coluna.QUANTIDADE, nullable = false)
+    @Column(name = Produto.Coluna.QUANTIDADE, nullable = false)
     private Long quantidade;
 
-    @Column(name = Coluna.PRECO, nullable = false)
+    @Column(name = Produto.Coluna.PRECO, nullable = false)
     private Double preco;
 
-    @Column(name = Coluna.MARCA, nullable = false)
+    @Column(name = Produto.Coluna.MARCA, nullable = false)
     private String marca;
 
+    @Column(name = Produto.Coluna.CUSTO, nullable = false)
+    private Double custo;
 
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
-
-    @Override
-    public Long getId() {
-        return getCodigo();
-    }
-
-    @Override
-    public void setId(Long id) {
-        setCodigo(id);
-    }
 }

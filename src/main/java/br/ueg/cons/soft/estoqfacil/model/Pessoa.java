@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +15,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Data
 @Entity
 @Table(name = Pessoa.NOME_TABELA)
-public class Pessoa  implements IEntidade<Long> {
+public class Pessoa extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "pessoa";
 
@@ -22,13 +23,9 @@ public class Pessoa  implements IEntidade<Long> {
 
         public static final String ID = "pess_codigo";
         public static final String NOME = "pess_nome";
-
         public static final String TELEFONE = "pess_telefone";
-
         public static final String EMAIL = "pess_email";
-
         public static final String DATA_NASCIMENTO = "pess_nascimento";
-
         public static final String CPF = "pess_cpf";
 
     }
@@ -52,10 +49,10 @@ public class Pessoa  implements IEntidade<Long> {
     @Column(name = Coluna.CPF, nullable = false, length = 11 )
     private String cpf;
 
-    @Column(name = Coluna.NOME, nullable = false)
+    @Column(name = Coluna.NOME, nullable = false, length = 200)
     private String nome;
 
-    @Column(name = Coluna.TELEFONE, nullable = false, length = 11)
+    @Column(name = Coluna.TELEFONE, length = 20)
     private String telefone;
 
     @Column(name = Coluna.EMAIL, length = 150)
@@ -64,19 +61,4 @@ public class Pessoa  implements IEntidade<Long> {
     @Column(name = Coluna.DATA_NASCIMENTO)
     private LocalDate nascimento;
 
-
-    @Override
-    public String getTabelaNome() {
-        return NOME_TABELA;
-    }
-
-    @Override
-    public Long getId() {
-        return getCodigo();
-    }
-
-    @Override
-    public void setId(Long id) {
-        setCodigo(id);
-    }
 }

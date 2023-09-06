@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,12 +16,19 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 @Table(name = Imagem.NOME_TABELA)
-public class Imagem implements IEntidade<Long> {
+public class Imagem extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "imagem";
 
     public static final class COLUNA {
-        public static final String ID = "imgseq";
+
+        public static final String ID = "imag_codigo";
+        public static final String PATH_ABSOLUTE = "imag_path_absolute";
+        public static final String PATH_REFERENCE = "imag_path_reference";
+        public static final String NOME = "imag_nome";
+        public static final String TIPO = "imag_tipo";
+
+
     }
 
     @SequenceGenerator(
@@ -34,23 +42,20 @@ public class Imagem implements IEntidade<Long> {
     )
 
     @Id
-    @Column(name = "imgseq")
+    @Column(name = COLUNA.ID, nullable = false)
     private Long codigo;
 
+    @Column(name = COLUNA.NOME, nullable = false)
     private String nome;
 
+    @Column(name = COLUNA.TIPO, nullable = false)
     private String tipo;
 
-    private String caminhoArq;
+    @Column(name = COLUNA.PATH_ABSOLUTE, nullable = false)
+    private String pathAbsolute;
 
+    @Column(name = COLUNA.PATH_REFERENCE, nullable = false)
     private String pathReference;
 
-    @Override
-    public String getTabelaNome() {return NOME_TABELA;}
-
-    @Override
-    public Long getId() {return this.codigo;}
-
-    @Override
-    public void setId(Long id) {this.codigo = id;}
 }
+
