@@ -39,10 +39,6 @@ public class Produto extends BaseEntidade<Long> {
         public static final String CUSTO = "prod_custo_aquisicao";
     }
 
-    public static final class Atributo {
-        public static final String CODIGO = "codigo";
-    }
-
     @SequenceGenerator(
             name = "a_gerador_sequence",
             sequenceName = "produto_sequence",
@@ -63,19 +59,19 @@ public class Produto extends BaseEntidade<Long> {
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
-    private Categoria produtoCategoria;
+    private Categoria categoria;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = Produto.Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_usuario"))
-    private Usuario produtoUsuario;
+    private Usuario usuario;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = Produto.Coluna.ID_IMAGEM, nullable = false,
             referencedColumnName = Imagem.COLUNA.ID,
             foreignKey = @ForeignKey(name = "fk_produto_imagem"))
-    private Imagem produtoImagem;
+    private Imagem imagem;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     private String nome;

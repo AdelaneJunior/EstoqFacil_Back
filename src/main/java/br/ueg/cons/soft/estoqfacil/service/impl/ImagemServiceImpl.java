@@ -48,7 +48,7 @@ public class ImagemServiceImpl extends BaseCrudService<Imagem, Long, ImagemRepos
             Imagem imagem = this.repository.save(Imagem.builder()
                     .nome(imagemASalvar.getOriginalFilename())
                     .tipo(imagemASalvar.getContentType())
-                    .caminhoArq(caminhoArquivo)
+                    .pathAbsolute(caminhoArquivo)
                     .pathReference(pathReference)
                     .build());
 

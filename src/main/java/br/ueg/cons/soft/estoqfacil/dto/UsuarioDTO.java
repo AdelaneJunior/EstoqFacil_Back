@@ -1,6 +1,9 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -9,8 +12,6 @@ import lombok.*;
 public class UsuarioDTO{
 
     private Long codigo;
-
-    private String login;
 
     private String senha;
 
@@ -21,4 +22,5 @@ public class UsuarioDTO{
     private String funcionarioEmail;
 
     private String funcionarioCargo;
+
 }

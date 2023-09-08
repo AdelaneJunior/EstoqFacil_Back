@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Objects;
 
 //TODO resolver a parte do usuario aqui dentro
 @Service
@@ -18,26 +17,23 @@ public class UserProviderService implements br.ueg.prog.webi.api.service.UserPro
     UsuarioController usuarioController;
 
 
+    @Autowired
+    UsuarioServiceImpl usuarioService;
+
+
     @Override
-    public CredencialDTO getCredentialByLogin(String username) {
+    public CredencialDTO getCredentialByLogin(String usuarioEmail) {
 
-        if (Objects.nonNull(username)) {
-
-            UsuarioDTO user = this.usuarioController.obterPorLogin(username);
-
-            if (Objects.nonNull(user)) {
-
-                return getCredencialDTO(user);
-
-            }
-        }
-        return null;
+        return getCredencialDTO(usuarioService.getUsuarioDTOPorEmail(usuarioEmail));
     }
+
 
     private CredencialDTO getCredencialDTO(UsuarioDTO user) {
 
+        System.out.println(user.toString());
+
         return CredencialDTO.builder()
-                .login(user.getLogin())
+                .login(user.getFuncionarioEmail())
                 .id(user.getCodigo())
                 .nome(user.getFuncionarioNome())
                 .email(user.getFuncionarioEmail())

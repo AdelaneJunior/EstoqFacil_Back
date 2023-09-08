@@ -1,12 +1,17 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
+import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
+import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapperImpl;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRepository>
@@ -14,8 +19,10 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
 
     @Autowired
-    UsuarioRepository repository;
+    UsuarioRepository usuarioRepository;
 
+    @Autowired
+    UsuarioMapperImpl usuarioMapper;
     @Override
     protected void prepararParaIncluir(Usuario usuario) {
 
@@ -35,20 +42,27 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
     }
 
-    public Usuario obterPeloLogin(String login) {
-
-        return this.repository.obterPeloLogin(login);
-
-    }
 
     public Usuario incluir(Usuario usuario) {
         String senha = usuario.getSenha();
         this.validarCamposObrigatorios(usuario);
         this.validarDados(usuario);
         this.prepararParaIncluir(usuario);
-        usuario = this.repository.save(usuario);
+        usuario = usuarioRepository.save(usuario);
         usuario.setSenha(senha);
         return usuario;
+    }
+
+    public Usuario getUsuarioPorEmail(String usuarioEmail){
+
+        return repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get();
+
+    }
+
+    public UsuarioDTO getUsuarioDTOPorEmail(String usuarioEmail){
+
+        return usuarioMapper.toDTO(usuarioRepository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get());
+
     }
 
 }

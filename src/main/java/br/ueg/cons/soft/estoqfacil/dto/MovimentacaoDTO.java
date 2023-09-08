@@ -1,6 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
-import br.ueg.cons.soft.estoqfacil.enums.ACAO;
+import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -27,6 +27,6 @@ public class MovimentacaoDTO {
     @Temporal(TemporalType.DATE)
     private LocalDate data;
 
-    private ACAO acao;
+    private AcaoMovimentacao acao;
 
 }

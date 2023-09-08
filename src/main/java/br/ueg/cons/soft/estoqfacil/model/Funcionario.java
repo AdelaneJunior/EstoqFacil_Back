@@ -2,10 +2,11 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.cons.soft.estoqfacil.model.pks.PkFuncionario;
 import br.ueg.prog.webi.api.model.BaseEntidade;
-import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -27,10 +28,6 @@ public class Funcionario extends BaseEntidade<PkFuncionario> {
         public static final String ID_PESSOA = "func_pessoa";
 
         public static final String CARGO = "func_cargo";
-
-    }
-
-    public static final class Atributo {
 
     }
 

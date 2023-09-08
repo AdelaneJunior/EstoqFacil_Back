@@ -1,7 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.controller;
 
 import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
-import br.ueg.cons.soft.estoqfacil.mapper.impl.UsuarioMapperImpl;
+import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapper;
+import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapperImpl;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import br.ueg.prog.webi.api.controller.CrudController;
@@ -22,30 +23,6 @@ public class UsuarioController extends CrudController<Usuario, UsuarioDTO, Long,
     @PostMapping("/singup")
     public ResponseEntity<UsuarioDTO> incluir(UsuarioDTO modeloDTO) {
         return super.incluir(modeloDTO);
-    }
-
-    @Operation(
-            description = "Obtendo Usuario por login",
-            responses = {@ApiResponse(
-                    responseCode = "200",
-                    description = "UsuarioDTO  sendo obtido atraves do login teste",
-                    content = {@Content(
-                            mediaType = "application/json"
-                    )}
-            ), @ApiResponse(
-                    responseCode = "404",
-                    description = "Registro não encontrado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            )})
-    @GetMapping(value = "obterPorlogin")
-    public UsuarioDTO obterPorLogin(@RequestParam String username) {
-        Usuario usuario = this.service.obterPeloLogin(username);
-        return this.mapper.toDTO(usuario);
     }
 
 

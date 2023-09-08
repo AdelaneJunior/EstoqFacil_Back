@@ -23,11 +23,13 @@ public class ProdutoDTO {
 
     private Double preco;
 
-    private Long imagemID;
+    private Double custo;
 
-    private String imagemCaminho;
+    private Long imagemId;
 
-    private Long categoriaID;
+    private String imagemPathReference;
 
-    private Long usuarioID;
+    private Long categoriaId;
+
+    private Long usuarioId;
 }
