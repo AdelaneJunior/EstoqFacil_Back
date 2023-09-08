@@ -7,11 +7,10 @@ import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRepository>
@@ -65,4 +64,8 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
     }
 
+    @Override
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll();
+    }
 }

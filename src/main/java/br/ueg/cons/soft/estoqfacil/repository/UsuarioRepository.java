@@ -13,8 +13,13 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 
+    @Query("select u  from Usuario  u " +
+            "inner join fetch u.funcionario " +
+            "where u.funcionario.pessoa.email = :usuarioEmail")
     Optional<Usuario> findUsuarioByFuncionario_Pessoa_Email(String usuarioEmail);
 
-    @Query("select u from Usuario u inner join fetch u.funcionario ")
+    @Query("select u from Usuario u " +
+            "inner join fetch u.funcionario f " +
+            "where f = u.funcionario")
     List<Usuario> findAll();
 }
