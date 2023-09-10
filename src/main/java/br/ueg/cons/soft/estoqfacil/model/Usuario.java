@@ -21,7 +21,6 @@ public class Usuario extends BaseEntidade<Long> {
 
     public static final class Coluna {
         public static final String ID = "usuo_codigo";
-        public static final String STATUS = "usuo_status";
         public static final String SENHA = "usuo_senha";
         public static final String ID_FUNCIONARIO = "usuo_funcionario";
 
@@ -48,7 +47,7 @@ public class Usuario extends BaseEntidade<Long> {
     @Column(name = Coluna.SENHA, nullable = false)
     private String senha;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false,
                     referencedColumnName = Funcionario.Coluna.ID,

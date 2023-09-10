@@ -47,12 +47,15 @@ public class Funcionario extends BaseEntidade<PkFuncionario> {
     private Long codigo;
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = Coluna.ID_PESSOA,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
     private Pessoa pessoa;
 
-    @Column(name = Coluna.CARGO, nullable = false)
-    private String cargo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Coluna.CARGO, nullable = false,
+            referencedColumnName = Cargo.Coluna.ID,
+            foreignKey = @ForeignKey(name = "fk_funcionario_cargo"))
+    private Cargo cargo;
 }

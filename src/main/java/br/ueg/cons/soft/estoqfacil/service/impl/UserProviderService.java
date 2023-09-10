@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 //TODO resolver a parte do usuario aqui dentro
 @Service
@@ -37,7 +38,7 @@ public class UserProviderService implements br.ueg.prog.webi.api.service.UserPro
                 .id(user.getCodigo())
                 .nome(user.getFuncionarioNome())
                 .email(user.getFuncionarioEmail())
-                .roles(Collections.singletonList(user.getFuncionarioCargo()))
+                .roles(user.getPermissoes())
                 .statusAtivo(true)
                 .senha(user.getSenha())
                 .build();

@@ -10,18 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRepository>
         implements UsuarioService {
 
-
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioMapperImpl usuarioMapper;
 
-    @Autowired
-    UsuarioMapperImpl usuarioMapper;
     @Override
     protected void prepararParaIncluir(Usuario usuario) {
 
@@ -47,25 +45,37 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
         this.validarCamposObrigatorios(usuario);
         this.validarDados(usuario);
         this.prepararParaIncluir(usuario);
-        usuario = usuarioRepository.save(usuario);
+        usuario = repository.save(usuario);
         usuario.setSenha(senha);
         return usuario;
     }
 
-    public Usuario getUsuarioPorEmail(String usuarioEmail){
+    public Usuario getUsuarioPorEmail(String usuarioEmail) {
 
         return repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get();
 
     }
 
-    public UsuarioDTO getUsuarioDTOPorEmail(String usuarioEmail){
+    public UsuarioDTO getUsuarioDTOPorEmail(String usuarioEmail) {
 
-        return usuarioMapper.toDTO(usuarioRepository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get());
+        Usuario usuario = repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get();
 
+        UsuarioDTO usuarioDTO = usuarioMapper.toDTO(usuario);
+
+        List<String> permissaoList = new ArrayList<>();
+
+        usuario.getFuncionario().getCargo().getPermissoes().stream().forEach(cargoPermissao -> {
+            permissaoList.add(cargoPermissao.getPermissao().getRole());
+
+        });
+
+        usuarioDTO.setPermissoes(permissaoList);
+
+        return usuarioDTO;
     }
 
     @Override
     public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
+        return repository.findAll();
     }
 }

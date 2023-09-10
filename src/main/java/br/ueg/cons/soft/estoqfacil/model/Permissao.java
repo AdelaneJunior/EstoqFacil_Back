@@ -2,10 +2,9 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -14,11 +13,11 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = Permissoes.NOME_TABELA)
-public class Permissoes extends BaseEntidade<Long> {
+@Table(name = Permissao.NOME_TABELA)
+public class Permissao extends BaseEntidade<Long> {
 
 
-    public static final String NOME_TABELA = "permissoes";
+    public static final String NOME_TABELA = "permissao";
 
     public static final class Coluna {
 
@@ -30,7 +29,7 @@ public class Permissoes extends BaseEntidade<Long> {
     @Id
     @SequenceGenerator(
             name = "a_gerador_sequence",
-            sequenceName = "permissoes_sequence",
+            sequenceName = "permissao_sequence",
             allocationSize = 1
     )
 
@@ -45,6 +44,9 @@ public class Permissoes extends BaseEntidade<Long> {
     @Column(name = Coluna.ROLE)
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Cargo cargo;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "permissao", fetch = FetchType.LAZY)
+    private Set<CargoPermissao> cargoPermissaos;
+
 }

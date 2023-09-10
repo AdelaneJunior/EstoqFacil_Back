@@ -2,12 +2,9 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -26,8 +23,6 @@ public class Cargo extends BaseEntidade<Long> {
         public static final String ID = "carg_codigo";
 
         public static final String NOME = "carg_nome";
-
-        public static final String PERMISSOES = "carg_permissoes";
 
     }
 
@@ -49,8 +44,13 @@ public class Cargo extends BaseEntidade<Long> {
     @Column(name = Coluna.NOME, length = 100, nullable = false)
     private String nome;
 
+
+    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "cargo",
+            fetch = FetchType.LAZY,
+            orphanRemoval = true,
             cascade = CascadeType.ALL)
-    private List<Permissoes> permissoes;
+    private Set<CargoPermissao> permissoes;
+
 }

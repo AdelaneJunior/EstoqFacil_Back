@@ -13,11 +13,13 @@ public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
     @Mapping(source = "funcionario.codigo", target = "funcionarioCodigo")
     @Mapping(source = "funcionario.pessoa.nome", target = "funcionarioNome")
     @Mapping(source = "funcionario.pessoa.email", target = "funcionarioEmail")
-    @Mapping(source = "funcionario.cargo", target = "funcionarioCargo")
+    @Mapping(source = "funcionario.cargo.codigo", target = "funcionarioCargo")
+    @Mapping(target = "permissoes", ignore = true)
     UsuarioDTO toDTO(Usuario usuario);
 
 
     @Mapping(source = "funcionarioCodigo", target = "funcionario.codigo")
+    @Mapping(source = "permissoes", target = "funcionario.cargo.permissoes", ignore = true)
     Usuario toModelo(UsuarioDTO usuarioDTO);
 }
 

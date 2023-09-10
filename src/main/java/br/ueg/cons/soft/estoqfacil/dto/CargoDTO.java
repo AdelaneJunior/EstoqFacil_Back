@@ -11,20 +11,11 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDTO{
+public class CargoDTO {
 
     private Long codigo;
 
-    private String senha;
+    private String nome;
 
-    private Long funcionarioCodigo;
-
-    private String funcionarioNome;
-
-    private String funcionarioEmail;
-
-    private String funcionarioCargo;
-
-    private List<String> permissoes;
-
+    private List<CargoPermissaoDTO> permissoes;
 }

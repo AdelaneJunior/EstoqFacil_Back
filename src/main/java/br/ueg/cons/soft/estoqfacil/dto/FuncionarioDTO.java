@@ -10,8 +10,10 @@ public class FuncionarioDTO{
 
     private Long codigo;
 
-    private Long pessoaID;
+    private Long pessoaId;
 
-    private String cargo;
+    private String cargoId;
+
+    private String cargoNome;
 
 }

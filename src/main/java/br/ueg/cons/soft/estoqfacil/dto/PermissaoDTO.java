@@ -9,14 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaDTO {
+public class PermissaoDTO {
 
     private Long codigo;
 
-    private String nome;
-
-    private String descricao;
-
-    private Long usuarioId;
+    private String role;
 
 }
