@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @SpringBootApplication(scanBasePackages = {
-        "br.ueg.cons.soft.*", // modificar conforme o pacote padrão do seu projeto
+        "br.ueg.cons.soft.*",
         "br.ueg.prog.webi.*" //Para funcionamento da Arquitetura
 })
 @EntityScan(basePackageClasses = {Jsr310JpaConverters.class},
         basePackages = {
-                "br.ueg.cons.soft.*", //modificar conforme o pacote padrão do seu projeto
+                "br.ueg.cons.soft.*",
                 "br.ueg.prog.webi.api.*" //Para funcionamento da Arquitetura
         })
 public class Application {
