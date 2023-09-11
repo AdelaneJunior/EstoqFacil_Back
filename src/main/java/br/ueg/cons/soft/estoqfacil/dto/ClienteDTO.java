@@ -13,6 +13,6 @@ public class ClienteDTO {
 
     private Long codigo;
 
-    private Long pessoaID;
+    private Long pessoaId;
 
 }

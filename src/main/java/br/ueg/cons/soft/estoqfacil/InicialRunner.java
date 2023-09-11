@@ -1,12 +1,8 @@
 package br.ueg.cons.soft.estoqfacil;
 
 import br.ueg.cons.soft.estoqfacil.model.*;
-import br.ueg.cons.soft.estoqfacil.repository.FuncionarioRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
-import br.ueg.cons.soft.estoqfacil.service.impl.CargoServiceImpl;
-import br.ueg.cons.soft.estoqfacil.service.impl.FuncionarioServiceImpl;
-import br.ueg.cons.soft.estoqfacil.service.impl.PermissaoServiceImpl;
-import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -32,6 +28,8 @@ public class InicialRunner implements ApplicationRunner {
     @Autowired
     private FuncionarioServiceImpl funcionarioService;
 
+    @Autowired
+    private ClienteServiceImpl clienteService;
 
     public void initDados() {
 
@@ -104,6 +102,13 @@ public class InicialRunner implements ApplicationRunner {
         usuarioService.incluir(user);
         System.out.println(usuarioService.listarTodos());
 
+        Cliente cliente = Cliente.builder()
+                .pessoa(pessoaRepository.findById(1L).get())
+                .build();
+
+        cliente = clienteService.incluir(cliente);
+
+        System.out.println(cliente);
     }
 
     @Override
