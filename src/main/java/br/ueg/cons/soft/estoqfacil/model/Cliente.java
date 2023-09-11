@@ -45,7 +45,7 @@ public class Cliente extends BaseEntidade<PkCliente> {
     private Long codigo;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = Coluna.ID_PESSOA,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))

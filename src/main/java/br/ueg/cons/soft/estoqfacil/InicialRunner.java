@@ -27,9 +27,10 @@ public class InicialRunner implements ApplicationRunner {
     private CargoServiceImpl cargoService;
     @Autowired
     private FuncionarioServiceImpl funcionarioService;
-
     @Autowired
     private ClienteServiceImpl clienteService;
+    @Autowired
+    private CategoriaServiceImpl categoriaService;
 
     public void initDados() {
 
@@ -91,16 +92,7 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println("Funcionarios sem mostrar as pemissoes" + funcionarioService.listarTodosSemPermissoes());
 
-        System.out.println("Funcionarios mostrando as pemissoes" +funcionarioService.listarTodos());
-
-        Usuario user = new Usuario(
-                1L,
-                "admin",
-                funcionarioAdmin
-        );
-
-        usuarioService.incluir(user);
-        System.out.println(usuarioService.listarTodos());
+        System.out.println("Funcionarios mostrando as pemissoes" + funcionarioService.listarTodos());
 
         Cliente cliente = Cliente.builder()
                 .pessoa(pessoaRepository.findById(1L).get())
@@ -108,7 +100,26 @@ public class InicialRunner implements ApplicationRunner {
 
         cliente = clienteService.incluir(cliente);
 
-        System.out.println(cliente);
+        System.out.println("Cliente mostrando pessoa" + cliente);
+
+        Usuario user = new Usuario(
+                1L,
+                "admin",
+                funcionarioAdmin
+        );
+
+        user = usuarioService.incluir(user);
+        System.out.println(usuarioService.listarTodos());
+
+        Categoria categoria = Categoria.builder()
+                .usuario(user)
+                .nome("Computadores")
+                .descricao("Categoria de computadores")
+                .build();
+
+        categoria = categoriaService.incluir(categoria);
+
+        System.out.println(categoria);
     }
 
     @Override

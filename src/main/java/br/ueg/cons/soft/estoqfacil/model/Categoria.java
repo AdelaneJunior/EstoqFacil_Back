@@ -1,9 +1,11 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
-import br.ueg.prog.webi.api.model.IEntidade;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -27,11 +29,14 @@ public class Categoria extends BaseEntidade<Long> {
 
         public static final String DESCRICAO = "catg_descricao";
 
-        public static final String ID_USUARIO = "catg_usuario";
+        public static final String USUARIO = "catg_usuario";
     }
 
     public static final class Atributo {
+        public static final String NOME = "nome";
+        public static final String DESCRICAO = "descricao";
 
+        public static final String USUARIO = "usuario";
     }
 
     @SequenceGenerator(
@@ -51,14 +56,14 @@ public class Categoria extends BaseEntidade<Long> {
     private Long codigo;
 
     @Column(name = Coluna.NOME, nullable = false)
-    private String nomeCategoria;
+    private String nome;
 
     @Column(name = Coluna.DESCRICAO, nullable = false)
-    private String descricaoCategoria;
+    private String descricao;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
+    @JoinColumn(name = Coluna.USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_categoria_usuario"))
-    private Usuario categoriaUsuario;
+    private Usuario usuario;
 }
