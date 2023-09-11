@@ -4,6 +4,7 @@ import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -51,6 +52,6 @@ public class Cargo extends BaseEntidade<Long> {
             fetch = FetchType.LAZY,
             orphanRemoval = true,
             cascade = CascadeType.ALL)
-    private Set<CargoPermissao> permissoes;
+    private Set<CargoPermissao> permissoes = new HashSet<>();
 
 }

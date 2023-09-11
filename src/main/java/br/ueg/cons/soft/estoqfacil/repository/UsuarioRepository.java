@@ -23,7 +23,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("select u from Usuario u " +
             "inner join fetch u.funcionario f " +
             "inner join fetch f.cargo c " +
-            "inner join fetch c.permissoes " +
-            "where f = u.funcionario")
+            "inner join fetch c.permissoes ")
     List<Usuario> findAll();
 }

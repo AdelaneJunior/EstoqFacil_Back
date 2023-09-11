@@ -4,6 +4,7 @@ import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.FuncionarioRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.CargoServiceImpl;
+import br.ueg.cons.soft.estoqfacil.service.impl.FuncionarioServiceImpl;
 import br.ueg.cons.soft.estoqfacil.service.impl.PermissaoServiceImpl;
 import br.ueg.cons.soft.estoqfacil.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,14 @@ public class InicialRunner implements ApplicationRunner {
 
     @Autowired
     private PessoaRepository pessoaRepository;
-
-    @Autowired
-    private FuncionarioRepository funcionarioRepository;
-
     @Autowired
     private UsuarioServiceImpl usuarioService;
-
     @Autowired
     private PermissaoServiceImpl permissaoService;
-
-
     @Autowired
     private CargoServiceImpl cargoService;
+    @Autowired
+    private FuncionarioServiceImpl funcionarioService;
 
 
     public void initDados() {
@@ -57,7 +53,6 @@ public class InicialRunner implements ApplicationRunner {
         permissao = permissaoService.incluir(permissao);
 
         CargoPermissao cargoPermissao = new CargoPermissao();
-        cargoPermissao.setCodigo(1L);
         cargoPermissao.setPermissao(permissao);
 
         permissao = new Permissao();
@@ -66,7 +61,6 @@ public class InicialRunner implements ApplicationRunner {
         permissao = permissaoService.incluir(permissao);
 
         CargoPermissao argoPermissao = new CargoPermissao();
-        argoPermissao.setCodigo(2L);
         argoPermissao.setPermissao(permissao);
 
         List<CargoPermissao> lista = new ArrayList<>();
@@ -95,7 +89,11 @@ public class InicialRunner implements ApplicationRunner {
 
         );
 
-        funcionarioRepository.save(funcionarioAdmin);
+        funcionarioAdmin = funcionarioService.incluir(funcionarioAdmin);
+
+        System.out.println("Funcionarios sem mostrar as pemissoes" + funcionarioService.listarTodosSemPermissoes());
+
+        System.out.println("Funcionarios mostrando as pemissoes" +funcionarioService.listarTodos());
 
         Usuario user = new Usuario(
                 1L,
@@ -104,8 +102,8 @@ public class InicialRunner implements ApplicationRunner {
         );
 
         usuarioService.incluir(user);
-
         System.out.println(usuarioService.listarTodos());
+
     }
 
     @Override

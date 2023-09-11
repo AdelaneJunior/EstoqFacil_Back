@@ -53,7 +53,7 @@ public class Funcionario extends BaseEntidade<PkFuncionario> {
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
     private Pessoa pessoa;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = Coluna.CARGO, nullable = false,
             referencedColumnName = Cargo.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_funcionario_cargo"))

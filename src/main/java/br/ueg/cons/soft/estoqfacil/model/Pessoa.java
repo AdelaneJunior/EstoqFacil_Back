@@ -46,7 +46,7 @@ public class Pessoa extends BaseEntidade<Long> {
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @Column(name = Coluna.CPF, nullable = false, length = 11 )
+    @Column(name = Coluna.CPF, nullable = false, length = 11, unique = true)
     private String cpf;
 
     @Column(name = Coluna.NOME, nullable = false, length = 200)

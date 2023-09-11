@@ -12,7 +12,9 @@ public class FuncionarioDTO{
 
     private Long pessoaId;
 
-    private String cargoId;
+    private String pessoaNome;
+
+    private Long cargoId;
 
     private String cargoNome;
 

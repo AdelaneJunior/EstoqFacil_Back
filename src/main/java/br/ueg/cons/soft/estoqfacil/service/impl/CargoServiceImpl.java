@@ -36,21 +36,22 @@ public class CargoServiceImpl extends BaseCrudService<Cargo, Long, CargoReposito
         if (Objects.nonNull(cargo.getPermissoes())) {
             cargo.getPermissoes().forEach(cargoPermissao -> {
 
-                if (Objects.nonNull(cargoPermissao.getCodigo())){
-
-                    if (cargoPermissaoRepository.findById(cargoPermissao.getCodigo()).isPresent()){
-                        cargoPermissao =  cargoPermissaoRepository.findById(cargoPermissao.getCodigo()).get();
-                    }
-                    else{
-                        if (Objects.isNull(cargoPermissao.getCargo())) {
-                            cargoPermissao.setCargo(new Cargo());
-                            cargoPermissao.setCodigo(null);
-                            cargoPermissao.getCargo().setCodigo(cargo.getCodigo());
-                            cargoPermissao.getCargo().setNome(cargo.getNome());
-                        }
-                    }
+                if (Objects.isNull(cargoPermissao.getCargo())) {
+                    cargoPermissao.setCargo(new Cargo());
+                    cargoPermissao.getCargo().setCodigo(cargo.getCodigo());
+                    cargoPermissao.getCargo().setNome(cargo.getNome());
                 }
-
+//
+//                if (Objects.nonNull(cargoPermissao.get())){
+//
+//                    if (cargoPermissaoRepository.findById(cargoPermissao.getCodigo()).isPresent()){
+//                        cargoPermissao =  cargoPermissaoRepository.findById(cargoPermissao.getCodigo()).get();
+//                    }
+//                    else{
+//
+//                    }
+//                }
+//
 
             });
         }
