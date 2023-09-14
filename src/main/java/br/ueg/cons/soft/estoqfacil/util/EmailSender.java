@@ -7,9 +7,9 @@ import org.apache.commons.mail.MultiPartEmail;
 
 public class EmailSender {
 
-    private static final String REMETENTE = "lucas.spies@aluno.ueg.br";
-    private static final String SENHA = "lhs1357908";
-    private static final String PATH = "listaProdutos.pdf";
+    private static final String REMETENTE = "lucas.spies@aluno.ueg.br"; //usar o email da UEG
+    private static final String SENHA = ""; //usar sua senha
+    private static final String PATH = "listaProdutos.pdf"; //com esse caminho o pdf é salvo dentro do projeto
 
 
     private static MultiPartEmail setEmail(String destinatario){
