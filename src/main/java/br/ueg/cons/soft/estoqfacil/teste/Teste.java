@@ -1,7 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.teste;
 
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
-import br.ueg.cons.soft.estoqfacil.util.*;
+import br.ueg.cons.soft.estoqfacil.util.EmailSender;
+import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,6 @@ public class Teste {
                         .build()
         );
         PdfCreator.criaPdf(produtoDTOList);
-        EmailSender.enviaEmail("lucashspiess1904@gmail.com");
+        EmailSender.enviaEmail("adelane.junior13@gmail.com");
     }
 }
