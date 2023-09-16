@@ -21,8 +21,9 @@ public class ImagemServiceImpl extends BaseCrudService<Imagem, Long, ImagemRepos
     @Autowired
     private ImagemRepository repository;
 
-    private final String CAMINHO_PASTA = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-Front\\src\\assets";
-    private final String PATH_REFERENCE = "assets";
+    private final String CAMINHO_PASTA =
+            "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-Front\\src\\assets"; //caminho para a pasta assests do front ou local onde será guardado as imagens
+    private final String PATH_REFERENCE = "assets"; // referencia para encotro no front de forma mais facil
 
     @Override
     protected void prepararParaIncluir(Imagem entidade) {

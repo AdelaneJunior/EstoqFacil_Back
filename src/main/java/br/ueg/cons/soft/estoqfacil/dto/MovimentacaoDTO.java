@@ -18,9 +18,9 @@ public class MovimentacaoDTO {
 
     private Long codigo;
 
-    private Long produtoID;
+    private Long produtoId;
 
-    private Long usuarioID;
+    private Long usuarioId;
 
     private Long quantidade;
 
@@ -28,5 +28,7 @@ public class MovimentacaoDTO {
     private LocalDate data;
 
     private AcaoMovimentacao acao;
+
+    private String observacao;
 
 }

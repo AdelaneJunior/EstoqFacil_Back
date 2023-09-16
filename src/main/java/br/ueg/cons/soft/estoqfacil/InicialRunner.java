@@ -1,6 +1,12 @@
 package br.ueg.cons.soft.estoqfacil;
 
+import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
+import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
+import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
+import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
+import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
+import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +37,16 @@ public class InicialRunner implements ApplicationRunner {
     private ClienteServiceImpl clienteService;
     @Autowired
     private CategoriaServiceImpl categoriaService;
+    @Autowired
+    private ProdutoServiceImpl produtoService;
+    @Autowired
+    private ProdutoController produtoController;
+    @Autowired
+    private ImagemRepository imagemRepository;
+    @Autowired
+    private MovimentacaoServiceImpl movimentacaoService;
+    @Autowired
+    private MovimentacaoController movimentacaoController;
 
     public void initDados() {
 
@@ -102,17 +118,17 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println("Cliente mostrando pessoa" + cliente);
 
-        Usuario user = new Usuario(
+        Usuario usuario = new Usuario(
                 1L,
                 "admin",
                 funcionarioAdmin
         );
 
-        user = usuarioService.incluir(user);
+        usuario = usuarioService.incluir(usuario);
         System.out.println(usuarioService.listarTodos());
 
         Categoria categoria = Categoria.builder()
-                .usuario(user)
+                .usuario(usuario)
                 .nome("Computadores")
                 .descricao("Categoria de computadores")
                 .build();
@@ -120,6 +136,53 @@ public class InicialRunner implements ApplicationRunner {
         categoria = categoriaService.incluir(categoria);
 
         System.out.println(categoria);
+
+        Imagem imagem = new Imagem();
+        imagem.setTipo("image/jpeg");
+        imagem.setPathReference("C:\\Users\\Delane Jr\\Documents\\Facul\\5ºSemestre\\Programação Web I\\1ºBimestre\\BarracaDeJogos-Front\\src\\assets\\elden.jpg");
+        imagem.setNome("elden.jpg");
+        imagem.setPathAbsolute("assets/elden.jpg");
+
+        try {
+            imagem = imagemRepository.save(imagem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Produto produto = Produto.builder()
+                .nome("Iphone 13")
+                .marca("Apple")
+                .preco(8500.00)
+                .quantidade(16L)
+                .custo(25.50)
+                .categoria(categoria)
+                .usuario(usuario)
+                .imagem(imagem)
+                .descricao("Um delular caro")
+                .build();
+
+        produto = produtoService.incluir(produto);
+
+        ProdutoDTO produtoDTO = produtoController.ObterPorId(1L).getBody();
+
+        System.out.println(produtoDTO);
+
+        Movimentacao movimentacao = Movimentacao.builder()
+                .usuario(usuario)
+                .produto(produto)
+                .quantidade(16L)
+                .data(LocalDate.now())
+                .observacao("Adicionado para testes")
+                .acao(AcaoMovimentacao.COMPRA)
+                .build();
+
+        movimentacao = movimentacaoService.incluir(movimentacao);
+
+        MovimentacaoDTO movimentacaoDTO = movimentacaoController.ObterPorId(1L).getBody();
+
+        System.out.println(movimentacaoDTO);
+
+
     }
 
     @Override
