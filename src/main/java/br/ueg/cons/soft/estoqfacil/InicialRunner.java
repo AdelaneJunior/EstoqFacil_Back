@@ -139,9 +139,9 @@ public class InicialRunner implements ApplicationRunner {
 
         Imagem imagem = new Imagem();
         imagem.setTipo("image/jpeg");
-        imagem.setPathReference("C:\\Users\\Delane Jr\\Documents\\Facul\\5ºSemestre\\Programação Web I\\1ºBimestre\\BarracaDeJogos-Front\\src\\assets\\elden.jpg");
+        imagem.setPathReference("C:\\");
         imagem.setNome("elden.jpg");
-        imagem.setPathAbsolute("assets/elden.jpg");
+        imagem.setPathAbsolute("C:\\");
 
         try {
             imagem = imagemRepository.save(imagem);
