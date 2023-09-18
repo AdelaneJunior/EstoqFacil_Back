@@ -2,11 +2,15 @@ package br.ueg.cons.soft.estoqfacil.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+
 public class PdfCreator {
     private static final String PATH = "listaProdutos.pdf";
 
@@ -27,32 +31,29 @@ public class PdfCreator {
         return document;
     }
 
-    private static void insereImagem(String path, Document pdf)  {
+    private static void insereImagem(String path, Document pdf) throws DocumentException, IOException {
         Image figura = null;
-        try {
-            figura = Image.getInstance(path);
-            figura.scaleAbsolute(100,100);
-            pdf.add(new Paragraph(50));
-            pdf.add(figura);
-        } catch (BadElementException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        }
+        figura = Image.getInstance(path);
+        figura.scaleAbsolute(100,100);
+        pdf.add(new LineSeparator(1,100, new BaseColor(0,0,0), 0,-5));
+        pdf.add(figura);
     }
 
-    private static void listaProduto(Document pdf, ProdutoDTO produto) throws DocumentException {
+    private static void listaProduto(Document pdf, ProdutoDTO produto) throws DocumentException, IOException {
+        Locale l = new Locale("pt", "BR");
+        NumberFormat nf =  NumberFormat.getInstance(l);
+
         insereImagem(produto.getImagemPathReference(), pdf);
+
         pdf.add(new Paragraph("Id do produto: " + produto.getCodigo()));
         pdf.add(new Paragraph("Nome: " + produto.getNome()));
         pdf.add(new Paragraph("Marca: " + produto.getMarca()));
-        pdf.add(new Paragraph("Preço: R$ " + produto.getPreco()));
+        pdf.add(new Paragraph("Preço: R$ " + nf.format(produto.getPreco())));
         pdf.add(new Paragraph("Quantidade: " + produto.getQuantidade()));
+        pdf.add(new Paragraph(50));
     }
 
-    private static void listaProdutos(Document pdf, List<ProdutoDTO> produtos) throws DocumentException {
+    private static void listaProdutos(Document pdf, List<ProdutoDTO> produtos) throws DocumentException, IOException {
         for (ProdutoDTO produto : produtos) {
             listaProduto(pdf, produto);
         }
