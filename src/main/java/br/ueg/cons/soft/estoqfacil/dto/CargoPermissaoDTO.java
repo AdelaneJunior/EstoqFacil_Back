@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CargoPermissaoDTO {
 
-    private Long codigo;
-
     private Long cargoCodigo;
 
     private Long permissaoCodigo;

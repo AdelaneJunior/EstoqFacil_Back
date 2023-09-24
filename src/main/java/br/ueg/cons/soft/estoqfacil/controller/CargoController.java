@@ -15,10 +15,4 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/cargo")
 public class CargoController extends CrudController<Cargo, CargoDTO, Long, CargoMapperImpl, CargoServiceImpl> {
-
-    @Override
-    @PreAuthorize("hasRole('ROLE_PRODUTO_ALTERAR')")
-    public ResponseEntity<List<CargoDTO>> listAll() {
-        return super.listAll();
-    }
 }

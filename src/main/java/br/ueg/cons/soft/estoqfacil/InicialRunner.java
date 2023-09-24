@@ -95,7 +95,7 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(cargoService.listarTodos());
 
-        pessoaRepository.save(pessoaAdmin);
+        pessoaAdmin = pessoaRepository.save(pessoaAdmin);
 
         Funcionario funcionarioAdmin = new Funcionario(
                 1L,
