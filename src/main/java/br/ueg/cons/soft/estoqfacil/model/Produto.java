@@ -55,13 +55,13 @@ public class Produto extends BaseEntidade<Long> {
     @Column(name = Produto.Coluna.ID)
     private Long codigo;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
     private Categoria categoria;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = Produto.Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_usuario"))

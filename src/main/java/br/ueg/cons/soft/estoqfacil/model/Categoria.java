@@ -61,7 +61,7 @@ public class Categoria extends BaseEntidade<Long> {
     @Column(name = Coluna.DESCRICAO, nullable = false)
     private String descricao;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = Coluna.USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_categoria_usuario"))

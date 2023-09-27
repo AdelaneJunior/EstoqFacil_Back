@@ -6,6 +6,7 @@ import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
+import br.ueg.cons.soft.estoqfacil.repository.CargoRepository;
 import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
@@ -47,6 +48,8 @@ public class InicialRunner implements ApplicationRunner {
     private MovimentacaoServiceImpl movimentacaoService;
     @Autowired
     private MovimentacaoController movimentacaoController;
+    @Autowired
+    private CargoRepository cargoRepository;
 
     public void initDados() {
 
@@ -61,9 +64,8 @@ public class InicialRunner implements ApplicationRunner {
 
         );
 
-        Permissao permissao = Permissao.builder()
-                .role("ROLE_PRODUTO_ALTERAR")
-                .build();
+        Permissao permissao = new Permissao();
+        permissao.setRole("ROLE_PRODUTO_ALTERAR");
 
         permissao = permissaoService.incluir(permissao);
 
@@ -82,9 +84,8 @@ public class InicialRunner implements ApplicationRunner {
         lista.add(argoPermissao);
         lista.add(cargoPermissao);
 
-        Cargo cargo = Cargo.builder()
-                .nome("DONO")
-                .build();
+        Cargo cargo = new Cargo();
+        cargo.setNome("DONO");
 
         cargo = cargoService.incluir(cargo);
 
@@ -93,20 +94,14 @@ public class InicialRunner implements ApplicationRunner {
 
         cargo = cargoService.alterar(cargo, 1L);
 
-        System.out.println(cargoService.listarTodos());
-
         pessoaAdmin = pessoaRepository.save(pessoaAdmin);
 
-        Funcionario funcionarioAdmin = new Funcionario(
-                1L,
-                pessoaAdmin,
-                cargo
+        Funcionario funcionarioAdmin = new Funcionario();
 
-        );
+        funcionarioAdmin.setPessoa(pessoaAdmin);
+        funcionarioAdmin.setCargo(cargo);
 
         funcionarioAdmin = funcionarioService.incluir(funcionarioAdmin);
-
-        System.out.println("Funcionarios sem mostrar as pemissoes" + funcionarioService.listarTodosSemPermissoes());
 
         System.out.println("Funcionarios mostrando as pemissoes" + funcionarioService.listarTodos());
 
@@ -127,11 +122,9 @@ public class InicialRunner implements ApplicationRunner {
         usuario = usuarioService.incluir(usuario);
         System.out.println(usuarioService.listarTodos());
 
-        Categoria categoria = Categoria.builder()
-                .usuario(usuario)
-                .nome("Computadores")
-                .descricao("Categoria de computadores")
-                .build();
+        Categoria categoria = new Categoria();
+        categoria.setNome("Computadores");
+        categoria.setDescricao("Categoria de computadores");
 
         categoria = categoriaService.incluir(categoria);
 

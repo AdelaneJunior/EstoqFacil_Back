@@ -19,9 +19,5 @@ public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, Categ
 
     @Override
     protected void validarCamposObrigatorios(Categoria entidade) {}
-    public Categoria obterPeloIdSemFetch(Long codigo) {
-        return (Categoria) this.repository.findByIdSemFetch(codigo).orElseThrow(() -> {
-             return new BusinessException(ApiMessageCode.ERRO_REGISTRO_NAO_ENCONTRADO);
-         });
-    }
+
 }

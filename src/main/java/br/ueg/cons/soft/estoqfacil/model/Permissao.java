@@ -4,6 +4,7 @@ import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -46,7 +47,7 @@ public class Permissao extends BaseEntidade<Long> {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "permissao", fetch = FetchType.LAZY)
-    private Set<CargoPermissao> cargoPermissaos;
+    @OneToMany(mappedBy = "permissao",fetch = FetchType.EAGER)
+    private Set<CargoPermissao> cargoPermissaos = new HashSet<>();
 
 }
