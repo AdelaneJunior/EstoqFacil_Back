@@ -1,5 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +25,6 @@ public class PessoaDTO {
 
     public String email;
 
+    @Temporal(TemporalType.DATE)
     public LocalDate nascimento;
 }

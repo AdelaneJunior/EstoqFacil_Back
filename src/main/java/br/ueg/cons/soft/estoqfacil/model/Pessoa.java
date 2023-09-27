@@ -58,6 +58,7 @@ public class Pessoa extends BaseEntidade<Long> {
     @Column(name = Coluna.EMAIL, length = 150)
     private String email;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = Coluna.DATA_NASCIMENTO)
     private LocalDate nascimento;
 

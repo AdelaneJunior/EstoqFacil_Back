@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Component
+@Transactional(propagation = Propagation.REQUIRED)
 public class InicialRunner implements ApplicationRunner {
 
 
@@ -55,7 +58,7 @@ public class InicialRunner implements ApplicationRunner {
 
 
         Pessoa pessoaAdmin = new Pessoa(
-                1L,
+                0L,
                 "0000000",
                 "Ademiro",
                 "629999999",
@@ -89,12 +92,14 @@ public class InicialRunner implements ApplicationRunner {
 
         cargo = cargoService.incluir(cargo);
 
-        cargo.setPermissoes(new HashSet<>());
         cargo.getPermissoes().addAll(lista);
 
         cargo = cargoService.alterar(cargo, 1L);
 
         pessoaAdmin = pessoaRepository.save(pessoaAdmin);
+
+        pessoaAdmin = new Pessoa();
+        pessoaAdmin.setCodigo(1L);
 
         Funcionario funcionarioAdmin = new Funcionario();
 
@@ -123,6 +128,7 @@ public class InicialRunner implements ApplicationRunner {
         System.out.println(usuarioService.listarTodos());
 
         Categoria categoria = new Categoria();
+        categoria.setUsuario(usuario);
         categoria.setNome("Computadores");
         categoria.setDescricao("Categoria de computadores");
 

@@ -11,17 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<Funcionario, PkFuncionario> {
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
-    @Query("select f from Funcionario f " +
-            "inner join fetch f.cargo c " +
-            "inner join fetch c.permissoes cp " +
-            "inner join fetch f.pessoa p ")
-    List<Funcionario> findAll();
-
-
-    @Query("select f from Funcionario f " +
-            "inner join fetch f.cargo c " +
-            "inner join fetch f.pessoa ")
-    List<Funcionario> listaTodosSemFetch();
 }

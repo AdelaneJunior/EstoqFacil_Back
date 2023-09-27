@@ -7,15 +7,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PessoaMapperImpl.class, CargoMapperImpl.class})
 public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDTO> {
 
-    @Mapping(source = "pessoaId", target = "pessoa.codigo")
+    @Mapping(source = "codigo", target = "codigo")
+    @Mapping(source = "codigo", target = "pessoa.codigo")
     @Mapping(source = "cargoId", target = "cargo.codigo")
     Funcionario toModelo(FuncionarioDTO funcionarioDTO);
 
-
-    @Mapping(source = "pessoa.codigo", target = "pessoaId")
     @Mapping(source = "pessoa.nome", target = "pessoaNome")
     @Mapping(source = "cargo.codigo", target = "cargoId")
     @Mapping(source = "cargo.nome", target = "cargoNome")

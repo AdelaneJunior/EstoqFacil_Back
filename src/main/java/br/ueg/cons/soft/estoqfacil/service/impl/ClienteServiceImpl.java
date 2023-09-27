@@ -8,7 +8,7 @@ import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClienteServiceImpl extends BaseCrudService<Cliente, PkCliente,ClienteRepository>
+public class ClienteServiceImpl extends BaseCrudService<Cliente, Long,ClienteRepository>
         implements ClienteService {
 
     @Override

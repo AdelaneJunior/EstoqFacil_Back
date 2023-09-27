@@ -16,8 +16,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(PkCliente.class)
-public class Cliente extends BaseEntidade<PkCliente> {
+public class Cliente extends BaseEntidade<Long> {
 
     public static final String NOME_TABELA = "cliente";
 
@@ -30,22 +29,11 @@ public class Cliente extends BaseEntidade<PkCliente> {
     }
 
     @Id
-    @SequenceGenerator(
-            name = "a_gerador_sequence",
-            sequenceName = "cliente_sequence",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "a_gerador_sequence"
-
-    )
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @Id
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @MapsId
+    @OneToOne(optional = false)
     @JoinColumn(name = Coluna.ID_PESSOA,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))

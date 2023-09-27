@@ -14,29 +14,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, PkFuncionario, FuncionarioRepository>
+public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, Long, FuncionarioRepository>
         implements FuncionarioService {
-
-    @Autowired
-    PessoaRepository pessoaRepository;
 
     @Override
     protected void prepararParaIncluir(Funcionario funcionario) {
-
-        tratarPessoa(funcionario);
-
     }
-
-    private void tratarPessoa(Funcionario funcionario) {
-
-        if(Objects.nonNull(funcionario.getPessoa()) && Objects.nonNull(funcionario.getPessoa().getCodigo())){
-            if(pessoaRepository.findById(funcionario.getPessoa().getCodigo()).isPresent()){
-               funcionario.setPessoa(pessoaRepository.findById(funcionario.getPessoa().getCodigo()).get());
-            }
-        }
-
-    }
-
     @Override
     protected void validarDados(Funcionario entidade) {
 
@@ -45,18 +28,5 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, PkFunci
     @Override
     protected void validarCamposObrigatorios(Funcionario entidade) {
 
-    }
-
-    public List<Funcionario> listarTodosSemPermissoes() {
-
-        List<Funcionario> todosFuncionarios = repository.listaTodosSemFetch();
-        todosFuncionarios.forEach(funcionario -> {
-            funcionario.getCargo().setPermissoes(null);
-        });
-        return todosFuncionarios;
-    }
-
-    public List<Funcionario> listarTodos() {
-        return repository.findAll();
     }
 }

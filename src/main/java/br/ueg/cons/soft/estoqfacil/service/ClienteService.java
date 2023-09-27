@@ -5,6 +5,6 @@ import br.ueg.cons.soft.estoqfacil.model.Funcionario;
 import br.ueg.cons.soft.estoqfacil.model.pks.PkCliente;
 import br.ueg.prog.webi.api.service.CrudService;
 
-public interface ClienteService extends CrudService<Cliente, PkCliente> {
+public interface ClienteService extends CrudService<Cliente, Long> {
 
 }

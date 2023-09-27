@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/funcionario")
 public class FuncionarioController extends CrudController
-        <Funcionario, FuncionarioDTO, PkFuncionario, FuncionarioMapperImpl, FuncionarioServiceImpl> {
+        <Funcionario, FuncionarioDTO, Long, FuncionarioMapperImpl, FuncionarioServiceImpl> {
 
 }
