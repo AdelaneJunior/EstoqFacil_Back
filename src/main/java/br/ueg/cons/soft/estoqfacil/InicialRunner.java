@@ -61,9 +61,8 @@ public class InicialRunner implements ApplicationRunner {
 
         );
 
-        Permissao permissao = Permissao.builder()
-                .role("ROLE_PRODUTO_ALTERAR")
-                .build();
+        Permissao permissao = new Permissao();
+        permissao.setRole("ROLE_PRODUTO_ALTERAR");
 
         permissao = permissaoService.incluir(permissao);
 

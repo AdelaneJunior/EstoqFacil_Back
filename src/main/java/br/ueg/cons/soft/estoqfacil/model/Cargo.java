@@ -49,7 +49,7 @@ public class Cargo extends BaseEntidade<Long> {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "cargo",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true,
             cascade = CascadeType.ALL)
     private Set<CargoPermissao> permissoes = new HashSet<>();

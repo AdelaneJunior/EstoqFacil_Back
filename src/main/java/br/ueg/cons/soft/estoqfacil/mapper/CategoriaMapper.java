@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UsuarioMapperImpl.class)
 public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaDTO> {
 
     @Mapping(source = "usuarioId", target = "usuario.codigo")

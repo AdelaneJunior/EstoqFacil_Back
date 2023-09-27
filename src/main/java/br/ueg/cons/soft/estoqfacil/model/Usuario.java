@@ -47,7 +47,7 @@ public class Usuario extends BaseEntidade<Long> {
     @Column(name = Coluna.SENHA, nullable = false)
     private String senha;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false,
                     referencedColumnName = Funcionario.Coluna.ID,
