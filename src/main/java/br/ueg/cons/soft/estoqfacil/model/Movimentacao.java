@@ -56,13 +56,13 @@ public class Movimentacao extends BaseEntidade<Long> {
     @Column(name = Coluna.ID)
     private Long codigo;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = Coluna.ID_PRODUTO, nullable = false,
             referencedColumnName = Produto.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_movimentacao_produto"))
     private Produto produto;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_movimentacao_usuario"))

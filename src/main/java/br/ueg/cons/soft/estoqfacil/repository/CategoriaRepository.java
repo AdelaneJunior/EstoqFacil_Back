@@ -11,14 +11,4 @@ import java.util.Optional;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
-
-    @Override
-    @Query("select  c from Categoria c " +
-            "inner join fetch c.usuario " +
-            "where c.codigo = :codigo")
-    Optional<Categoria> findById(@Param("codigo") Long codigo);
-
-    @Query("select  c from Categoria c " +
-            "where c.codigo = :codigo")
-    Optional<Categoria> findByIdSemFetch(@Param("codigo") Long codigo);
 }

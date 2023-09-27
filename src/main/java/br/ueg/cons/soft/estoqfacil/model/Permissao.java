@@ -47,7 +47,7 @@ public class Permissao extends BaseEntidade<Long> {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "permissao", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "permissao",fetch = FetchType.EAGER)
     private Set<CargoPermissao> cargoPermissaos = new HashSet<>();
 
 }

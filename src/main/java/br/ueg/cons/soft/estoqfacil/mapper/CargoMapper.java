@@ -5,6 +5,6 @@ import br.ueg.cons.soft.estoqfacil.model.Cargo;
 import br.ueg.prog.webi.api.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {CargoPermissaoMapperImpl.class})
+@Mapper(componentModel = "spring")
 public interface CargoMapper extends BaseMapper<Cargo, CargoDTO> {
 }
