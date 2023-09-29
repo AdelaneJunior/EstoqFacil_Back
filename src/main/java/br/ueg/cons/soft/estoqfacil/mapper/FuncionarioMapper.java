@@ -13,10 +13,19 @@ public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDT
     @Mapping(source = "codigo", target = "codigo")
     @Mapping(source = "codigo", target = "pessoa.codigo")
     @Mapping(source = "cargoId", target = "cargo.codigo")
+    @Mapping(source = "nome", target = "pessoa.nome")
+    @Mapping(source = "telefone", target = "pessoa.telefone")
+    @Mapping(source = "nascimento", target = "pessoa.nascimento")
+    @Mapping(source = "email", target = "pessoa.email")
+    @Mapping(source = "cpf", target = "pessoa.cpf")
     Funcionario toModelo(FuncionarioDTO funcionarioDTO);
 
-    @Mapping(source = "pessoa.nome", target = "pessoaNome")
     @Mapping(source = "cargo.codigo", target = "cargoId")
     @Mapping(source = "cargo.nome", target = "cargoNome")
+    @Mapping(source = "pessoa.nome", target = "nome")
+    @Mapping(source = "pessoa.telefone", target = "telefone")
+    @Mapping(source = "pessoa.nascimento", target = "nascimento")
+    @Mapping(source = "pessoa.email", target = "email")
+    @Mapping(source = "pessoa.cpf", target = "cpf")
     FuncionarioDTO toDTO(Funcionario funcionario);
 }
