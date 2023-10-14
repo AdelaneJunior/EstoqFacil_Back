@@ -25,8 +25,6 @@ public class ClienteDTO {
 
     public String email;
 
-    public Long pessoaCodigo;
-
     @Temporal(TemporalType.DATE)
     public LocalDate nascimento;
 
