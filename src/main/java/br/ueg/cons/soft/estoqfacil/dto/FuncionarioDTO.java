@@ -14,6 +14,8 @@ public class FuncionarioDTO{
 
     private Long codigo;
 
+    public Long pessoaCodigo;
+
     public String cpf;
 
     public String nome;

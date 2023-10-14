@@ -18,6 +18,7 @@ public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDT
     @Mapping(source = "nascimento", target = "pessoa.nascimento")
     @Mapping(source = "email", target = "pessoa.email")
     @Mapping(source = "cpf", target = "pessoa.cpf")
+    @Mapping(source = "pessoaCodigo", target = "pessoa.codigo")
     Funcionario toModelo(FuncionarioDTO funcionarioDTO);
 
     @Mapping(source = "cargo.codigo", target = "cargoId")
@@ -27,5 +28,6 @@ public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDT
     @Mapping(source = "pessoa.nascimento", target = "nascimento")
     @Mapping(source = "pessoa.email", target = "email")
     @Mapping(source = "pessoa.cpf", target = "cpf")
+    @Mapping(source = "pessoa.codigo", target = "pessoaCodigo")
     FuncionarioDTO toDTO(Funcionario funcionario);
 }

@@ -14,6 +14,7 @@ public interface ClienteMapper extends BaseMapper<Cliente, ClienteDTO> {
     @Mapping(source = "nascimento", target = "pessoa.nascimento")
     @Mapping(source = "email", target = "pessoa.email")
     @Mapping(source = "cpf", target = "pessoa.cpf")
+    @Mapping(source = "pessoaCodigo", target = "pessoa.codigo")
     Cliente toModelo(ClienteDTO clienteDTO);
 
     @Mapping(source = "pessoa.nome", target = "nome")
@@ -21,6 +22,7 @@ public interface ClienteMapper extends BaseMapper<Cliente, ClienteDTO> {
     @Mapping(source = "pessoa.nascimento", target = "nascimento")
     @Mapping(source = "pessoa.email", target = "email")
     @Mapping(source = "pessoa.cpf", target = "cpf")
+    @Mapping(source = "pessoa.codigo", target = "pessoaCodigo")
     ClienteDTO toDTO(Cliente cliente);
 }
 
