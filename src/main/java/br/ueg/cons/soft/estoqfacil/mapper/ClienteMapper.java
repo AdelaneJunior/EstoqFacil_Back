@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ClienteMapper extends BaseMapper<Cliente, ClienteDTO> {
 
+    @Mapping(source = "codigo", target = "codigo")
+    @Mapping(source = "codigo", target = "pessoa.codigo")
     @Mapping(source = "nome", target = "pessoa.nome")
     @Mapping(source = "telefone", target = "pessoa.telefone")
     @Mapping(source = "nascimento", target = "pessoa.nascimento")

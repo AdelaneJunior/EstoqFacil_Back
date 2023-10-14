@@ -21,8 +21,6 @@ public class Cliente extends BaseEntidade<Long> {
 
         public static final String ID = "clnt_codigo";
 
-        public static final String ID_PESSOA = "clnt_pessoa";
-
     }
 
     @Id
@@ -31,7 +29,7 @@ public class Cliente extends BaseEntidade<Long> {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = Coluna.ID_PESSOA,
+    @JoinColumn(name = Coluna.ID,
             referencedColumnName = Pessoa.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))
     private Pessoa pessoa;
