@@ -1,14 +1,11 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
-import br.ueg.cons.soft.estoqfacil.model.pks.PkFuncionario;
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Builder
 @AllArgsConstructor

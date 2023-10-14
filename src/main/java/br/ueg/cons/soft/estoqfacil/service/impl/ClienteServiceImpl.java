@@ -1,7 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
-import br.ueg.cons.soft.estoqfacil.model.pks.PkCliente;
 import br.ueg.cons.soft.estoqfacil.repository.ClienteRepository;
 import br.ueg.cons.soft.estoqfacil.service.ClienteService;
 import br.ueg.prog.webi.api.service.BaseCrudService;

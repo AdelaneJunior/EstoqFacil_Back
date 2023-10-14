@@ -2,7 +2,6 @@ package br.ueg.cons.soft.estoqfacil.repository;
 
 
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
-import br.ueg.cons.soft.estoqfacil.model.pks.PkCliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

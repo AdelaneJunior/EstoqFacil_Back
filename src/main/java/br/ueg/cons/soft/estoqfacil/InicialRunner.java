@@ -26,7 +26,6 @@ import java.util.List;
 @Transactional(propagation = Propagation.REQUIRED)
 public class InicialRunner implements ApplicationRunner {
 
-
     @Autowired
     private PessoaRepository pessoaRepository;
     @Autowired
@@ -111,7 +110,7 @@ public class InicialRunner implements ApplicationRunner {
         System.out.println("Funcionarios mostrando as pemissoes" + funcionarioService.listarTodos());
 
         Cliente cliente = Cliente.builder()
-                .pessoa(pessoaRepository.findById(1L).get())
+                .pessoa(pessoaRepository.findById(1L).orElseThrow(  ))
                 .build();
 
         cliente = clienteService.incluir(cliente);

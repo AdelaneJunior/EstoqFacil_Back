@@ -1,9 +1,13 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -13,6 +17,15 @@ public class ClienteDTO {
 
     private Long codigo;
 
-    private Long pessoaId;
+    private Long cpf;
+
+    public String nome;
+
+    public String telefone;
+
+    public String email;
+
+    @Temporal(TemporalType.DATE)
+    public LocalDate nascimento;
 
 }
