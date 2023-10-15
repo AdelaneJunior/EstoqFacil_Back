@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, Long, FuncionarioRepository>
+public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String, FuncionarioRepository>
         implements FuncionarioService {
 
     @Autowired
@@ -32,9 +32,6 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, Long, F
 
     @Override
     public Funcionario incluir(Funcionario modelo) {
-        if (Objects.isNull(modelo.getPessoa().getCodigo())) {
-            modelo.setPessoa(pessoaService.incluir(modelo.getPessoa()));
-        }
         return super.incluir(modelo);
     }
 }

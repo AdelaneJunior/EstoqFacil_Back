@@ -22,9 +22,7 @@ public class Usuario extends BaseEntidade<Long> {
     public static final class Coluna {
         public static final String ID = "usuo_codigo";
         public static final String SENHA = "usuo_senha";
-        public static final String ID_FUNCIONARIO = "usuo_funcionario";
-
-        public static final String ID_PESSOA = "usuo_pessoa";
+        public static final String CPF_FUNCIONARIO = "usuo_funcionario";
 
     }
 
@@ -48,9 +46,8 @@ public class Usuario extends BaseEntidade<Long> {
     private String senha;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-
-    @JoinColumn(name = Coluna.ID_FUNCIONARIO, unique = true, nullable = false,
-            referencedColumnName = Funcionario.Coluna.ID,
+    @JoinColumn(name = Coluna.CPF_FUNCIONARIO, unique = true, nullable = false,
+            referencedColumnName = Funcionario.Coluna.CPF,
             foreignKey = @ForeignKey(name = "fk_usuario_funcionario"))
     private Funcionario funcionario;
 

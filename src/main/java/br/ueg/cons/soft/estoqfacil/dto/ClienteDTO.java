@@ -15,9 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ClienteDTO {
 
-    private Long codigo;
 
-    private Long cpf;
+    private String cpf;
 
     public String nome;
 

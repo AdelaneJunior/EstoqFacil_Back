@@ -10,8 +10,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {PessoaMapperImpl.class, CargoMapperImpl.class})
 public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDTO> {
 
-    @Mapping(source = "codigo", target = "codigo")
-    @Mapping(source = "codigo", target = "pessoa.codigo")
+    @Mapping(source = "cpf", target = "cpf")
     @Mapping(source = "cargoId", target = "cargo.codigo")
     @Mapping(source = "nome", target = "pessoa.nome")
     @Mapping(source = "telefone", target = "pessoa.telefone")
@@ -22,10 +21,10 @@ public interface FuncionarioMapper extends BaseMapper<Funcionario, FuncionarioDT
 
     @Mapping(source = "cargo.codigo", target = "cargoId")
     @Mapping(source = "cargo.nome", target = "cargoNome")
+    @Mapping(source = "cpf", target = "cpf")
     @Mapping(source = "pessoa.nome", target = "nome")
     @Mapping(source = "pessoa.telefone", target = "telefone")
     @Mapping(source = "pessoa.nascimento", target = "nascimento")
     @Mapping(source = "pessoa.email", target = "email")
-    @Mapping(source = "pessoa.cpf", target = "cpf")
     FuncionarioDTO toDTO(Funcionario funcionario);
 }

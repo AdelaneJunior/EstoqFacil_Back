@@ -17,7 +17,7 @@ public class UsuarioDTO{
 
     private String senha;
 
-    private Long funcionarioCodigo;
+    private String funcionarioCpf;
 
     private String funcionarioNome;
 

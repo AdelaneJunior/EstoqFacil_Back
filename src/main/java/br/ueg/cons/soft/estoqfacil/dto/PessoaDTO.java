@@ -15,8 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PessoaDTO {
 
-    public Long codigo;
-
     public String cpf;
 
     public String nome;

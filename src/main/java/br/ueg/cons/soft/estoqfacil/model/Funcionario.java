@@ -13,26 +13,26 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = Funcionario.NOME_TABELA)
-public class Funcionario extends BaseEntidade<Long> {
+public class Funcionario extends BaseEntidade<String> {
 
     public static final String NOME_TABELA = "funcionario";
 
     public static final class Coluna {
 
-        public static final String ID = "func_codigo";
+        public static final String CPF = "func_cpf";
 
         public static final String CARGO = "func_cargo";
 
     }
 
     @Id
-    @Column(name = Coluna.ID)
-    private Long codigo;
+    @Column(name = Coluna.CPF)
+    private String cpf;
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = Coluna.ID,
-            referencedColumnName = Pessoa.Coluna.ID,
+    @JoinColumn(name = Coluna.CPF,
+            referencedColumnName = Pessoa.Coluna.CPF,
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
     private Pessoa pessoa;
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PessoaServiceImpl extends BaseCrudService<Pessoa, Long, PessoaRepository>
+public class PessoaServiceImpl extends BaseCrudService<Pessoa, String, PessoaRepository>
         implements PessoaService {
 
 

@@ -15,13 +15,12 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Data
 @Entity
 @Table(name = Pessoa.NOME_TABELA)
-public class Pessoa extends BaseEntidade<Long> {
+public class Pessoa extends BaseEntidade<String> {
 
     public static final String NOME_TABELA = "pessoa";
 
     public static final class Coluna{
 
-        public static final String ID = "pess_codigo";
         public static final String NOME = "pess_nome";
         public static final String TELEFONE = "pess_telefone";
         public static final String EMAIL = "pess_email";
@@ -30,22 +29,7 @@ public class Pessoa extends BaseEntidade<Long> {
 
     }
 
-    @SequenceGenerator(
-            name = "a_gerador_sequence",
-            sequenceName = "pessoa_sequence",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "a_gerador_sequence"
-
-    )
-
     @Id
-    @Column(name = Coluna.ID)
-    private Long codigo;
-
     @Column(name = Coluna.CPF, nullable = false, length = 11, unique = true)
     private String cpf;
 

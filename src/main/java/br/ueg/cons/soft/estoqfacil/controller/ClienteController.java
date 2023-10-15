@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/cliente")
 public class ClienteController extends
-        CrudController<Cliente, ClienteDTO, Long, ClienteMapperImpl, ClienteServiceImpl> {
+        CrudController<Cliente, ClienteDTO, String, ClienteMapperImpl, ClienteServiceImpl> {
 
 }

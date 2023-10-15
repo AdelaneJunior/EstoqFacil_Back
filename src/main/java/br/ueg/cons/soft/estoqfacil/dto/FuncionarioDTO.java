@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FuncionarioDTO{
 
-    private Long codigo;
 
     public String cpf;
 

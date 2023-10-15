@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
 
-    @Mapping(source = "funcionario.codigo", target = "funcionarioCodigo")
+    @Mapping(source = "funcionario.cpf", target = "funcionarioCpf")
     @Mapping(source = "funcionario.pessoa.nome", target = "funcionarioNome")
     @Mapping(source = "funcionario.pessoa.email", target = "funcionarioEmail")
     @Mapping(source = "funcionario.cargo.codigo", target = "funcionarioCargo")
@@ -18,7 +18,7 @@ public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
     UsuarioDTO toDTO(Usuario usuario);
 
 
-    @Mapping(source = "funcionarioCodigo", target = "funcionario.codigo")
+    @Mapping(source = "funcionarioCpf", target = "funcionario.cpf")
     @Mapping(source = "permissoes", target = "funcionario.cargo.permissoes", ignore = true)
     Usuario toModelo(UsuarioDTO usuarioDTO);
 }

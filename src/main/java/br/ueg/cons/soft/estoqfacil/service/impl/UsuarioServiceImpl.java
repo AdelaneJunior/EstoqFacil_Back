@@ -40,16 +40,6 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     }
 
 
-    public Usuario incluir(Usuario usuario) {
-        String senha = usuario.getSenha();
-        this.validarCamposObrigatorios(usuario);
-        this.validarDados(usuario);
-        this.prepararParaIncluir(usuario);
-        usuario = repository.save(usuario);
-        usuario.setSenha(senha);
-        return usuario;
-    }
-
     public Usuario getUsuarioPorEmail(String usuarioEmail) {
 
         return repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get();

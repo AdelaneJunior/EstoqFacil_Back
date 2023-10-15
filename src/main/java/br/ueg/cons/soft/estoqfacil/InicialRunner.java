@@ -57,7 +57,6 @@ public class InicialRunner implements ApplicationRunner {
 
 
         Pessoa pessoaAdmin = new Pessoa(
-                0L,
                 "0000000",
                 "Ademiro",
                 "629999999",
@@ -97,9 +96,6 @@ public class InicialRunner implements ApplicationRunner {
 
         pessoaAdmin = pessoaRepository.save(pessoaAdmin);
 
-        pessoaAdmin = new Pessoa();
-        pessoaAdmin.setCodigo(1L);
-
         Funcionario funcionarioAdmin = new Funcionario();
 
         funcionarioAdmin.setPessoa(pessoaAdmin);
@@ -109,9 +105,9 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println("Funcionarios mostrando as pemissoes" + funcionarioService.listarTodos());
 
-        Cliente cliente = Cliente.builder()
-                .pessoa(pessoaRepository.findById(1L).orElseThrow(  ))
-                .build();
+        Cliente cliente = new Cliente();
+
+        cliente.setPessoa(pessoaAdmin);
 
         cliente = clienteService.incluir(cliente);
 
