@@ -18,13 +18,6 @@ import java.io.IOException;
 @Service
 public class ImagemServiceImpl extends BaseCrudService<Imagem, Long, ImagemRepository> implements ImagemService {
 
-    @Autowired
-    private ImagemRepository repository;
-
-    private final String CAMINHO_PASTA =
-            "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-Front\\assets"; //caminho para a pasta assests do front ou local onde será guardado as imagens
-    private final String PATH_REFERENCE = "assets"; // referencia para encotro no front de forma mais facil
-
     @Override
     protected void prepararParaIncluir(Imagem entidade) {
 
@@ -38,26 +31,5 @@ public class ImagemServiceImpl extends BaseCrudService<Imagem, Long, ImagemRepos
     @Override
     protected void validarCamposObrigatorios(Imagem entidade) {
 
-    }
-
-    public Long incluir(MultipartFile imagemASalvar) throws IOException {
-
-        String caminhoArquivo = CAMINHO_PASTA + "\\" + imagemASalvar.getOriginalFilename();
-        String pathReference = PATH_REFERENCE + "/" + imagemASalvar.getOriginalFilename();
-
-        try {
-            Imagem imagem = this.repository.save(Imagem.builder()
-                    .nome(imagemASalvar.getOriginalFilename())
-                    .tipo(imagemASalvar.getContentType())
-                    .pathAbsolute(caminhoArquivo)
-                    .pathReference(pathReference)
-                    .build());
-
-            imagemASalvar.transferTo(new File(caminhoArquivo));
-
-            return imagem.getId();
-        } catch (DataIntegrityViolationException | ConstraintViolationException var3) {
-            throw new BusinessException(ApiMessageCode.ERRO_BD, new Object[]{var3.getMessage()});
-        }
     }
 }

@@ -19,7 +19,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("select p from Produto p " +
             "inner join fetch  p.categoria c " +
             "inner join fetch p.usuario u " +
-            "inner join fetch p.imagem i " +
             "where p.codigo = :codigo")
     Optional<Produto> findByIdFetchTudo(@Param("codigo")Long codigo);
 }

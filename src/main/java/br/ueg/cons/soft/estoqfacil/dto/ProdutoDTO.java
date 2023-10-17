@@ -27,8 +27,6 @@ public class ProdutoDTO {
 
     private Long imagemId;
 
-    private String imagemPathReference;
-
     private Long categoriaId;
 
     private Long usuarioId;

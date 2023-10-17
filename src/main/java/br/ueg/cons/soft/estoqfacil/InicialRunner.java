@@ -10,6 +10,8 @@ import br.ueg.cons.soft.estoqfacil.repository.CargoRepository;
 import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
+import br.ueg.cons.soft.estoqfacil.util.EmailSender;
+import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,15 +50,22 @@ public class InicialRunner implements ApplicationRunner {
     @Autowired
     private ProdutoController produtoController;
     @Autowired
-    private ImagemRepository imagemRepository;
+    private ImagemServiceImpl imagemService;
     @Autowired
     private MovimentacaoServiceImpl movimentacaoService;
     @Autowired
     private MovimentacaoController movimentacaoController;
     @Autowired
     private CargoRepository cargoRepository;
+    @Autowired
+    private PdfCreator creator;
 
-    public void initDados() {
+    // mudar de acordo com o caminho do seu projeto
+    private final String ORIGEM = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos";
+
+    public void initDados() throws IOException {
+
+        List<ProdutoDTO> produtoDTOList = new ArrayList<>();
 
 
         Pessoa pessoaAdmin = new Pessoa(
@@ -131,17 +143,12 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(categoria);
 
-        Imagem imagem = new Imagem();
-        imagem.setTipo("image/jpeg");
-        imagem.setPathReference("C:\\");
-        imagem.setNome("elden.jpg");
-        imagem.setPathAbsolute("C:\\");
+        byte[] bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_13.png"));
 
-        try {
-            imagem = imagemRepository.save(imagem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Imagem imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
 
         Produto produto = Produto.builder()
                 .nome("Iphone 13")
@@ -151,13 +158,42 @@ public class InicialRunner implements ApplicationRunner {
                 .custo(25.50)
                 .categoria(categoria)
                 .usuario(usuario)
-                .imagem(imagem)
+                .imagem_id(imagem.getId())
                 .descricao("Um delular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
 
-        ProdutoDTO produtoDTO = produtoController.ObterPorId(1L).getBody();
+        ProdutoDTO produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+
+        produtoDTOList.add(produtoDTO);
+
+        System.out.println(produtoDTO);
+
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
+
+        imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
+
+        produto = Produto.builder()
+                .nome("Iphone 15")
+                .marca("Apple")
+                .preco(15500.00)
+                .quantidade(10L)
+                .custo(30.50)
+                .categoria(categoria)
+                .usuario(usuario)
+                .imagem_id(imagem.getId())
+                .descricao("Um celular caro")
+                .build();
+
+        produto = produtoService.incluir(produto);
+
+        produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+
+        produtoDTOList.add(produtoDTO);
 
         System.out.println(produtoDTO);
 
@@ -176,18 +212,18 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(movimentacaoDTO);
 
-
+        assert produtoDTO != null;
+        creator.criaPdf(produtoDTOList);
+//        EmailSender.enviaEmail(""); colocar de acordo com o seu e-mail para o devido teste
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
 
         try {
             this.initDados();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

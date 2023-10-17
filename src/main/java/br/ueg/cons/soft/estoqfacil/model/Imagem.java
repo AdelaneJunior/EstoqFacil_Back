@@ -22,11 +22,8 @@ public class Imagem extends BaseEntidade<Long> {
     public static final class COLUNA {
 
         public static final String ID = "imag_codigo";
-        public static final String PATH_ABSOLUTE = "imag_path_absolute";
-        public static final String PATH_REFERENCE = "imag_path_reference";
-        public static final String NOME = "imag_nome";
-        public static final String TIPO = "imag_tipo";
 
+        public static final String BLOB = "imag_blob";
 
     }
 
@@ -41,20 +38,11 @@ public class Imagem extends BaseEntidade<Long> {
     )
 
     @Id
-    @Column(name = COLUNA.ID, nullable = false)
-    private Long codigo;
+    @Column(name = COLUNA.ID)
+    private Long id;
 
-    @Column(name = COLUNA.NOME, nullable = false)
-    private String nome;
-
-    @Column(name = COLUNA.TIPO, nullable = false)
-    private String tipo;
-
-    @Column(name = COLUNA.PATH_ABSOLUTE, nullable = false)
-    private String pathAbsolute;
-
-    @Column(name = COLUNA.PATH_REFERENCE, nullable = false)
-    private String pathReference;
-
+    @Lob
+    @Column(name = COLUNA.BLOB)
+    private byte[] blob;
 }
 

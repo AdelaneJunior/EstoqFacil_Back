@@ -7,18 +7,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring", uses = ImagemMapperImpl.class)
+@Mapper(componentModel = "spring")
 public interface ProdutoMapper extends BaseMapper<Produto, ProdutoDTO> {
 
 
-    @Mapping(source = "imagem.id", target = "imagemId")
-    @Mapping(source = "imagem.pathReference", target = "imagemPathReference")
+    @Mapping(source = "imagem_id", target = "imagemId")
     @Mapping(source = "categoria.codigo", target = "categoriaId")
     @Mapping(source = "usuario.codigo", target = "usuarioId")
     ProdutoDTO toDTO(Produto produto);
 
-    @Mapping(source = "imagemId", target = "imagem.codigo")
-    @Mapping(source = "imagemPathReference", target = "imagem.pathReference")
+    @Mapping(source = "imagemId", target = "imagem_id")
     @Mapping(source = "categoriaId", target = "categoria.codigo")
     @Mapping(source = "usuarioId", target = "usuario.codigo")
     Produto toModelo(ProdutoDTO produtoDTO);

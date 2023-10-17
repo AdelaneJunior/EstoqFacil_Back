@@ -67,11 +67,8 @@ public class Produto extends BaseEntidade<Long> {
             foreignKey = @ForeignKey(name = "fk_produto_usuario"))
     private Usuario usuario;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = Produto.Coluna.ID_IMAGEM, nullable = false,
-            referencedColumnName = Imagem.COLUNA.ID,
-            foreignKey = @ForeignKey(name = "fk_produto_imagem"))
-    private Imagem imagem;
+    @Column(name = Coluna.ID_IMAGEM, nullable = false)
+    private long imagem_id;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     private String nome;
