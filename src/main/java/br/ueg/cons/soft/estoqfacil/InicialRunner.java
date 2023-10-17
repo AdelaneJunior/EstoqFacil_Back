@@ -212,14 +212,12 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(movimentacaoDTO);
 
-        assert produtoDTO != null;
         creator.criaPdf(produtoDTOList);
 //        EmailSender.enviaEmail(""); colocar de acordo com o seu e-mail para o devido teste
     }
 
     @Override
     public void run(ApplicationArguments args) {
-
         try {
             this.initDados();
         } catch (Exception e) {
