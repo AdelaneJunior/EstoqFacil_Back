@@ -13,11 +13,13 @@ public interface ProdutoMapper extends BaseMapper<Produto, ProdutoDTO> {
 
     @Mapping(source = "imagem_id", target = "imagemId")
     @Mapping(source = "categoria.codigo", target = "categoriaId")
+    @Mapping(source = "categoria.nome", target = "categoriaNome")
     @Mapping(source = "usuario.codigo", target = "usuarioId")
     ProdutoDTO toDTO(Produto produto);
 
     @Mapping(source = "imagemId", target = "imagem_id")
     @Mapping(source = "categoriaId", target = "categoria.codigo")
+    @Mapping(source = "categoriaNome", target = "categoria.nome")
     @Mapping(source = "usuarioId", target = "usuario.codigo")
     Produto toModelo(ProdutoDTO produtoDTO);
 }

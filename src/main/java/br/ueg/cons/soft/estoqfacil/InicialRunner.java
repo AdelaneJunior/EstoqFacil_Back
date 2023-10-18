@@ -136,8 +136,8 @@ public class InicialRunner implements ApplicationRunner {
 
         Categoria categoria = new Categoria();
         categoria.setUsuario(usuario);
-        categoria.setNome("Computadores");
-        categoria.setDescricao("Categoria de computadores");
+        categoria.setNome("Celulares");
+        categoria.setDescricao("Categoria de celulares");
 
         categoria = categoriaService.incluir(categoria);
 

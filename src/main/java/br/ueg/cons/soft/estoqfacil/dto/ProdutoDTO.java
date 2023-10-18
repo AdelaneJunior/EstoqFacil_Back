@@ -29,5 +29,7 @@ public class ProdutoDTO {
 
     private Long categoriaId;
 
+    private String categoriaNome;
+
     private Long usuarioId;
 }
