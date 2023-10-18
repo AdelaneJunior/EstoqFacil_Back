@@ -4,4 +4,5 @@ import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.prog.webi.api.service.CrudService;
 
 public interface ProdutoService extends CrudService<Produto,Long> {
+
 }

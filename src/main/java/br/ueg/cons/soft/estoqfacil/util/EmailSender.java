@@ -42,13 +42,10 @@ public class EmailSender {
         return email;
     }
 
-    public static void enviaEmail(String destinatario){
+    public static void enviaEmail(String destinatario) throws EmailException{
         MultiPartEmail email = setEmail(destinatario);
         email = anexaPdf(email);
-        try {
-            email.send();
-        } catch (EmailException e) {
-            throw new RuntimeException(e);
-        }
+        email.send();
+
     }
 }

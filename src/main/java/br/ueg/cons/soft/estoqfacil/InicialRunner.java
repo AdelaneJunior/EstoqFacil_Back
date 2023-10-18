@@ -178,7 +178,7 @@ public class InicialRunner implements ApplicationRunner {
         imagem =  this.imagemService.incluir(imagem);
 
         produto = Produto.builder()
-                .nome("Iphone 15")
+                .nome("Iphone 15 Pro Max")
                 .marca("Apple")
                 .preco(15500.00)
                 .quantidade(10L)
