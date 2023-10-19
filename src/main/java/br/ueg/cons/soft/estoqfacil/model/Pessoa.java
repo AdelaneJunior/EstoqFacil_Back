@@ -30,7 +30,7 @@ public class Pessoa extends BaseEntidade<String> {
     }
 
     @Id
-    @Column(name = Coluna.CPF, nullable = false, length = 11, unique = true)
+    @Column(name = Coluna.CPF, nullable = false, length = 11, updatable = false)
     private String cpf;
 
     @Column(name = Coluna.NOME, nullable = false, length = 200)

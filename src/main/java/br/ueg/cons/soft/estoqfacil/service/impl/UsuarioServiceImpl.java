@@ -48,9 +48,10 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
     public UsuarioDTO getUsuarioDTOPorEmail(String usuarioEmail) {
 
-        Usuario usuario = repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).get();
+        Usuario usuario = repository.findUsuarioByFuncionario_Pessoa_Email(usuarioEmail).orElseThrow();
 
         UsuarioDTO usuarioDTO = usuarioMapper.toDTO(usuario);
+        usuarioDTO.setSenha(usuario.getSenha());
 
         List<String> permissaoList = new ArrayList<>();
 

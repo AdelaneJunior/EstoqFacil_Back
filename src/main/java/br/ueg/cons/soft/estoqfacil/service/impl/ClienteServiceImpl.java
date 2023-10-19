@@ -31,7 +31,7 @@ public class ClienteServiceImpl extends BaseCrudService<Cliente, String, Cliente
     }
 
     @Override
-    public Cliente incluir(Cliente modelo) {
-        return super.incluir(modelo);
+    public Cliente alterar(Cliente entidade, String id) {
+        return super.alterar(entidade, id);
     }
 }

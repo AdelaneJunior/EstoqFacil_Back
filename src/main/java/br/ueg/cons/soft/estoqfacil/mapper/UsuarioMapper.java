@@ -15,6 +15,7 @@ public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
     @Mapping(source = "funcionario.pessoa.email", target = "funcionarioEmail")
     @Mapping(source = "funcionario.cargo.codigo", target = "funcionarioCargo")
     @Mapping(target = "permissoes", ignore = true)
+    @Mapping(target = "senha", ignore = true)
     UsuarioDTO toDTO(Usuario usuario);
 
 

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Data
 @Entity
 @Table(name = Cliente.NOME_TABELA)
@@ -34,4 +36,15 @@ public class Cliente extends BaseEntidade<String> {
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))
     private Pessoa pessoa;
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+        if(Objects.isNull(this.getPessoa())){
+            this.setPessoa(Pessoa.builder().build());
+        }
+        this.getPessoa().setCpf(cpf);
+    }
 }

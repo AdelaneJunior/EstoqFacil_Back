@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,4 +43,16 @@ public class Funcionario extends BaseEntidade<String> {
             referencedColumnName = Cargo.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_funcionario_cargo"))
     private Cargo cargo;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+        if(Objects.isNull(this.getPessoa())){
+            this.setPessoa(Pessoa.builder().build());
+        }
+        this.getPessoa().setCpf(cpf);
+    }
 }
