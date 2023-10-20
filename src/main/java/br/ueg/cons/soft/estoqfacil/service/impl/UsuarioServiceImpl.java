@@ -23,15 +23,14 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     @Override
     protected void prepararParaIncluir(Usuario usuario) {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String senhaCodificada = bCryptPasswordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCodificada);
-
     }
 
     @Override
-    protected void validarDados(Usuario entidade) {
+    protected void validarDados(Usuario usuario) {
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String senhaCodificada = bCryptPasswordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCodificada);
     }
 
     @Override
@@ -69,4 +68,5 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
+
 }
