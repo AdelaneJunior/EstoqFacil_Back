@@ -11,6 +11,7 @@ import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
 import br.ueg.cons.soft.estoqfacil.util.EmailSender;
+import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
 import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -61,7 +62,7 @@ public class InicialRunner implements ApplicationRunner {
     private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos";
 
     public void initDados() throws IOException {
 
@@ -214,6 +215,9 @@ public class InicialRunner implements ApplicationRunner {
 
         creator.criaPdf(produtoDTOList);
 //        EmailSender.enviaEmail(""); colocar de acordo com o seu e-mail para o devido teste
+
+        //Basta passar a lista de produtoDTO
+        JasperGeneretor.gerarPdf(produtoDTOList);
     }
 
     @Override
