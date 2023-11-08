@@ -2,7 +2,7 @@ package br.ueg.cons.soft.estoqfacil.controller;
 
 import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
-import br.ueg.cons.soft.estoqfacil.mapper.ProdutoMapperImpl;
+import br.ueg.cons.soft.estoqfacil.mapper.impl.ProdutoMapperImpl;
 import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.service.impl.ProdutoServiceImpl;
 import br.ueg.prog.webi.api.controller.CrudController;

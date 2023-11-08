@@ -1,18 +1,17 @@
 package br.ueg.cons.soft.estoqfacil;
 
+import br.ueg.cons.soft.estoqfacil.controller.ImagemController;
 import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
 import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
-import br.ueg.cons.soft.estoqfacil.repository.CargoRepository;
-import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
-import br.ueg.cons.soft.estoqfacil.util.EmailSender;
 import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
 import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
+import com.itextpdf.text.BadElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -20,12 +19,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -57,14 +58,14 @@ public class InicialRunner implements ApplicationRunner {
     @Autowired
     private MovimentacaoController movimentacaoController;
     @Autowired
-    private CargoRepository cargoRepository;
+    private ImagemController imagemController;
     @Autowired
     private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos";
+    private final String ORIGEM = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos";
 
-    public void initDados() throws IOException {
+    public void initDados() throws IOException, BadElementException {
 
         List<ProdutoDTO> produtoDTOList = new ArrayList<>();
 
@@ -160,7 +161,7 @@ public class InicialRunner implements ApplicationRunner {
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagem_id(imagem.getId())
-                .descricao("Um delular caro")
+                .descricao("Um celular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
@@ -168,8 +169,6 @@ public class InicialRunner implements ApplicationRunner {
         ProdutoDTO produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
-
-        System.out.println(produtoDTO);
 
         bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
 
@@ -187,7 +186,7 @@ public class InicialRunner implements ApplicationRunner {
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagem_id(imagem.getId())
-                .descricao("Um celular caro")
+                .descricao("Outro celular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
@@ -195,8 +194,6 @@ public class InicialRunner implements ApplicationRunner {
         produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
-
-        System.out.println(produtoDTO);
 
         Movimentacao movimentacao = Movimentacao.builder()
                 .usuario(usuario)
