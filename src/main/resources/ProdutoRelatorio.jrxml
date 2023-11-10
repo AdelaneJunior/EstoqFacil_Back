@@ -55,7 +55,7 @@
 				</staticText>
 				<image>
 					<reportElement x="30" y="21" width="90" height="40" uuid="4075d53b-be11-43a4-aefa-e0e19c9ae091"/>
-					<imageExpression><![CDATA["C:/Portable20231/workspace/EstoqFacil-Front/src/app/core/home/Logo.png"]]></imageExpression>
+					<imageExpression><![CDATA["C:/Users/Delane Jr/Documents/Facul/6ºSemestre/EstoqFacil_Geral/EstoqFacil-Front/src/app/core/home/Logo.png"]]></imageExpression>
 				</image>
 			</frame>
 		</band>

@@ -3,14 +3,13 @@ package br.ueg.cons.soft.estoqfacil;
 import br.ueg.cons.soft.estoqfacil.controller.ImagemController;
 import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
 import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
+import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
-import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
-import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
 import com.itextpdf.text.BadElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -21,12 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -59,11 +56,9 @@ public class InicialRunner implements ApplicationRunner {
     private MovimentacaoController movimentacaoController;
     @Autowired
     private ImagemController imagemController;
-    @Autowired
-    private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos";
 
     public void initDados() throws IOException, BadElementException {
 
@@ -160,7 +155,7 @@ public class InicialRunner implements ApplicationRunner {
                 .custo(25.50)
                 .categoria(categoria)
                 .usuario(usuario)
-                .imagem_id(imagem.getId())
+                .imagemId(imagem.getId())
                 .descricao("Um celular caro")
                 .build();
 
@@ -185,7 +180,7 @@ public class InicialRunner implements ApplicationRunner {
                 .custo(30.50)
                 .categoria(categoria)
                 .usuario(usuario)
-                .imagem_id(imagem.getId())
+                .imagemId(imagem.getId())
                 .descricao("Outro celular caro")
                 .build();
 
@@ -210,11 +205,14 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(movimentacaoDTO);
 
-        creator.criaPdf(produtoDTOList);
-//        EmailSender.enviaEmail(""); colocar de acordo com o seu e-mail para o devido teste
 
-        //Basta passar a lista de produtoDTO
-        JasperGeneretor.gerarPdf(produtoDTOList);
+//        EnviaEmailDTO envio = EnviaEmailDTO.builder()
+//                .email("")
+//                .listaProdutos(produtoDTOList)
+//                .build();
+//        produtoController.enviaEmail(envio);
+
+        System.out.println("Fim da inicialização");
     }
 
     @Override

@@ -9,7 +9,7 @@ public class EmailSender {
 
     private static final String REMETENTE = "ademirodostestes@gmail.com"; //email de testes
     private static final String SENHA = "drva pvud kekk uapp"; //senha de app do google
-    private static final String PATH = "listaProdutos.pdf"; //com esse caminho o pdf é salvo dentro do projeto
+    private static final String PATH = "src\\fotos\\Lista_Produtos.pdf"; //com esse caminho o pdf é salvo dentro do projeto
 
 
     private static MultiPartEmail setEmail(String destinatario){

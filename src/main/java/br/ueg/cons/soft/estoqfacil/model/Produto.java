@@ -68,7 +68,7 @@ public class Produto extends BaseEntidade<Long> {
     private Usuario usuario;
 
     @Column(name = Coluna.ID_IMAGEM, nullable = false)
-    private long imagem_id;
+    private Long imagemId;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     private String nome;
@@ -87,5 +87,4 @@ public class Produto extends BaseEntidade<Long> {
 
     @Column(name = Produto.Coluna.CUSTO, nullable = false)
     private Double custo;
-
 }

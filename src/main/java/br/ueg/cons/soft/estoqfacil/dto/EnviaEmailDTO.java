@@ -1,8 +1,13 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import java.util.List;
 
+@Builder
+@Getter
 public class EnviaEmailDTO {
-    public String email;
-    public List<ProdutoDTO> listaProdutos;
+    private String email;
+    private List<ProdutoDTO> listaProdutos;
 }

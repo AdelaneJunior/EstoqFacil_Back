@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class JasperGeneretor {
 
     public static void gerarPdf(List<ProdutoDTO> listaProduto) {
         try {
             //CAMINHO ABSOLUTO DE ONDE ESTA O ARQUIVO .JRXML(RELATORIO FEITO NO JASPER)
-            String filePath = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\main\\resources\\ProdutoRelatorio.jrxml";
+            String filePath = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\main\\resources\\ProdutoRelatorio.jrxml";
 
             Map<String, Object> parametros = new HashMap<String, Object>();
 
@@ -28,7 +29,7 @@ public class JasperGeneretor {
             JasperPrint print = JasperFillManager.fillReport(report, parametros, dataSource);
 
             //CAMINHO ONDE SERÁ SALVO O PDF (por enquanto deixando na pasta fotos)
-            JasperExportManager.exportReportToPdfFile(print, "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos\\Teste.pdf");
+            JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos\\Lista_Produtos.pdf");
             System.out.println("Gerando pdf");
 
         } catch (Exception e) {
