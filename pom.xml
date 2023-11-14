@@ -148,7 +148,7 @@
 		<!-- Arquitetura de Prog Web-->
 		<dependency>
 			<groupId>br.ueg.prog.webi</groupId>
-			<artifactId>aquitetura</artifactId>
+			<artifactId>arquitetura</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
