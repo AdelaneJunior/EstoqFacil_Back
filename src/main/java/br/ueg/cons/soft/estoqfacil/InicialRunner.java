@@ -69,7 +69,7 @@ public class InicialRunner implements ApplicationRunner {
                 "0000000",
                 "Ademiro",
                 "629999999",
-                "admin@gmail.com",
+                "admin@gmail.com.br",
                 LocalDate.now()
 
         );
