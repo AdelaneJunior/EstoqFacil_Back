@@ -1,6 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,11 +30,17 @@ public class Movimentacao extends BaseEntidade<Long> {
 
         public static final String DATA_MOVIMENTACAO = "movt_data";
 
-        public static final String QUANTIDADE = "prod_quantidade";
+        public static final String QUANTIDADE = "movt_quantidade";
 
         public static final String ACAO = "movt_acao";
 
+        public static final String TIPO = "movt_tipo";
+
         public static final String OBSERVACAO = "movt_obersavacao";
+
+        public static final String PRECO = "movt_preco_venda";
+
+        public static final String CUSTO = "movt_custo_aquisicao";
     }
 
     public static final class Atributo {
@@ -78,7 +85,16 @@ public class Movimentacao extends BaseEntidade<Long> {
     @Column(name = Coluna.ACAO, nullable = false)
     private AcaoMovimentacao acao;
 
+    @Column(name = Coluna.TIPO, nullable = false)
+    private TipoMovimentacao tipo;
+
     @Column(name = Coluna.OBSERVACAO, nullable = false)
     private String observacao;
+
+    @Column(name = Coluna.PRECO, nullable = false)
+    private Double preco;
+
+    @Column(name = Coluna.CUSTO, nullable = false)
+    private Double custo;
 
 }

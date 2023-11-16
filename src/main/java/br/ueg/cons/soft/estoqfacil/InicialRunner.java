@@ -1,16 +1,18 @@
 package br.ueg.cons.soft.estoqfacil;
 
-import br.ueg.cons.soft.estoqfacil.controller.ImagemController;
 import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
 import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
-import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
+import br.ueg.cons.soft.estoqfacil.repository.CargoRepository;
+import br.ueg.cons.soft.estoqfacil.repository.ImagemRepository;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
-import com.itextpdf.text.BadElementException;
+import br.ueg.cons.soft.estoqfacil.util.EmailSender;
+import br.ueg.cons.soft.estoqfacil.util.PdfCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -18,12 +20,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -55,12 +57,14 @@ public class InicialRunner implements ApplicationRunner {
     @Autowired
     private MovimentacaoController movimentacaoController;
     @Autowired
-    private ImagemController imagemController;
+    private CargoRepository cargoRepository;
+    @Autowired
+    private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Der Junge\\Documents\\GitHub\\EstoqFacil_BackEnd\\src\\fotos";
 
-    public void initDados() throws IOException, BadElementException {
+    public void initDados() throws IOException {
 
         List<ProdutoDTO> produtoDTOList = new ArrayList<>();
 
@@ -69,7 +73,7 @@ public class InicialRunner implements ApplicationRunner {
                 "0000000",
                 "Ademiro",
                 "629999999",
-                "admin@gmail.com.br",
+                "admin@gmail.com",
                 LocalDate.now()
 
         );
@@ -150,20 +154,20 @@ public class InicialRunner implements ApplicationRunner {
         Produto produto = Produto.builder()
                 .nome("Iphone 13")
                 .marca("Apple")
-                .preco(8500.00)
-                .quantidade(16L)
-                .custo(25.50)
+                .codigoBarras(17125896)
                 .categoria(categoria)
                 .usuario(usuario)
-                .imagemId(imagem.getId())
-                .descricao("Um celular caro")
+                .imagem_id(imagem.getId())
+                .descricao("Um delular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
 
-        ProdutoDTO produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+        ProdutoDTO produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
+
+        System.out.println(produtoDTO);
 
         bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
 
@@ -175,44 +179,44 @@ public class InicialRunner implements ApplicationRunner {
         produto = Produto.builder()
                 .nome("Iphone 15 Pro Max")
                 .marca("Apple")
-                .preco(15500.00)
-                .quantidade(10L)
-                .custo(30.50)
                 .categoria(categoria)
                 .usuario(usuario)
-                .imagemId(imagem.getId())
-                .descricao("Outro celular caro")
+                .codigoBarras(11125896)
+                .imagem_id(imagem.getId())
+                .descricao("Um celular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
 
-        produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
+
+        System.out.println(produtoDTO);
 
         Movimentacao movimentacao = Movimentacao.builder()
                 .usuario(usuario)
                 .produto(produto)
                 .quantidade(16L)
+                .preco(15500.00)
+                .quantidade(10L)
+                .custo(30.50)
                 .data(LocalDate.now())
                 .observacao("Adicionado para testes")
                 .acao(AcaoMovimentacao.COMPRA)
+                .tipo(TipoMovimentacao.ENTRADA)
                 .build();
 
         movimentacao = movimentacaoService.incluir(movimentacao);
 
-        MovimentacaoDTO movimentacaoDTO = movimentacaoController.ObterPorId(1L).getBody();
+        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
 
         System.out.println(movimentacaoDTO);
 
+        creator.criaPdf(produtoDTOList);
+//        EmailSender.enviaEmail(""); colocar de acordo com o seu e-mail para o devido teste
 
-//        EnviaEmailDTO envio = EnviaEmailDTO.builder()
-//                .email("")
-//                .listaProdutos(produtoDTOList)
-//                .build();
-//        produtoController.enviaEmail(envio);
 
-        System.out.println("Fim da inicialização");
     }
 
     @Override
