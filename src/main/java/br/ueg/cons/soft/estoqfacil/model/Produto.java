@@ -4,6 +4,8 @@ import br.ueg.prog.webi.api.model.BaseEntidade;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
@@ -80,11 +82,11 @@ public class Produto extends BaseEntidade<Long> {
     private Long quantidade;
 
     @Column(name = Produto.Coluna.PRECO, nullable = false)
-    private Double preco;
+    private BigDecimal preco;
 
     @Column(name = Produto.Coluna.MARCA, nullable = false)
     private String marca;
 
     @Column(name = Produto.Coluna.CUSTO, nullable = false)
-    private Double custo;
+    private BigDecimal custo;
 }

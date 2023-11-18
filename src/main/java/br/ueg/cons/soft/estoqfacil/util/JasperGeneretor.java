@@ -1,11 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.util;
 
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
-import br.ueg.cons.soft.estoqfacil.service.ImagemService;
-import br.ueg.cons.soft.estoqfacil.service.impl.ImagemServiceImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -15,16 +12,20 @@ import java.util.Map;
 @Component
 public class JasperGeneretor {
 
-    public static void gerarPdf(List<ProdutoDTO> listaProduto) {
+    //CAMINHO ABSOLUTO DE ONDE ESTA O ARQUIVO .JRXML(RELATORIO FEITO NO JASPER)
+    public static final String JASPER_PRODUTO = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\main\\resources\\ProdutoRelatorio.jrxml";
+    public static final String JASPER_PRODUTO_PROMOCAO = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\main\\resources\\ProdutoPromocaoRelatorio.jrxml";
+
+    public static void gerarPdfProduto(List<ProdutoDTO> listaProduto, Boolean promocao) {
         try {
-            //CAMINHO ABSOLUTO DE ONDE ESTA O ARQUIVO .JRXML(RELATORIO FEITO NO JASPER)
-            String filePath = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\main\\resources\\ProdutoRelatorio.jrxml";
+
+            String caminhoJasper = promocao ? JASPER_PRODUTO_PROMOCAO : JASPER_PRODUTO;
 
             Map<String, Object> parametros = new HashMap<String, Object>();
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaProduto);
 
-            JasperReport report = JasperCompileManager.compileReport(filePath);
+            JasperReport report = JasperCompileManager.compileReport(caminhoJasper);
 
             JasperPrint print = JasperFillManager.fillReport(report, parametros, dataSource);
 
@@ -36,4 +37,6 @@ public class JasperGeneretor {
             System.out.println(e);
         }
     }
+
+
 }

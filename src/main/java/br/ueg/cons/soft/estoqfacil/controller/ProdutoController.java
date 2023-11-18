@@ -47,7 +47,7 @@ public class ProdutoController extends
                     )}
             )}
     )
-    public boolean enviaEmail(@RequestBody EnviaEmailDTO enviaEmail) {
-        return this.service.enviaLista(enviaEmail.getEmail(), enviaEmail.getListaProdutos());
+    public boolean enviaEmailComPdf(@RequestBody EnviaEmailDTO enviaEmail) {
+        return this.service.enviaEmailComPdf(enviaEmail);
     }
 }

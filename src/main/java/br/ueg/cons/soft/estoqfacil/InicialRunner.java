@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -58,7 +59,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil-BackEnd\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
 
     public void initDados() throws IOException, BadElementException {
 
@@ -69,7 +70,7 @@ public class InicialRunner implements ApplicationRunner {
                 "0000000",
                 "Ademiro",
                 "629999999",
-                "admin@gmail.com.br",
+                "admin@gmail.com",
                 LocalDate.now()
 
         );
@@ -150,9 +151,9 @@ public class InicialRunner implements ApplicationRunner {
         Produto produto = Produto.builder()
                 .nome("Iphone 13")
                 .marca("Apple")
-                .preco(8500.00)
+                .preco(BigDecimal.valueOf(8500.00))
                 .quantidade(16L)
-                .custo(25.50)
+                .custo(BigDecimal.valueOf(25.50))
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagemId(imagem.getId())
@@ -161,7 +162,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produto = produtoService.incluir(produto);
 
-        ProdutoDTO produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+        ProdutoDTO produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
 
@@ -175,9 +176,9 @@ public class InicialRunner implements ApplicationRunner {
         produto = Produto.builder()
                 .nome("Iphone 15 Pro Max")
                 .marca("Apple")
-                .preco(15500.00)
+                .preco(BigDecimal.valueOf(15500.00))
                 .quantidade(10L)
-                .custo(30.50)
+                .custo(BigDecimal.valueOf(30.50))
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagemId(imagem.getId())
@@ -186,7 +187,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produto = produtoService.incluir(produto);
 
-        produtoDTO = produtoController.ObterPorId(produto.getCodigo()).getBody();
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
 
@@ -201,7 +202,7 @@ public class InicialRunner implements ApplicationRunner {
 
         movimentacao = movimentacaoService.incluir(movimentacao);
 
-        MovimentacaoDTO movimentacaoDTO = movimentacaoController.ObterPorId(1L).getBody();
+        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
 
         System.out.println(movimentacaoDTO);
 
