@@ -70,4 +70,12 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         });*/
         return produtos;
     }
+
+    @Override
+    public Produto incluir(Produto modelo) {
+        Produto novo = super.incluir(modelo);
+
+
+        return novo;
+    }
 }

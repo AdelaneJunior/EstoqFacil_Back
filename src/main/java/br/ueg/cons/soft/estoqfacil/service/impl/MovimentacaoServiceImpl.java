@@ -20,15 +20,7 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void prepararParaIncluir(Movimentacao entidade) {
-            if (entidade.getAcao().equals(AcaoMovimentacao.VENDA.getId()) ||
-                    entidade.getAcao().equals(AcaoMovimentacao.DEVOLUCAO_AO_FORNECEDOR.getId()) ||
-                    entidade.getAcao().equals((AcaoMovimentacao.PRODUTO_QUEBRADO.getId()))
-                    ) {
-                entidade.setTipo(TipoMovimentacao.SAIDA);
-            } else if (entidade.getAcao().equals(AcaoMovimentacao.DEVOLUCAO_DO_CLIENTE.getId()) ||
-                        entidade.getAcao().equals(AcaoMovimentacao.COMPRA.getId())) {
-                entidade.setTipo(TipoMovimentacao.ENTRADA);
-            }
+        entidade.setTipo(entidade.getAcao().getTipoMovimentacao());
     }
 
     @Override
