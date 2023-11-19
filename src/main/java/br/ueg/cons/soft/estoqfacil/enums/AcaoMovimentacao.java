@@ -5,8 +5,8 @@ import java.util.Arrays;
 public enum AcaoMovimentacao {
 
     VENDA("V", "Venda",TipoMovimentacao.SAIDA),
-    COMPRA("C", "Compra", TipoMovimentacao.SAIDA),
-    DEVOLUCAO_DO_CLIENTE("DC", "Devolução do Cliente", TipoMovimentacao.SAIDA),
+    COMPRA("C", "Compra", TipoMovimentacao.ENTRADA),
+    DEVOLUCAO_DO_CLIENTE("DC", "Devolução do Cliente", TipoMovimentacao.ENTRADA),
 
     DEVOLUCAO_AO_FORNECEDOR("DF", "Devolução ao fornecedor", TipoMovimentacao.SAIDA),
     PRODUTO_QUEBRADO("PQ", "Produto Quebrado", TipoMovimentacao.SAIDA);
@@ -22,7 +22,7 @@ public enum AcaoMovimentacao {
      *
      * @param id        -
      * @param descricao -
-     * @param saida
+     * @param tipo
      */
     AcaoMovimentacao(final String id, final String descricao, final TipoMovimentacao tipo) {
         this.id = id;

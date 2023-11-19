@@ -62,7 +62,7 @@ public class InicialRunner implements ApplicationRunner {
     private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\xampp\\cold\\EstoqFacil_Back-produtoXmovimentacao\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Der Junge\\Documents\\GitHub\\EstoqFacil_Back\\src\\fotos";
 
     public void initDados() throws IOException {
 
