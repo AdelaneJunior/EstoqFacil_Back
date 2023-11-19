@@ -1,6 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,7 @@ public class Usuario extends BaseEntidade<Long> {
 
     @Id
     @Column(name = Coluna.ID)
+    @Searchable(label = "Código")
     private Long codigo;
 
     @Column(name = Coluna.SENHA, nullable = false)
@@ -49,7 +51,6 @@ public class Usuario extends BaseEntidade<Long> {
     @JoinColumn(name = Coluna.CPF_FUNCIONARIO, unique = true, nullable = false,
             referencedColumnName = Funcionario.Coluna.CPF,
             foreignKey = @ForeignKey(name = "fk_usuario_funcionario"))
+    @Searchable()
     private Funcionario funcionario;
-
-
 }

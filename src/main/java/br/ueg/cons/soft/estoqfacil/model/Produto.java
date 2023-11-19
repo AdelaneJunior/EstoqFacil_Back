@@ -1,6 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -61,6 +62,7 @@ public class Produto extends BaseEntidade<Long> {
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
+    @Searchable()
     private Categoria categoria;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -73,18 +75,22 @@ public class Produto extends BaseEntidade<Long> {
     private Long imagemId;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
+    @Searchable()
     private String nome;
 
     @Column(name = Produto.Coluna.DESCRICAO, nullable = false)
+    @Searchable(label = "Descrição")
     private String descricao;
 
     @Column(name = Produto.Coluna.QUANTIDADE, nullable = false)
     private Long quantidade;
 
     @Column(name = Produto.Coluna.PRECO, nullable = false)
+    @Searchable(label = "Preço")
     private BigDecimal preco;
 
     @Column(name = Produto.Coluna.MARCA, nullable = false)
+    @Searchable()
     private String marca;
 
     @Column(name = Produto.Coluna.CUSTO, nullable = false)
