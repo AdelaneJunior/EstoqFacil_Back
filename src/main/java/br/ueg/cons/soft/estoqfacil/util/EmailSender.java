@@ -12,6 +12,7 @@ public class EmailSender {
     private static final String PATH = "src/fotos/Lista_Produtos.pdf"; //com esse caminho o pdf é salvo dentro do projeto
 
 
+
     private static MultiPartEmail setEmail(String destinatario){
         MultiPartEmail email = new MultiPartEmail();
         email.setHostName("smtp.gmail.com");

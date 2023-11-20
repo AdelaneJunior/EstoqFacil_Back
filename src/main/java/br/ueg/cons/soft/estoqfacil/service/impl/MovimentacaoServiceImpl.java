@@ -1,5 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
+import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.MovimentacaoService;
@@ -18,7 +20,7 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void prepararParaIncluir(Movimentacao entidade) {
-
+        entidade.setTipo(entidade.getAcao().getTipoMovimentacao());
     }
 
     @Override

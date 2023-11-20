@@ -35,11 +35,7 @@ public class Produto extends BaseEntidade<Long> {
 
         public static final String MARCA = "prod_marca";
 
-        public static final String QUANTIDADE = "prod_quantidade";
-
-        public static final String PRECO = "prod_preco_venda";
-
-        public static final String CUSTO = "prod_custo_aquisicao";
+        public static final String CODIGO_BARRAS = "prod_codigo_barras";
     }
 
     @SequenceGenerator(
@@ -72,7 +68,7 @@ public class Produto extends BaseEntidade<Long> {
     private Usuario usuario;
 
     @Column(name = Coluna.ID_IMAGEM, nullable = false)
-    private Long imagemId;
+    private long imagem_id;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     @Searchable()
@@ -82,17 +78,22 @@ public class Produto extends BaseEntidade<Long> {
     @Searchable(label = "Descrição")
     private String descricao;
 
-    @Column(name = Produto.Coluna.QUANTIDADE, nullable = false)
-    private Long quantidade;
-
-    @Column(name = Produto.Coluna.PRECO, nullable = false)
-    @Searchable(label = "Preço")
-    private BigDecimal preco;
-
     @Column(name = Produto.Coluna.MARCA, nullable = false)
-    @Searchable()
     private String marca;
 
-    @Column(name = Produto.Coluna.CUSTO, nullable = false)
-    private BigDecimal custo;
+    @Column(name = Coluna.CODIGO_BARRAS, nullable = false, unique = true)
+    private long codigoBarras;
+
+    //@Column(name = Produto.Coluna.QUANTIDADE, nullable = false)
+    @Transient
+    private Long quantidade;
+
+    //@Column(name = Produto.Coluna.PRECO, nullable = false)
+    @Transient
+    private Double preco;
+
+    //@Column(name = Produto.Coluna.CUSTO, nullable = false)
+    @Transient
+    private Double custo;
+
 }

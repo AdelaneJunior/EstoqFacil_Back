@@ -4,26 +4,30 @@ import java.util.Arrays;
 
 public enum AcaoMovimentacao {
 
-    VENDA("V", "Venda"),
-    COMPRA("C", "Compra"),
-    DEVOLUCAO_DO_CLIENTE("DC", "Devolução do Cliente"),
+    VENDA("V", "Venda",TipoMovimentacao.SAIDA),
+    COMPRA("C", "Compra", TipoMovimentacao.ENTRADA),
+    DEVOLUCAO_DO_CLIENTE("DC", "Devolução do Cliente", TipoMovimentacao.ENTRADA),
 
-    DEVOLUCAO_AO_FORNECEDOR("DF", "Devolução ao fornecedor"),
-    PRODUTO_QUEBRADO("PQ", "Produto Quebrado");
+    DEVOLUCAO_AO_FORNECEDOR("DF", "Devolução ao fornecedor", TipoMovimentacao.SAIDA),
+    PRODUTO_QUEBRADO("PQ", "Produto Quebrado", TipoMovimentacao.SAIDA);
 
     private final String id;
 
     private final String descricao;
+
+    private final TipoMovimentacao tipo;
 
     /**
      * Construtor da classe.
      *
      * @param id        -
      * @param descricao -
+     * @param tipo
      */
-    AcaoMovimentacao(final String id, final String descricao) {
+    AcaoMovimentacao(final String id, final String descricao, final TipoMovimentacao tipo) {
         this.id = id;
         this.descricao = descricao;
+        this.tipo = tipo;
     }
 
     /**
@@ -33,6 +37,9 @@ public enum AcaoMovimentacao {
         return id;
     }
 
+    public TipoMovimentacao getTipoMovimentacao(){
+        return this.tipo;
+    }
     /**
      * @return the descricao
      */
