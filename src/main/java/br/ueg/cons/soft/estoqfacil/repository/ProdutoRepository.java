@@ -22,6 +22,4 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, JpaSpec
             "inner join fetch p.usuario u " +
             "where p.codigo = :codigo")
     Optional<Produto> findByIdFetchTudo(@Param("codigo")Long codigo);
-
-    Optional<Produto> findProdutoByCodigoBarras(long codigoBarras);
 }

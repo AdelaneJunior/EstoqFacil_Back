@@ -1,6 +1,5 @@
 package br.ueg.cons.soft.estoqfacil.dto;
 
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,13 +47,7 @@ public class ProdutoController extends
                     )}
             )}
     )
-    public boolean enviaEmail(@RequestBody EnviaEmailDTO enviaEmail) {
-        return this.service.enviaLista(enviaEmail.email, enviaEmail.listaProdutos);
     public boolean enviaEmailComPdf(@RequestBody EnviaEmailDTO enviaEmail) {
         return this.service.enviaEmailComPdf(enviaEmail);
     }
-
-
-
-
 }
