@@ -1,6 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.prog.webi.api.interfaces.ISearchFieldData;
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +17,16 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categoria extends BaseEntidade<Long> {
+public class Categoria extends BaseEntidade<Long> implements ISearchFieldData<Long> {
 
 
 
     public static final String NOME_TABELA = "categoria";
+
+    @Override
+    public String getDescription() {
+        return this.nome;
+    }
 
     public static final class Coluna {
 
@@ -53,12 +60,15 @@ public class Categoria extends BaseEntidade<Long> {
 
     @Id
     @Column(name = Coluna.ID)
+    @Searchable(label = "Código")
     private Long codigo;
 
     @Column(name = Coluna.NOME, nullable = false)
+    @Searchable()
     private String nome;
 
     @Column(name = Coluna.DESCRICAO, nullable = false)
+    @Searchable(label = "Descrição")
     private String descricao;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

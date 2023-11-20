@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -62,7 +63,8 @@ public class InicialRunner implements ApplicationRunner {
     private PdfCreator creator;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Der Junge\\Documents\\GitHub\\EstoqFacil_Back\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
+
 
     public void initDados() throws IOException {
 
@@ -155,6 +157,9 @@ public class InicialRunner implements ApplicationRunner {
                 .nome("Iphone 13")
                 .marca("Apple")
                 .codigoBarras(17125896)
+                .preco(BigDecimal.valueOf(8500.00))
+                .quantidade(16L)
+                .custo(BigDecimal.valueOf(25.50))
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagem_id(imagem.getId())
@@ -179,6 +184,9 @@ public class InicialRunner implements ApplicationRunner {
         produto = Produto.builder()
                 .nome("Iphone 15 Pro Max")
                 .marca("Apple")
+                .preco(BigDecimal.valueOf(15500.00))
+                .quantidade(10L)
+                .custo(BigDecimal.valueOf(30.50))
                 .categoria(categoria)
                 .usuario(usuario)
                 .codigoBarras(11125896)

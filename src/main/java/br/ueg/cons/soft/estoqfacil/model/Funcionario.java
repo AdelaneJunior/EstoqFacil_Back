@@ -1,11 +1,10 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.prog.webi.api.interfaces.ISearchFieldData;
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -15,9 +14,16 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = Funcionario.NOME_TABELA)
-public class Funcionario extends BaseEntidade<String> {
+@Getter
+@Setter
+public class Funcionario extends BaseEntidade<String> implements ISearchFieldData<String> {
 
     public static final String NOME_TABELA = "funcionario";
+
+    @Override
+    public String getDescription() {
+        return this.getPessoa().getNome();
+    }
 
     public static final class Coluna {
 
@@ -29,7 +35,12 @@ public class Funcionario extends BaseEntidade<String> {
 
     @Id
     @Column(name = Coluna.CPF)
+    @Searchable(label = "CPF")
     private String cpf;
+
+    public String getId(){
+        return this.cpf;
+    }
 
     @MapsId
     @OneToOne(optional = false)
@@ -44,9 +55,6 @@ public class Funcionario extends BaseEntidade<String> {
             foreignKey = @ForeignKey(name = "fk_funcionario_cargo"))
     private Cargo cargo;
 
-    public String getCpf() {
-        return cpf;
-    }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;

@@ -50,6 +50,8 @@ public class ProdutoController extends
     )
     public boolean enviaEmail(@RequestBody EnviaEmailDTO enviaEmail) {
         return this.service.enviaLista(enviaEmail.email, enviaEmail.listaProdutos);
+    public boolean enviaEmailComPdf(@RequestBody EnviaEmailDTO enviaEmail) {
+        return this.service.enviaEmailComPdf(enviaEmail);
     }
 
 

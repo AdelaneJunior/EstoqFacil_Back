@@ -1,8 +1,11 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -55,6 +58,7 @@ public class Produto extends BaseEntidade<Long> {
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
+    @Searchable()
     private Categoria categoria;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -67,9 +71,11 @@ public class Produto extends BaseEntidade<Long> {
     private long imagem_id;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
+    @Searchable()
     private String nome;
 
     @Column(name = Produto.Coluna.DESCRICAO, nullable = false)
+    @Searchable(label = "Descrição")
     private String descricao;
 
     @Column(name = Produto.Coluna.MARCA, nullable = false)

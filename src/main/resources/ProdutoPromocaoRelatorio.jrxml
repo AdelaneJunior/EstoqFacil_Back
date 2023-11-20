@@ -40,18 +40,18 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#6050C6" uuid="bb4c90e7-77cf-46b3-8db7-605382e2479e"/>
 				<staticText>
-					<reportElement x="50" y="50" width="234" height="43" forecolor="#FFFFFF" uuid="4d7182a3-dcef-4d99-84b0-bfd01b09708b"/>
+					<reportElement x="60" y="43" width="234" height="43" forecolor="#FFFFFF" uuid="4d7182a3-dcef-4d99-84b0-bfd01b09708b"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Produtos]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="450" y="70" width="120" height="20" forecolor="#FFFFFF" uuid="0b545d22-c32e-4f59-b0b3-5286f4130888"/>
-					<textElement textAlignment="Right">
+					<reportElement x="390" y="70" width="200" height="20" forecolor="#FFFFFF" uuid="0b545d22-c32e-4f59-b0b3-5286f4130888"/>
+					<textElement textAlignment="Left">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Lista de produtos]]></text>
+					<text><![CDATA[Lista de produtos com desconto]]></text>
 				</staticText>
 				<image>
 					<reportElement x="10" y="10" width="90" height="40" uuid="4075d53b-be11-43a4-aefa-e0e19c9ae091"/>

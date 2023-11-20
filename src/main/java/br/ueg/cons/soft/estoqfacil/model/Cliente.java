@@ -1,6 +1,7 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class Cliente extends BaseEntidade<String> {
 
     @Id
     @Column(name = Coluna.CPF)
+    @Searchable(label = "CPF")
     private String cpf;
 
     @MapsId
@@ -34,6 +36,7 @@ public class Cliente extends BaseEntidade<String> {
     @JoinColumn(name = Coluna.CPF,
             referencedColumnName = Pessoa.Coluna.CPF,
             foreignKey = @ForeignKey(name = "fk_cliente_pessoa"))
+    @Searchable()
     private Pessoa pessoa;
 
     public String getCpf() {

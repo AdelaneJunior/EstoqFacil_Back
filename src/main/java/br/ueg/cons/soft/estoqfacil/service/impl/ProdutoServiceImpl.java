@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
+import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
@@ -16,15 +17,18 @@ import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRepository>
         implements ProdutoService{
-
-
+        
     @Autowired
     ProdutoRepository repository;
 
@@ -56,16 +60,41 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
 
     }
 
-    public boolean enviaLista(String email, List<ProdutoDTO> listaProdutos){
-        creator.criaPdf(listaProdutos);
+
+    public Boolean enviaEmailComPdf(EnviaEmailDTO enviaEmailDTO) {
+        Thread threadEnvioEmail = new Thread(() -> {
+            geraNovoPdf(enviaEmailDTO);
+            enviaEmail(enviaEmailDTO.getEmail());
+        });
+        threadEnvioEmail.start();
+        return true;
+    }
+
+    private static void enviaEmail(String email) {
+
         try {
             EmailSender.enviaEmail(email);
-            return true;
         } catch (EmailException e) {
             throw new RuntimeException(e);
         }
     }
 
+
+    private void geraNovoPdf(EnviaEmailDTO enviaEmailDTO) {
+
+        for (ProdutoDTO produtoDTO : enviaEmailDTO.getListaProdutos()) {
+            produtoDTO.setImagem(getImagemBase64(produtoDTO));
+        }
+
+        if (enviaEmailDTO.getPromocao()){
+           enviaEmailDTO.setListaProdutos(tratarPrecoProdutoComDescontoList
+                   (enviaEmailDTO.getListaProdutos(), enviaEmailDTO.getDesconto()));
+        }
+
+        JasperGeneretor.gerarPdfProduto(enviaEmailDTO.getListaProdutos(), enviaEmailDTO.getPromocao());
+    }
+
+    public String getImagemBase64(ProdutoDTO produtoDTO) {
 
     @Override
     public List<Produto> listarTodos(){
@@ -105,5 +134,16 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         }
 
         return novo;
+    }
+
+    public List<ProdutoDTO> tratarPrecoProdutoComDescontoList(List<ProdutoDTO> produtoDTOList, Long descontoPromocao ) {
+
+        for (ProdutoDTO produtoDTO : produtoDTOList) {
+            BigDecimal valorProduto = produtoDTO.getPreco();
+            BigDecimal descontoPromoca = BigDecimal.valueOf(descontoPromocao);
+            BigDecimal desconto = valorProduto.multiply(descontoPromoca.divide(BigDecimal.valueOf(100)));
+            produtoDTO.setPreco(valorProduto.subtract(desconto).setScale(2, RoundingMode.HALF_EVEN));
+        }
+        return  produtoDTOList;
     }
 }

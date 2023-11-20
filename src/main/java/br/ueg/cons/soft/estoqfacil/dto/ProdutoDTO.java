@@ -5,6 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.awt.*;
+import java.io.File;
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,9 +25,9 @@ public class ProdutoDTO {
 
     private Long quantidade;
 
-    private Double preco;
+    private BigDecimal preco;
 
-    private Double custo;
+    private BigDecimal custo;
 
     private Long imagemId;
 
