@@ -193,21 +193,6 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-//        Movimentacao movimentacao = Movimentacao.builder()
-//                .usuario(usuario)
-//                .produto(produto)
-//                .quantidade(16L)
-//                .data(LocalDate.now())
-//                .observacao("Adicionado para testes")
-//                .acao(AcaoMovimentacao.COMPRA)
-//                .build();
-//
-//        movimentacao = movimentacaoService.incluir(movimentacao);
-//
-//        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
-
-//        System.out.println(movimentacaoDTO);
-
 
 //        EnviaEmailDTO envio = EnviaEmailDTO.builder()
 //                .email("")

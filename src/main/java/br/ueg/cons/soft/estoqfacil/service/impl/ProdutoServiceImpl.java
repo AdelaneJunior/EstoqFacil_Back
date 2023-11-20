@@ -117,9 +117,10 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
 
     private void preencherCamposDaMovimentacao(Produto produto) {
         //Quantidade do produto
-        Long total = validarValor(movimentacaoRepository.totalProdutosSaida(produto.getCodigo()))
-                -
-                validarValor((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())));
+        Long total = validarValor((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())))
+        -
+        validarValor(movimentacaoRepository.totalProdutosSaida(produto.getCodigo()));
+
         produto.setQuantidade(validarValor(total));
         //Preco do produto
         BigDecimal preco = movimentacaoRepository.findPrecoValueByLastDataAndProduto(produto.getCodigo());
@@ -146,13 +147,13 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     @Override
     public Produto incluir(Produto modelo) {
         Produto novo = super.incluir(modelo);
-        if(novo.getQuantidade() != null && novo.getPreco() != null && novo.getCusto() != null){
+        if(modelo.getQuantidade() != null && modelo.getPreco() != null && modelo.getCusto() != null){
             Movimentacao movimentacao = Movimentacao.builder()
-                    .usuario(novo.getUsuario())
+                    .usuario(modelo.getUsuario())
                     .produto(novo)
-                    .quantidade(novo.getQuantidade())
-                    .preco(novo.getPreco())
-                    .custo(novo.getCusto())
+                    .quantidade(modelo.getQuantidade())
+                    .preco(modelo.getPreco())
+                    .custo(modelo.getCusto())
                     .data(LocalDate.now())
                     .observacao("Primeira entrada")
                     .acao(AcaoMovimentacao.COMPRA)
