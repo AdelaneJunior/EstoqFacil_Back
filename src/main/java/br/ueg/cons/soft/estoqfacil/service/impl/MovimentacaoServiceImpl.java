@@ -18,7 +18,7 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void prepararParaIncluir(Movimentacao entidade) {
-
+        entidade.setTipo(entidade.getAcao().getTipoMovimentacao());
     }
 
     @Override
