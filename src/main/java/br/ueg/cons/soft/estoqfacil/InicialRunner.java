@@ -7,7 +7,6 @@ import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
-import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
@@ -60,7 +59,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Der Junge\\Documents\\GitHub\\EstoqFacil_Back\\src\\fotos";
+    private final String ORIGEM = "C:\\Portable20231\\workspace\\EstoqFacil_BackEnd-master\\src\\fotos";
 
     public void initDados() throws IOException, BadElementException {
 
@@ -71,7 +70,7 @@ public class InicialRunner implements ApplicationRunner {
                 "0000000",
                 "Ademiro",
                 "629999999",
-                "admin@gmail.com",
+                "admin",
                 LocalDate.now()
 
         );
@@ -152,14 +151,14 @@ public class InicialRunner implements ApplicationRunner {
         Produto produto = Produto.builder()
                 .nome("Iphone 13")
                 .marca("Apple")
-                .codigoBarras(17125896)
                 .preco(BigDecimal.valueOf(8500.00))
                 .quantidade(16L)
                 .custo(BigDecimal.valueOf(25.50))
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagemId(imagem.getId())
-                .descricao("Um delular caro")
+                .codigoBarras(321l)
+                .descricao("Um celular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
@@ -167,8 +166,6 @@ public class InicialRunner implements ApplicationRunner {
         ProdutoDTO produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
         produtoDTOList.add(produtoDTO);
-
-        System.out.println(produtoDTO);
 
         bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
 
@@ -185,9 +182,9 @@ public class InicialRunner implements ApplicationRunner {
                 .custo(BigDecimal.valueOf(30.50))
                 .categoria(categoria)
                 .usuario(usuario)
-                .codigoBarras(11125896)
                 .imagemId(imagem.getId())
-                .descricao("Um celular caro")
+                .codigoBarras(123l)
+                .descricao("Outro celular caro")
                 .build();
 
         produto = produtoService.incluir(produto);
@@ -196,26 +193,20 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        System.out.println(produtoDTO);
+//        Movimentacao movimentacao = Movimentacao.builder()
+//                .usuario(usuario)
+//                .produto(produto)
+//                .quantidade(16L)
+//                .data(LocalDate.now())
+//                .observacao("Adicionado para testes")
+//                .acao(AcaoMovimentacao.COMPRA)
+//                .build();
+//
+//        movimentacao = movimentacaoService.incluir(movimentacao);
+//
+//        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
 
-        Movimentacao movimentacao = Movimentacao.builder()
-                .usuario(usuario)
-                .produto(produto)
-                .quantidade(16L)
-                .preco(BigDecimal.valueOf(15500.00))
-                .quantidade(10L)
-                .custo(BigDecimal.valueOf(30.50))
-                .data(LocalDate.now())
-                .observacao("Adicionado para testes")
-                .acao(AcaoMovimentacao.COMPRA)
-                .tipo(TipoMovimentacao.ENTRADA)
-                .build();
-
-        movimentacao = movimentacaoService.incluir(movimentacao);
-
-        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
-
-        System.out.println(movimentacaoDTO);
+//        System.out.println(movimentacaoDTO);
 
 
 //        EnviaEmailDTO envio = EnviaEmailDTO.builder()

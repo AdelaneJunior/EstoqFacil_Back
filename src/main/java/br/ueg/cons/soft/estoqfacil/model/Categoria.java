@@ -22,12 +22,6 @@ public class Categoria extends BaseEntidade<Long> implements ISearchFieldData<Lo
 
 
     public static final String NOME_TABELA = "categoria";
-
-    @Override
-    public String getDescription() {
-        return this.nome;
-    }
-
     public static final class Coluna {
 
         public static final String ID = "catg_codigo";
@@ -68,10 +62,13 @@ public class Categoria extends BaseEntidade<Long> implements ISearchFieldData<Lo
     private String nome;
 
     @Column(name = Coluna.DESCRICAO, nullable = false)
-    @Searchable(label = "Descrição")
     private String descricao;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    public String getDescription() {
+        return this.nome;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = Coluna.USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_categoria_usuario"))

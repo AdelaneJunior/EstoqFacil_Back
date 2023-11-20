@@ -2,6 +2,7 @@ package br.ueg.cons.soft.estoqfacil.model;
 
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.IEntidade;
+import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,12 +35,15 @@ public class Pessoa extends BaseEntidade<String> {
     private String cpf;
 
     @Column(name = Coluna.NOME, nullable = false, length = 200)
+    @Searchable()
     private String nome;
 
     @Column(name = Coluna.TELEFONE, length = 20)
+    @Searchable()
     private String telefone;
 
     @Column(name = Coluna.EMAIL, length = 150)
+    @Searchable(label = "E-mail")
     private String email;
 
     @Temporal(TemporalType.DATE)

@@ -47,6 +47,7 @@ public class Funcionario extends BaseEntidade<String> implements ISearchFieldDat
     @JoinColumn(name = Coluna.CPF,
             referencedColumnName = Pessoa.Coluna.CPF,
             foreignKey = @ForeignKey(name = "fk_funcionario_pessoa"))
+    @Searchable()
     private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.EAGER)
