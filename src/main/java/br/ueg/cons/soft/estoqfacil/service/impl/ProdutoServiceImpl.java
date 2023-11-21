@@ -49,8 +49,8 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     @Override
     protected void validarDados(Produto entidade){
         Optional<Produto> produtoBD = repository.findProdutoByCodigoBarras(entidade.getCodigoBarras());
-        if(produtoBD.isPresent()){
-            throw new IllegalStateException("Codigo de barras ja cadastrado no banco de dados");
+        if(produtoBD.isPresent() || entidade.getCodigoBarras() == null){
+            throw new IllegalStateException("Codigo de barras ausente ou ja cadastrado no banco de dados");
         }
     }
 
