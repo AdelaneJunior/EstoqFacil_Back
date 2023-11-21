@@ -11,6 +11,7 @@ import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.ProdutoService;
 import br.ueg.cons.soft.estoqfacil.util.EmailSender;
 import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
+import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     }
 
     @Override
-    protected void validarDados(Produto entidade) {
+    protected void validarDados(Produto entidade){
         Optional<Produto> produtoBD = repository.findProdutoByCodigoBarras(entidade.getCodigoBarras());
         if(produtoBD.isPresent()){
             throw new IllegalStateException("Codigo de barras ja cadastrado no banco de dados");
@@ -115,33 +116,22 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         return produtos;
     }
 
-    private void preencherCamposDaMovimentacao(Produto produto) {
+    private void preencherCamposDaMovimentacao(Produto produto){
         //Quantidade do produto
-        Long total = validarValor((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())))
+        Long total = ((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())))
         -
-        validarValor(movimentacaoRepository.totalProdutosSaida(produto.getCodigo()));
-
-        produto.setQuantidade(validarValor(total));
-        //Preco do produto
+        (movimentacaoRepository.totalProdutosSaida(produto.getCodigo()));
         BigDecimal preco = movimentacaoRepository.findPrecoValueByLastDataAndProduto(produto.getCodigo());
-        produto.setPreco(validarValor(preco));
-        //Custo
         BigDecimal custo = movimentacaoRepository.findCustoValueByLastDataAndProduto(produto.getCodigo());
-        produto.setCusto(validarValor(custo));
-    }
-
-    private Long validarValor(Long valor) {
-        if(valor == null || valor < 0){
-            valor = 0L;
+        if(total >= 0 && preco.compareTo(BigDecimal.ZERO) >= 0 && custo.compareTo(BigDecimal.ZERO) >=0){
+            produto.setQuantidade(total);
+            produto.setPreco(preco);
+            produto.setCusto(custo);
         }
-        return valor;
-    }
-
-    private BigDecimal validarValor(BigDecimal valor) {
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) < 0) {
-            valor = BigDecimal.ZERO;
+        else{
+            throw new IllegalStateException("Valores negativos encontrados!!");
         }
-        return valor;
+
     }
 
     @Override

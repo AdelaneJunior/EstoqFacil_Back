@@ -85,7 +85,7 @@ public class Produto extends BaseEntidade<Long> {
 
     @Column(name = Coluna.CODIGO_BARRAS, nullable = false, unique = true)
     @Searchable()
-    private long codigoBarras;
+    private Long codigoBarras;
 
 
     @Transient
