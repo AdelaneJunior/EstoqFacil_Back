@@ -134,6 +134,13 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
 
     }
 
+    public List<Produto> preencherCamposLista(List<Produto> produtos){
+        produtos.forEach(produto -> {
+            preencherCamposDaMovimentacao(produto);
+        });
+        return produtos;
+    }
+
     @Override
     public Produto incluir(Produto modelo) {
         Produto novo = super.incluir(modelo);
@@ -151,6 +158,7 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
                     .build();
             movimentacaoService.incluir(movimentacao);
         }
+        preencherCamposDaMovimentacao(novo);
         return novo;
     }
 }
