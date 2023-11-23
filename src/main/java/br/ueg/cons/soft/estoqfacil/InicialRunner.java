@@ -60,7 +60,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Der Junge\\Documents\\GitHub\\EstoqFacil_Back\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
 
     public void initDados() throws IOException, BadElementException {
 
