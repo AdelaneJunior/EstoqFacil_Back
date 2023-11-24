@@ -15,6 +15,12 @@ import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -160,5 +166,21 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         }
         preencherCamposDaMovimentacao(novo);
         return novo;
+    }
+
+    public List<Produto> findProdutosWithSortAsc(String field){
+        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
+
+    public List<Produto> findProdutosWithPagination(int offset, int pageSize){
+        List<Produto> produtos =  this.repository.findProdutosWithPagination(offset, pageSize);
+        produtos.forEach(produto -> {
+            preencherCamposDaMovimentacao(produto);
+        });
+        return produtos;
+    }
+
+    public Integer countRows(){
+        return this.repository.countAll();
     }
 }

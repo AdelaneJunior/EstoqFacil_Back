@@ -1,10 +1,12 @@
 package br.ueg.cons.soft.estoqfacil.repository;
 
 
+import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +28,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpec
             "inner join fetch f.cargo c " +
             "inner join fetch c.permissoes ")
     List<Usuario> findAll();
+
+    @Query(value = "select * from usuario limit :pageSize offset :pagina", nativeQuery = true)
+    List<Usuario> findUsuariosWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
+
+    @Query(value = "select count(*) from usuario ", nativeQuery = true)
+    Integer countAll();
 }

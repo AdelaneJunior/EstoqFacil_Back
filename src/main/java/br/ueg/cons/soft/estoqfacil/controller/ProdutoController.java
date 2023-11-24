@@ -15,11 +15,9 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -98,5 +96,107 @@ public class ProdutoController extends
         } else {
             return ResponseEntity.ok(this.mapper.toDTO(this.service.preencherCamposLista(listSearchFields)));
         }
+    }
+
+    @GetMapping("/sort/{field}")
+    @Operation(
+            description = "Reliza busca ordenada de acordo com o campo",
+            responses = {@ApiResponse(
+                    responseCode = "200",
+                    description = "Listagem do resultado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema
+                    )}
+            ), @ApiResponse(
+                    responseCode = "400",
+                    description = "falha ao realizar a busca",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            ), @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            )}
+    )
+    public ResponseEntity<List<ProdutoDTO>> listAllWithSort(@PathVariable String field){
+        return ResponseEntity.ok(this.mapper.toDTO(this.service.findProdutosWithSortAsc(field)));
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    @Operation(
+            description = "Realiza busca paginada de acordo com o tamanho da pagina e a pagina",
+            responses = {@ApiResponse(
+                    responseCode = "200",
+                    description = "Listagem do resultado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema
+                    )}
+            ), @ApiResponse(
+                    responseCode = "400",
+                    description = "falha ao realizar a busca",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            ), @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            )}
+    )
+    public ResponseEntity<List<ProdutoDTO>> listProdutosWithPagination(@PathVariable int offset, @PathVariable int pageSize){
+        return ResponseEntity.ok(this.mapper.toDTO(this.service.findProdutosWithPagination(offset, pageSize)));
+    }
+
+    @GetMapping("/pagination")
+    @Operation(
+            description = "Busca a quantidade de registros",
+            responses = {@ApiResponse(
+                    responseCode = "200",
+                    description = "Listagem do resultado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema
+                    )}
+            ), @ApiResponse(
+                    responseCode = "400",
+                    description = "falha ao realizar a busca",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            ), @ApiResponse(
+                    responseCode = "403",
+                    description = "Acesso negado",
+                    content = {@Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    implementation = MessageResponse.class
+                            )
+                    )}
+            )}
+    )
+    public Integer count(){
+        return this.service.countRows();
     }
 }
