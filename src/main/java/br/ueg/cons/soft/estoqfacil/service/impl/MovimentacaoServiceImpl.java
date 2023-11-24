@@ -8,9 +8,7 @@ import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long, MovimentacaoRepository>
@@ -36,8 +34,11 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     }
 
-    public List<RelatorioMovimentacaoDTO> getMovimentacaoListComEtradaESaidaPorProduto(){
+    public List<RelatorioMovimentacaoDTO> getAllMovimentacoesProdutoEntradaSaida(){
+        return repository.getAllMovimentacoesProdutoEntradaSaida();
+    }
 
-        return repository.getAllMovimentacoesPorProdutoETipo();
+    public List<Movimentacao> getTodasMovimentacoesDeProdutoPorCodigo(Long produtoCodigo) {
+        return repository.findAllByProdutoId(produtoCodigo);
     }
 }

@@ -20,7 +20,13 @@ public class MovimentacaoDTO {
 
     private Long produtoId;
 
+    private String produtoNome;
+
+    private String produtoCategoriaNome;
+
     private Long usuarioId;
+
+    private String usuarioNome;
 
     private Long quantidade;
 
@@ -30,5 +36,7 @@ public class MovimentacaoDTO {
     private AcaoMovimentacao acao;
 
     private String observacao;
+
+    private String tipo;
 
 }

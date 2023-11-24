@@ -5,6 +5,7 @@ import br.ueg.cons.soft.estoqfacil.dto.RelatorioMovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -43,6 +44,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
             "from Movimentacao m inner join fetch Produto p on p.codigo = m.produto.codigo " +
             "group by m.produto.codigo, m.tipo, p.nome " +
             "order by m.produto.codigo")
-    List<RelatorioMovimentacaoDTO> getAllMovimentacoesPorProdutoETipo();
+    List<RelatorioMovimentacaoDTO> getAllMovimentacoesProdutoEntradaSaida();
 
+    List<Movimentacao> findAllByProdutoId(Long produto_id);
 }
