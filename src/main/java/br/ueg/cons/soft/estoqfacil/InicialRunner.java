@@ -3,11 +3,7 @@ package br.ueg.cons.soft.estoqfacil;
 import br.ueg.cons.soft.estoqfacil.controller.ImagemController;
 import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
 import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
-import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
-import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
-import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
-import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
@@ -18,7 +14,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -60,7 +55,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
+    private final String ORIGEM = "./src/fotos";
 
     public void initDados() throws IOException, BadElementException {
 
@@ -149,7 +144,7 @@ public class InicialRunner implements ApplicationRunner {
 
         System.out.println(categoria2);
 
-        byte[] bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_13.png"));
+        byte[] bytes = Files.readAllBytes(Paths.get(ORIGEM + "/iphone_13.png"));
 
         Imagem imagem = Imagem.builder()
                 .blob(bytes)
@@ -175,7 +170,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/iphone_15_pro_max.png"));
 
         imagem = Imagem.builder()
                 .blob(bytes)
@@ -201,7 +196,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\alienware_m16.png"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/alienware_m16.png"));
 
         imagem = Imagem.builder()
                 .blob(bytes)
@@ -227,7 +222,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\pixel_8_pro.jpg"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/pixel_8_pro.jpg"));
 
         imagem = Imagem.builder()
                 .blob(bytes)
@@ -253,7 +248,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\razer_blade.jpg"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/razer_blade.jpg"));
 
         imagem = Imagem.builder()
                 .blob(bytes)
@@ -279,7 +274,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\s_23_ultra.png"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/s_23_ultra.png"));
 
         imagem = Imagem.builder()
                 .blob(bytes)

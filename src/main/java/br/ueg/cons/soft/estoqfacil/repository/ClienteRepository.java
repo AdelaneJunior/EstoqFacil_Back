@@ -13,9 +13,4 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, String>, JpaSpecificationExecutor<Cliente> {
-    @Query(value = "select * from cliente limit :pageSize offset :pagina", nativeQuery = true)
-    List<Cliente> findClienteWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
-
-    @Query(value = "select count(*) from cliente ", nativeQuery = true)
-    Integer countAll();
 }

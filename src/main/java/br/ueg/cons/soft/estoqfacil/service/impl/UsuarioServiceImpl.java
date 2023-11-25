@@ -70,17 +70,4 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
-
-    public List<Usuario> findUsuarioWithSortAsc(String field){
-        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public List<Usuario> findUsuarioWithPagination(int offset, int pageSize){
-        return  this.repository.findUsuariosWithPagination(offset, pageSize);
-    }
-
-    public Integer countRows(){
-        return this.repository.countAll();
-    }
-
 }

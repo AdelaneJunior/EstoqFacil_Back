@@ -14,9 +14,4 @@ import java.util.Optional;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>, JpaSpecificationExecutor<Categoria> {
-    @Query(value = "select * from categoria limit :pageSize offset :pagina", nativeQuery = true)
-    List<Categoria> findCategoriasWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
-
-    @Query(value = "select count(*) from produto ", nativeQuery = true)
-    Integer countAll();
 }

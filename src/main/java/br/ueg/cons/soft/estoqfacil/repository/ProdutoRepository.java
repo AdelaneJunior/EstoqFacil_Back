@@ -25,10 +25,4 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, JpaSpec
     Optional<Produto> findByIdFetchTudo(@Param("codigo")Long codigo);
 
     Optional<Produto> findProdutoByCodigoBarras(long codigoBarras);
-
-    @Query(value = "select * from produto limit :pageSize offset :pagina", nativeQuery = true)
-    List<Produto> findProdutosWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
-
-    @Query(value = "select count(*) from produto ", nativeQuery = true)
-    Integer countAll();
 }

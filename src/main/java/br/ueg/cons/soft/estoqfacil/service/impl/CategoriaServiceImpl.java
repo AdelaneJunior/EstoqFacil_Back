@@ -45,16 +45,4 @@ public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, Categ
         tratarUsuarioCategoria(modelo);
         return super.incluir(modelo);
     }
-
-    public List<Categoria> findCategoriaWithSortAsc(String field){
-        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public List<Categoria> findCategoriasWithPagination(int offset, int pageSize){
-        return  this.repository.findCategoriasWithPagination(offset, pageSize);
-    }
-
-    public Integer countRows(){
-        return this.repository.countAll();
-    }
 }

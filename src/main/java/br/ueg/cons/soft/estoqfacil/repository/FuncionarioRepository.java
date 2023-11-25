@@ -14,9 +14,4 @@ import java.util.List;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, String>, JpaSpecificationExecutor<Funcionario> {
 
-    @Query(value = "select * from funcionario limit :pageSize offset :pagina", nativeQuery = true)
-    List<Funcionario> findFuncionarioWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
-
-    @Query(value = "select count(*) from funcionario ", nativeQuery = true)
-    Integer countAll();
 }

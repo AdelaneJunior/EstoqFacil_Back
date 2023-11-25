@@ -167,20 +167,4 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         preencherCamposDaMovimentacao(novo);
         return novo;
     }
-
-    public List<Produto> findProdutosWithSortAsc(String field){
-        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public List<Produto> findProdutosWithPagination(int offset, int pageSize){
-        List<Produto> produtos =  this.repository.findProdutosWithPagination(offset, pageSize);
-        produtos.forEach(produto -> {
-            preencherCamposDaMovimentacao(produto);
-        });
-        return produtos;
-    }
-
-    public Integer countRows(){
-        return this.repository.countAll();
-    }
 }

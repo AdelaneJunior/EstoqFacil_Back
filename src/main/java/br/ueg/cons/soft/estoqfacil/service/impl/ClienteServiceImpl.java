@@ -37,16 +37,4 @@ public class ClienteServiceImpl extends BaseCrudService<Cliente, String, Cliente
     public Cliente alterar(Cliente entidade, String id) {
         return super.alterar(entidade, id);
     }
-
-    public List<Cliente> findClienteWithSortAsc(String field){
-        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public List<Cliente> findClienteWithPagination(int offset, int pageSize){
-        return  this.repository.findClienteWithPagination(offset, pageSize);
-    }
-
-    public Integer countRows(){
-        return this.repository.countAll();
-    }
 }

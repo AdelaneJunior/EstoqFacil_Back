@@ -16,6 +16,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,105 +101,25 @@ public class ProdutoController extends
         }
     }
 
-    @GetMapping("/sort/{field}")
-    @Operation(
-            description = "Reliza busca ordenada de acordo com o campo",
-            responses = {@ApiResponse(
-                    responseCode = "200",
-                    description = "Listagem do resultado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema
-                    )}
-            ), @ApiResponse(
-                    responseCode = "400",
-                    description = "falha ao realizar a busca",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            ), @ApiResponse(
-                    responseCode = "403",
-                    description = "Acesso negado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            )}
-    )
-    public ResponseEntity<List<ProdutoDTO>> listAllWithSort(@PathVariable String field){
-        return ResponseEntity.ok(this.mapper.toDTO(this.service.findProdutosWithSortAsc(field)));
-    }
-
-    @GetMapping("/pagination/{offset}/{pageSize}")
-    @Operation(
-            description = "Realiza busca paginada de acordo com o tamanho da pagina e a pagina",
-            responses = {@ApiResponse(
-                    responseCode = "200",
-                    description = "Listagem do resultado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema
-                    )}
-            ), @ApiResponse(
-                    responseCode = "400",
-                    description = "falha ao realizar a busca",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            ), @ApiResponse(
-                    responseCode = "403",
-                    description = "Acesso negado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            )}
-    )
-    public ResponseEntity<List<ProdutoDTO>> listProdutosWithPagination(@PathVariable int offset, @PathVariable int pageSize){
-        return ResponseEntity.ok(this.mapper.toDTO(this.service.findProdutosWithPagination(offset, pageSize)));
-    }
-
-    @GetMapping("/pagination")
-    @Operation(
-            description = "Busca a quantidade de registros",
-            responses = {@ApiResponse(
-                    responseCode = "200",
-                    description = "Listagem do resultado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema
-                    )}
-            ), @ApiResponse(
-                    responseCode = "400",
-                    description = "falha ao realizar a busca",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            ), @ApiResponse(
-                    responseCode = "403",
-                    description = "Acesso negado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            )}
-    )
-    public Integer count(){
-        return this.service.countRows();
-    }
+   @Override
+   @GetMapping(path = "/page")
+   @Operation(description = "Listagem Geral paginada", responses = {
+           @ApiResponse(responseCode = "200", description = "Listagem geral",
+                   content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                           array = @ArraySchema())),
+           @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                   content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                           schema = @Schema(implementation = MessageResponse.class))),
+           @ApiResponse(responseCode = "403", description = "Acesso negado",
+                   content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                           schema = @Schema(implementation = MessageResponse.class))),
+           @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                   content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                           schema = @Schema(implementation = MessageResponse.class)))
+   })
+   public ResponseEntity<Page<ProdutoDTO>> listAllPage(@PageableDefault(page = 0, size = 5)  Pageable page){
+       Page<Produto> pageEntidade = service.listarTodosPage(page);
+       this.service.preencherCamposLista(pageEntidade.getContent());
+       return ResponseEntity.ok(mapPageEntityToDto(pageEntidade));
+   }
 }

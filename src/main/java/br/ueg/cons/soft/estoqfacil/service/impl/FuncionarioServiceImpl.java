@@ -38,15 +38,4 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String,
         return super.incluir(modelo);
     }
 
-    public List<Funcionario> findFuncionariosWithSortAsc(String field){
-        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public List<Funcionario> findFuncionarioWithPagination(int offset, int pageSize){
-        return  this.repository.findFuncionarioWithPagination(offset, pageSize);
-    }
-
-    public Integer countRows(){
-        return this.repository.countAll();
-    }
 }

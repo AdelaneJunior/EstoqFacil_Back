@@ -28,10 +28,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpec
             "inner join fetch f.cargo c " +
             "inner join fetch c.permissoes ")
     List<Usuario> findAll();
-
-    @Query(value = "select * from usuario limit :pageSize offset :pagina", nativeQuery = true)
-    List<Usuario> findUsuariosWithPagination(@Param("pagina") int offset, @Param("pageSize") int pageSize);
-
-    @Query(value = "select count(*) from usuario ", nativeQuery = true)
-    Integer countAll();
 }
