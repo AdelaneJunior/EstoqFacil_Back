@@ -41,4 +41,9 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
     public List<Movimentacao> getTodasMovimentacoesDeProdutoPorCodigo(Long produtoCodigo) {
         return repository.findAllByProdutoId(produtoCodigo);
     }
+
+    public List<Movimentacao> getTodasMovimentacoesDeProdutoPorCodigoComPaginacao(Long codProduto, int offset, int pageSize) {
+
+        return repository.getTodasMovimentacoesDeProdutoPorCodigoComPaginacao(codProduto, offset, pageSize);
+    }
 }

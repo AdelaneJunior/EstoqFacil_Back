@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -38,5 +39,8 @@ public class MovimentacaoDTO {
     private String observacao;
 
     private String tipo;
+
+    private BigDecimal preco;
+    private BigDecimal custo;
 
 }
