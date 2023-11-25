@@ -7,6 +7,7 @@ import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
@@ -59,7 +60,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = ".\\src\\fotos";
+    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
 
     public void initDados() throws IOException, BadElementException {
 

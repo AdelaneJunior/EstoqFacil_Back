@@ -70,6 +70,7 @@ public class Movimentacao extends BaseEntidade<Long> {
             foreignKey = @ForeignKey(name = "fk_movimentacao_produto"))
     private Produto produto;
 
+    @ToString.Exclude
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name = Coluna.ID_USUARIO, nullable = false,
             referencedColumnName = Usuario.Coluna.ID,
