@@ -18,6 +18,8 @@ public class ProdutoDTO {
 
     private Long codigo;
 
+    private Long codigoBarras;
+
     private String nome;
 
     private String descricao;

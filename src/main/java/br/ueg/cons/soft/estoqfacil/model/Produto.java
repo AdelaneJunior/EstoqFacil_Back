@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.cons.soft.estoqfacil.api.converters.CategoriaConverter;
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
@@ -54,11 +55,11 @@ public class Produto extends BaseEntidade<Long> {
     @Column(name = Produto.Coluna.ID)
     private Long codigo;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
-    @Searchable()
+    @Searchable(listEntityValues = true)
     private Categoria categoria;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -84,7 +85,7 @@ public class Produto extends BaseEntidade<Long> {
 
     @Column(name = Coluna.CODIGO_BARRAS, nullable = false, unique = true)
     @Searchable()
-    private long codigoBarras;
+    private Long codigoBarras;
 
 
     @Transient

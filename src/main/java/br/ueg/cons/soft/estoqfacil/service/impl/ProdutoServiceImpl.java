@@ -11,9 +11,16 @@ import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.ProdutoService;
 import br.ueg.cons.soft.estoqfacil.util.EmailSender;
 import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
+import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -46,10 +53,10 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     }
 
     @Override
-    protected void validarDados(Produto entidade) {
+    protected void validarDados(Produto entidade){
         Optional<Produto> produtoBD = repository.findProdutoByCodigoBarras(entidade.getCodigoBarras());
-        if(produtoBD.isPresent()){
-            throw new IllegalStateException("Codigo de barras ja cadastrado no banco de dados");
+        if(produtoBD.isPresent() || entidade.getCodigoBarras() == null){
+            throw new IllegalStateException("Codigo de barras ausente ou ja cadastrado no banco de dados");
         }
     }
 
@@ -115,44 +122,41 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         return produtos;
     }
 
-    private void preencherCamposDaMovimentacao(Produto produto) {
+    private void preencherCamposDaMovimentacao(Produto produto){
         //Quantidade do produto
-        Long total = validarValor(movimentacaoRepository.totalProdutosSaida(produto.getCodigo()))
-                -
-                validarValor((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())));
-        produto.setQuantidade(validarValor(total));
-        //Preco do produto
+        Long total = ((movimentacaoRepository.totalProdutosEntrada(produto.getCodigo())))
+        -
+        (movimentacaoRepository.totalProdutosSaida(produto.getCodigo()));
         BigDecimal preco = movimentacaoRepository.findPrecoValueByLastDataAndProduto(produto.getCodigo());
-        produto.setPreco(validarValor(preco));
-        //Custo
         BigDecimal custo = movimentacaoRepository.findCustoValueByLastDataAndProduto(produto.getCodigo());
-        produto.setCusto(validarValor(custo));
+        if(total >= 0 && preco.compareTo(BigDecimal.ZERO) >= 0 && custo.compareTo(BigDecimal.ZERO) >=0){
+            produto.setQuantidade(total);
+            produto.setPreco(preco);
+            produto.setCusto(custo);
+        }
+        else{
+            throw new IllegalStateException("Valores negativos encontrados!!");
+        }
+
     }
 
-    private Long validarValor(Long valor) {
-        if(valor == null || valor < 0){
-            valor = 0L;
-        }
-        return valor;
-    }
-
-    private BigDecimal validarValor(BigDecimal valor) {
-        if (valor == null || valor.compareTo(BigDecimal.ZERO) < 0) {
-            valor = BigDecimal.ZERO;
-        }
-        return valor;
+    public List<Produto> preencherCamposLista(List<Produto> produtos){
+        produtos.forEach(produto -> {
+            preencherCamposDaMovimentacao(produto);
+        });
+        return produtos;
     }
 
     @Override
     public Produto incluir(Produto modelo) {
         Produto novo = super.incluir(modelo);
-        if(novo.getQuantidade() != null && novo.getPreco() != null && novo.getCusto() != null){
+        if(modelo.getQuantidade() != null && modelo.getPreco() != null && modelo.getCusto() != null){
             Movimentacao movimentacao = Movimentacao.builder()
-                    .usuario(novo.getUsuario())
+                    .usuario(modelo.getUsuario())
                     .produto(novo)
-                    .quantidade(novo.getQuantidade())
-                    .preco(novo.getPreco())
-                    .custo(novo.getCusto())
+                    .quantidade(modelo.getQuantidade())
+                    .preco(modelo.getPreco())
+                    .custo(modelo.getCusto())
                     .data(LocalDate.now())
                     .observacao("Primeira entrada")
                     .acao(AcaoMovimentacao.COMPRA)
@@ -160,6 +164,23 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
                     .build();
             movimentacaoService.incluir(movimentacao);
         }
+        preencherCamposDaMovimentacao(novo);
         return novo;
+    }
+
+    public List<Produto> findProdutosWithSortAsc(String field){
+        return this.repository.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
+
+    public List<Produto> findProdutosWithPagination(int offset, int pageSize){
+        List<Produto> produtos =  this.repository.findProdutosWithPagination(offset, pageSize);
+        produtos.forEach(produto -> {
+            preencherCamposDaMovimentacao(produto);
+        });
+        return produtos;
+    }
+
+    public Integer countRows(){
+        return this.repository.countAll();
     }
 }
