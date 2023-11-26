@@ -53,6 +53,7 @@ public class Produto extends BaseEntidade<Long> {
 
     @Id
     @Column(name = Produto.Coluna.ID)
+    @Searchable(label = "Código do produto")
     private Long codigo;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -84,7 +85,7 @@ public class Produto extends BaseEntidade<Long> {
     private String marca;
 
     @Column(name = Coluna.CODIGO_BARRAS, nullable = false, unique = true)
-    @Searchable()
+    @Searchable(label = "Código de barras")
     private Long codigoBarras;
 
 
