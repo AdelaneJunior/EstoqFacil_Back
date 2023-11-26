@@ -8,6 +8,9 @@ import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,6 +25,7 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
     @Override
     protected void prepararParaIncluir(Movimentacao entidade) {
         entidade.setTipo(entidade.getAcao().getTipoMovimentacao());
+        entidade.setData(LocalDate.now());
     }
 
     @Override
