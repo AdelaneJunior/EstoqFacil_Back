@@ -1,5 +1,6 @@
 package br.ueg.cons.soft.estoqfacil.model;
 
+import br.ueg.cons.soft.estoqfacil.api.converters.CategoriaConverter;
 import br.ueg.prog.webi.api.model.BaseEntidade;
 import br.ueg.prog.webi.api.model.annotation.Searchable;
 import jakarta.persistence.*;
@@ -35,11 +36,7 @@ public class Produto extends BaseEntidade<Long> {
 
         public static final String MARCA = "prod_marca";
 
-        public static final String QUANTIDADE = "prod_quantidade";
-
-        public static final String PRECO = "prod_preco_venda";
-
-        public static final String CUSTO = "prod_custo_aquisicao";
+        public static final String CODIGO_BARRAS = "prod_codigo_barras";
     }
 
     @SequenceGenerator(
@@ -56,13 +53,14 @@ public class Produto extends BaseEntidade<Long> {
 
     @Id
     @Column(name = Produto.Coluna.ID)
+    @Searchable(label = "Código do produto")
     private Long codigo;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = Produto.Coluna.ID_CATEGORIA, nullable = false,
             referencedColumnName = Categoria.Coluna.ID,
             foreignKey = @ForeignKey(name = "fk_produto_categoria"))
-    @Searchable()
+    @Searchable(listEntityValues = true)
     private Categoria categoria;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -72,7 +70,7 @@ public class Produto extends BaseEntidade<Long> {
     private Usuario usuario;
 
     @Column(name = Coluna.ID_IMAGEM, nullable = false)
-    private Long imagemId;
+    private long imagemId;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     @Searchable()
@@ -82,17 +80,22 @@ public class Produto extends BaseEntidade<Long> {
     @Searchable(label = "Descrição")
     private String descricao;
 
-    @Column(name = Produto.Coluna.QUANTIDADE, nullable = false)
-    private Long quantidade;
-
-    @Column(name = Produto.Coluna.PRECO, nullable = false)
-    @Searchable(label = "Preço")
-    private BigDecimal preco;
-
     @Column(name = Produto.Coluna.MARCA, nullable = false)
     @Searchable()
     private String marca;
 
-    @Column(name = Produto.Coluna.CUSTO, nullable = false)
+    @Column(name = Coluna.CODIGO_BARRAS, nullable = false, unique = true)
+    @Searchable(label = "Código de barras")
+    private Long codigoBarras;
+
+
+    @Transient
+    private Long quantidade;
+
+    @Transient
+    private BigDecimal preco;
+
+    @Transient
     private BigDecimal custo;
+
 }

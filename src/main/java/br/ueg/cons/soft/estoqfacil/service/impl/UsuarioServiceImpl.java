@@ -2,11 +2,13 @@ package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapperImpl;
+import br.ueg.cons.soft.estoqfacil.model.Cliente;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +70,4 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
-
 }

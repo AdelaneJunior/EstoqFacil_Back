@@ -13,8 +13,8 @@ import java.util.Map;
 public class JasperGeneretor {
 
     //CAMINHO ABSOLUTO DE ONDE ESTA O ARQUIVO .JRXML(RELATORIO FEITO NO JASPER)
-    public static final String JASPER_PRODUTO = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\main\\resources\\ProdutoRelatorio.jrxml";
-    public static final String JASPER_PRODUTO_PROMOCAO = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\main\\resources\\ProdutoPromocaoRelatorio.jrxml";
+    public static final String JASPER_PRODUTO = ".\\src\\main\\resources\\ProdutoRelatorio.jrxml";
+    public static final String JASPER_PRODUTO_PROMOCAO = ".\\src\\main\\resources\\ProdutoPromocaoRelatorio.jrxml";
 
     public static void gerarPdfProduto(List<ProdutoDTO> listaProduto, Boolean promocao) {
         try {
@@ -30,7 +30,7 @@ public class JasperGeneretor {
             JasperPrint print = JasperFillManager.fillReport(report, parametros, dataSource);
 
             //CAMINHO ONDE SERÁ SALVO O PDF (por enquanto deixando na pasta fotos)
-            JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos\\Lista_Produtos.pdf");
+            JasperExportManager.exportReportToPdfFile(print, ".\\src\\fotos\\Lista_Produtos.pdf");
             System.out.println("Gerando pdf");
 
         } catch (Exception e) {

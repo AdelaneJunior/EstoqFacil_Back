@@ -1,14 +1,17 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.cons.soft.estoqfacil.model.Categoria;
+import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.repository.CategoriaRepository;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.CategoriaService;
 import br.ueg.prog.webi.api.exception.ApiMessageCode;
 import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service

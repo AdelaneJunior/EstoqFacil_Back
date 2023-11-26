@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {FuncionarioMapperImpl.class})
 public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
 
     @Mapping(source = "funcionario.cpf", target = "funcionarioCpf")

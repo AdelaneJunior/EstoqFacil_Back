@@ -3,10 +3,7 @@ package br.ueg.cons.soft.estoqfacil;
 import br.ueg.cons.soft.estoqfacil.controller.ImagemController;
 import br.ueg.cons.soft.estoqfacil.controller.MovimentacaoController;
 import br.ueg.cons.soft.estoqfacil.controller.ProdutoController;
-import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
-import br.ueg.cons.soft.estoqfacil.dto.MovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
-import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.model.*;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.impl.*;
@@ -17,7 +14,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -59,7 +55,7 @@ public class InicialRunner implements ApplicationRunner {
     private ImagemController imagemController;
 
     // mudar de acordo com o caminho do seu projeto
-    private final String ORIGEM = "C:\\Users\\Delane Jr\\Documents\\Facul\\6ºSemestre\\EstoqFacil_Geral\\EstoqFacil_Back\\src\\fotos";
+    private final String ORIGEM = "./src/fotos";
 
     public void initDados() throws IOException, BadElementException {
 
@@ -70,7 +66,7 @@ public class InicialRunner implements ApplicationRunner {
                 "0000000",
                 "Ademiro",
                 "629999999",
-                "admin@gmail.com",
+                "admin",
                 LocalDate.now()
 
         );
@@ -139,9 +135,16 @@ public class InicialRunner implements ApplicationRunner {
 
         categoria = categoriaService.incluir(categoria);
 
-        System.out.println(categoria);
+        Categoria categoria2 = new Categoria();
+        categoria2.setUsuario(usuario);
+        categoria2.setNome("Notebooks");
+        categoria2.setDescricao("Categoria de notebooks");
 
-        byte[] bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_13.png"));
+        categoria2 = categoriaService.incluir(categoria2);
+
+        System.out.println(categoria2);
+
+        byte[] bytes = Files.readAllBytes(Paths.get(ORIGEM + "/iphone_13.png"));
 
         Imagem imagem = Imagem.builder()
                 .blob(bytes)
@@ -157,6 +160,7 @@ public class InicialRunner implements ApplicationRunner {
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagemId(imagem.getId())
+                .codigoBarras(321l)
                 .descricao("Um celular caro")
                 .build();
 
@@ -166,7 +170,7 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        bytes = Files.readAllBytes(Paths.get(ORIGEM + "\\iphone_15_pro_max.png"));
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/iphone_15_pro_max.png"));
 
         imagem = Imagem.builder()
                 .blob(bytes)
@@ -182,6 +186,7 @@ public class InicialRunner implements ApplicationRunner {
                 .categoria(categoria)
                 .usuario(usuario)
                 .imagemId(imagem.getId())
+                .codigoBarras(123l)
                 .descricao("Outro celular caro")
                 .build();
 
@@ -191,20 +196,109 @@ public class InicialRunner implements ApplicationRunner {
 
         produtoDTOList.add(produtoDTO);
 
-        Movimentacao movimentacao = Movimentacao.builder()
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/alienware_m16.png"));
+
+        imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
+
+        produto = Produto.builder()
+                .nome("Alienware M16")
+                .marca("Alienware")
+                .preco(BigDecimal.valueOf(18500.00))
+                .quantidade(10L)
+                .custo(BigDecimal.valueOf(25.50))
+                .categoria(categoria2)
                 .usuario(usuario)
-                .produto(produto)
-                .quantidade(16L)
-                .data(LocalDate.now())
-                .observacao("Adicionado para testes")
-                .acao(AcaoMovimentacao.COMPRA)
+                .imagemId(imagem.getId())
+                .codigoBarras(789l)
+                .descricao("Um notebook caro")
                 .build();
 
-        movimentacao = movimentacaoService.incluir(movimentacao);
+        produto = produtoService.incluir(produto);
 
-        MovimentacaoDTO movimentacaoDTO = movimentacaoController.obterPorId(1L).getBody();
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
 
-        System.out.println(movimentacaoDTO);
+        produtoDTOList.add(produtoDTO);
+
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/pixel_8_pro.jpg"));
+
+        imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
+
+        produto = Produto.builder()
+                .nome("Pixel 8 Pro")
+                .marca("Google")
+                .preco(BigDecimal.valueOf(9500.00))
+                .quantidade(9L)
+                .custo(BigDecimal.valueOf(25.50))
+                .categoria(categoria)
+                .usuario(usuario)
+                .imagemId(imagem.getId())
+                .codigoBarras(456l)
+                .descricao("Mais um celular caro")
+                .build();
+
+        produto = produtoService.incluir(produto);
+
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
+
+        produtoDTOList.add(produtoDTO);
+
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/razer_blade.jpg"));
+
+        imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
+
+        produto = Produto.builder()
+                .nome("Razer Blade")
+                .marca("Razer")
+                .preco(BigDecimal.valueOf(20500.00))
+                .quantidade(40L)
+                .custo(BigDecimal.valueOf(25.50))
+                .categoria(categoria2)
+                .usuario(usuario)
+                .imagemId(imagem.getId())
+                .codigoBarras(951l)
+                .descricao("Um notebook muito caro")
+                .build();
+
+        produto = produtoService.incluir(produto);
+
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
+
+        produtoDTOList.add(produtoDTO);
+
+        bytes = Files.readAllBytes(Paths.get(ORIGEM + "/s_23_ultra.png"));
+
+        imagem = Imagem.builder()
+                .blob(bytes)
+                .build();
+        imagem =  this.imagemService.incluir(imagem);
+
+        produto = Produto.builder()
+                .nome("S23 Ultra")
+                .marca("Samsung")
+                .preco(BigDecimal.valueOf(10500.00))
+                .quantidade(18L)
+                .custo(BigDecimal.valueOf(25.50))
+                .categoria(categoria)
+                .usuario(usuario)
+                .imagemId(imagem.getId())
+                .codigoBarras(381l)
+                .descricao("Outro celular caro")
+                .build();
+
+        produto = produtoService.incluir(produto);
+
+        produtoDTO = produtoController.obterPorId(produto.getCodigo()).getBody();
+
+        produtoDTOList.add(produtoDTO);
 
 
 //        EnviaEmailDTO envio = EnviaEmailDTO.builder()

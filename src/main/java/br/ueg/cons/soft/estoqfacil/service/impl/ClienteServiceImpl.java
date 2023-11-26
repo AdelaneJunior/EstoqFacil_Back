@@ -1,12 +1,15 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
+import br.ueg.cons.soft.estoqfacil.model.Categoria;
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
 import br.ueg.cons.soft.estoqfacil.repository.ClienteRepository;
 import br.ueg.cons.soft.estoqfacil.service.ClienteService;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
