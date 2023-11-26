@@ -7,6 +7,12 @@ import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< Updated upstream
+=======
+import java.time.LocalDate;
+import java.util.List;
+
+>>>>>>> Stashed changes
 @Service
 public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long, MovimentacaoRepository>
         implements MovimentacaoService {
@@ -18,7 +24,12 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void prepararParaIncluir(Movimentacao entidade) {
+<<<<<<< Updated upstream
 
+=======
+        entidade.setTipo(entidade.getAcao().getTipoMovimentacao());
+        entidade.setData(LocalDate.now());
+>>>>>>> Stashed changes
     }
 
     @Override
