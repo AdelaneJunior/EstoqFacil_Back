@@ -3,7 +3,11 @@ package br.ueg.cons.soft.estoqfacil.service.impl;
 import br.ueg.cons.soft.estoqfacil.model.Pessoa;
 import br.ueg.cons.soft.estoqfacil.repository.PessoaRepository;
 import br.ueg.cons.soft.estoqfacil.service.PessoaService;
+import br.ueg.prog.webi.api.exception.BusinessException;
+import br.ueg.prog.webi.api.exception.FieldResponse;
+import br.ueg.prog.webi.api.exception.InvalidParameterException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
+import br.ueg.prog.webi.api.util.Validacoes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ public class PessoaServiceImpl extends BaseCrudService<Pessoa, String, PessoaRep
 
     @Autowired
     PessoaRepository repository;
+    Validacoes validacoes = new Validacoes();
 
 
     @Override
@@ -23,7 +28,14 @@ public class PessoaServiceImpl extends BaseCrudService<Pessoa, String, PessoaRep
 
     @Override
     protected void validarDados(Pessoa entidade) {
+        if(!validacoes.isEmailValido(entidade.getEmail()))
+            throw new InvalidParameterException(entidade.getEmail(), "E-mail inválido");
 
+        if(!validacoes.validarCPF(entidade.getCpf()))
+            throw new InvalidParameterException(entidade.getCpf(), "CPF inválido");
+
+        if(!validacoes.validarTelefone(entidade.getTelefone()))
+            throw new InvalidParameterException(entidade.getTelefone(), "Telefone inválido");
     }
 
     @Override

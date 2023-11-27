@@ -20,5 +20,4 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/usuario")
 public class UsuarioController extends CrudController<Usuario, UsuarioDTO, Long, UsuarioMapperImpl, UsuarioServiceImpl> {
-
 }

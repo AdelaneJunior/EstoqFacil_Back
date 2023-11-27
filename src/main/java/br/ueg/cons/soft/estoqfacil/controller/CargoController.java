@@ -15,4 +15,4 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/cargo")
 public class CargoController extends CrudController<Cargo, CargoDTO, Long, CargoMapperImpl, CargoServiceImpl> {
-}
+        }
