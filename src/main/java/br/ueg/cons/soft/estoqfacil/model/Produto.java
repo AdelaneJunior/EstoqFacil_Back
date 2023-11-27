@@ -70,7 +70,7 @@ public class Produto extends BaseEntidade<Long> {
     private Usuario usuario;
 
     @Column(name = Coluna.ID_IMAGEM, nullable = false)
-    private long imagemId;
+    private Long imagemId;
 
     @Column(name = Produto.Coluna.NOME, nullable = false)
     @Searchable()
