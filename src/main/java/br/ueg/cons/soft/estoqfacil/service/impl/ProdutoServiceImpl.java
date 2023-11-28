@@ -74,6 +74,13 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         return true;
     }
 
+    @Override
+    public Produto obterPeloId(Long id) {
+        Produto produto = super.obterPeloId(id);
+        preencherCamposDaMovimentacao(produto);
+        return produto;
+    }
+
     private static void enviaEmail(String email) {
         try {
             EmailSender.enviaEmail(email);
@@ -101,6 +108,8 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         return new String(Base64.getEncoder().encode((byte[]) imagemService.obterPeloId(produtoDTO.getImagemId()).getBlob()));
 
     }
+
+
 
     public List<ProdutoDTO> tratarPrecoProdutoComDescontoList(List<ProdutoDTO> produtoDTOList, Long descontoPromocao ) {
 
