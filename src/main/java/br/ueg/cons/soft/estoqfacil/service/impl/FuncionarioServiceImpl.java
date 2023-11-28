@@ -24,6 +24,7 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String,
 
     @Override
     protected void prepararParaIncluir(Funcionario funcionario) {
+
     }
 
     @Override
@@ -31,7 +32,7 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String,
         if(!validacoes.isEmailValido(entidade.getPessoa().getEmail()))
             throw new InvalidParameterException(entidade.getPessoa().getEmail(), "E-mail inválido");
 
-        if(!validacoes.validarCPF(entidade.getCpf()))
+        if(!validacoes.validarCPF(entidade.getPessoa().getCpf()))
             throw new InvalidParameterException(entidade.getPessoa().getCpf(), "CPF inválido");
 
         if(!validacoes.validarTelefone(entidade.getPessoa().getTelefone()))

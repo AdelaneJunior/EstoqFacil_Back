@@ -63,10 +63,10 @@ public class InicialRunner implements ApplicationRunner {
 
 
         Pessoa pessoaAdmin = new Pessoa(
-                "0000000",
+                "00000000000",
                 "Ademiro",
                 "629999999",
-                "admin",
+                "admin@gmail.com",
                 LocalDate.now()
 
         );
