@@ -14,6 +14,7 @@ import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
 import br.ueg.prog.webi.api.exception.ApiMessageCode;
 import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
+import br.ueg.prog.webi.api.util.Validacoes;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
@@ -30,6 +31,8 @@ import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.*;
 
 @Service
 public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRepository>
@@ -48,6 +51,8 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     @Autowired
     private ImagemServiceImpl imagemService;
 
+    Validacoes validacoes = new Validacoes();
+
     @Override
     protected void prepararParaIncluir(Produto entidade) {
 
@@ -56,8 +61,11 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     @Override
     protected void validarDados(Produto entidade){
         Optional<Produto> produtoBD = repository.findProdutoByCodigoBarras(entidade.getCodigoBarras());
-        if(produtoBD.isPresent() || entidade.getCodigoBarras() == null){
-            throw new BusinessException(ApiMessageCode.ERRO_INESPERADO);
+        if(produtoBD.isPresent() ){
+            throw new BusinessException(ERRO_CODIGO_BARRA);
+        }
+        if(entidade.getCodigoBarras() == null){
+            throw new BusinessException(ERRO_CODIGO_BARRA_ZERADO);
         }
     }
 
@@ -67,6 +75,9 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     }
 
     public Boolean enviaEmailComPdf(EnviaEmailDTO enviaEmailDTO) {
+        if(!validacoes.isEmailValido(enviaEmailDTO.getEmail()))
+            throw new BusinessException(ERRO_EMAIL_INVALIDO);
+
         Thread threadEnvioEmail = new Thread(() -> {
             geraNovoPdf(enviaEmailDTO);
             enviaEmail(enviaEmailDTO.getEmail());
@@ -145,7 +156,7 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
             produto.setCusto(custo);
         }
         else{
-            throw new BusinessException(ApiMessageCode.ERRO_INESPERADO);
+            throw new BusinessException(ERRO_NUMERO_NEGATIVO);
         }
 
     }

@@ -28,14 +28,6 @@ public class PessoaServiceImpl extends BaseCrudService<Pessoa, String, PessoaRep
 
     @Override
     protected void validarDados(Pessoa entidade) {
-        if(!validacoes.isEmailValido(entidade.getEmail()))
-            throw new InvalidParameterException(entidade.getEmail(), "E-mail inválido");
-
-        if(!validacoes.validarCPF(entidade.getCpf()))
-            throw new InvalidParameterException(entidade.getCpf(), "CPF inválido");
-
-        if(!validacoes.validarTelefone(entidade.getTelefone()))
-            throw new InvalidParameterException(entidade.getTelefone(), "Telefone inválido");
     }
 
     @Override

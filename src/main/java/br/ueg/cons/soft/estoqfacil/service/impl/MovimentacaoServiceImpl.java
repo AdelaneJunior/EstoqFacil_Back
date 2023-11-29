@@ -4,9 +4,7 @@ import br.ueg.cons.soft.estoqfacil.dto.RelatorioMovimentacaoDTO;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.MovimentacaoService;
-import br.ueg.prog.webi.api.exception.ApiMessageCode;
 import br.ueg.prog.webi.api.exception.BusinessException;
-import br.ueg.prog.webi.api.exception.MessageCode;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_NUMERO_NEGATIVO;
 
 @Service
 public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long, MovimentacaoRepository>
@@ -36,7 +36,7 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
         if(entidade.getQuantidade() < 0 ||
                 entidade.getCusto().compareTo(BigDecimal.ONE) < 1 ||
                 entidade.getPreco().compareTo(BigDecimal.ONE) < 1){
-            throw new BusinessException(ApiMessageCode.ERRO_INESPERADO);
+            throw new BusinessException(ERRO_NUMERO_NEGATIVO);
         }
     }
 
