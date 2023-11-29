@@ -11,6 +11,7 @@ import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.ProdutoService;
 import br.ueg.cons.soft.estoqfacil.util.EmailSender;
 import br.ueg.cons.soft.estoqfacil.util.JasperGeneretor;
+import br.ueg.prog.webi.api.exception.ApiMessageCode;
 import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.apache.commons.mail.EmailException;
@@ -56,7 +57,7 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
     protected void validarDados(Produto entidade){
         Optional<Produto> produtoBD = repository.findProdutoByCodigoBarras(entidade.getCodigoBarras());
         if(produtoBD.isPresent() || entidade.getCodigoBarras() == null){
-            throw new IllegalStateException("Codigo de barras ausente ou ja cadastrado no banco de dados");
+            throw new BusinessException(ApiMessageCode.ERRO_INESPERADO);
         }
     }
 
@@ -144,7 +145,7 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
             produto.setCusto(custo);
         }
         else{
-            throw new IllegalStateException("Valores negativos encontrados!!");
+            throw new BusinessException(ApiMessageCode.ERRO_INESPERADO);
         }
 
     }
