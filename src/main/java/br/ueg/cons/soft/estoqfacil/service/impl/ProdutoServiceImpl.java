@@ -5,6 +5,7 @@ import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode;
+import br.ueg.cons.soft.estoqfacil.model.Funcionario;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.repository.ProdutoRepository;
@@ -19,6 +20,7 @@ import br.ueg.prog.webi.api.util.Validacoes;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -187,5 +189,18 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
         }
         preencherCamposDaMovimentacao(novo);
         return novo;
+    }
+
+    @Override
+    public Produto excluir(Long id) {
+
+        Produto excluir = null;
+        try {
+            excluir = super.excluir(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new BusinessException(ERRO_PRODUTO_MOVIMENTACAO);
+        }
+
+        return excluir;
     }
 }

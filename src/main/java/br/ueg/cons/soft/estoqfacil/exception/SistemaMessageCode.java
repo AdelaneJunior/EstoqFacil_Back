@@ -12,7 +12,10 @@ public enum SistemaMessageCode implements MessageCode {
 
     ERRO_CATEGORIA_UTILIZADA("MSG-011", 400),
     ERRO_PRODUTO_MOVIMENTACAO("MSG-012", 400),
-    ERRO_FUNCIONARIO_CARGO("MSG-013", 400);
+    ERRO_FUNCIONARIO_CARGO("MSG-013", 400),
+    ERRO_USUARIO_COM_LOGIN("MSG-014", 400),
+    ERRO_CLIENTE_DUPLICADO("MSG-015", 400),
+    ERRO_FUNCIONARIO_DUPLICADO("MSG-016", 400);
 
     private final String code;
     private final Integer status;

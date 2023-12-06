@@ -2,18 +2,22 @@ package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.cons.soft.estoqfacil.model.Categoria;
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
+import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.repository.ClienteRepository;
+import br.ueg.cons.soft.estoqfacil.repository.ProdutoRepository;
 import br.ueg.cons.soft.estoqfacil.service.ClienteService;
 import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.exception.InvalidParameterException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import br.ueg.prog.webi.api.util.Validacoes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.*;
 
@@ -22,15 +26,24 @@ public class ClienteServiceImpl extends BaseCrudService<Cliente, String, Cliente
         implements ClienteService {
 
     @Autowired
+    ClienteRepository repository;
+
+    @Autowired
     private PessoaServiceImpl pessoaService;
     Validacoes validacoes = new Validacoes();
     @Override
     protected void prepararParaIncluir(Cliente entidade) {
-
+        if(entidade.getCpf() != null) {
+            Optional<Cliente> clienteBD = repository.findById(entidade.getCpf());
+            if(clienteBD.isPresent() ){
+                throw new BusinessException(ERRO_CLIENTE_DUPLICADO);
+            }
+        }
     }
 
     @Override
     protected void validarDados(Cliente entidade) {
+
         if(!validacoes.isEmailValido(entidade.getPessoa().getEmail()))
             throw new BusinessException(ERRO_EMAIL_INVALIDO);
 
@@ -49,6 +62,15 @@ public class ClienteServiceImpl extends BaseCrudService<Cliente, String, Cliente
 
     @Override
     public Cliente alterar(Cliente entidade, String id) {
-        return super.alterar(entidade, id);
+        Cliente alterar = null;
+        try {
+            alterar = super.alterar(entidade, id);
+        } catch (DataIntegrityViolationException e) {
+            throw new BusinessException(ERRO_CLIENTE_DUPLICADO);
+        }
+
+        return alterar;
+
     }
+
 }

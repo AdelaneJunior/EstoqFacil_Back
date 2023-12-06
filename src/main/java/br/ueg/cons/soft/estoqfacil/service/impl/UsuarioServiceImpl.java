@@ -6,6 +6,7 @@ import br.ueg.cons.soft.estoqfacil.model.Cliente;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
+import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,16 +15,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_CLIENTE_DUPLICADO;
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_USUARIO_COM_LOGIN;
 
 @Service
 public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRepository>
         implements UsuarioService {
 
     @Autowired
+    private UsuarioRepository repository;
+
+    @Autowired
     private UsuarioMapperImpl usuarioMapper;
 
     @Override
     protected void prepararParaIncluir(Usuario usuario) {
+        Optional<Usuario> usuarioBD = repository.findUsuarioByFuncionario(usuario.getFuncionario().getCpf());
+        if(usuarioBD.isPresent()){
+            throw new BusinessException(ERRO_USUARIO_COM_LOGIN);
+        }
 
     }
 
@@ -70,4 +82,5 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
+
 }

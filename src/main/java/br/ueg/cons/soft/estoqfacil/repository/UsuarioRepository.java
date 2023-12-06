@@ -28,4 +28,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpec
             "inner join fetch f.cargo c " +
             "inner join fetch c.permissoes ")
     List<Usuario> findAll();
+
+    @Query("select u  from Usuario  u " +
+            "inner join fetch u.funcionario f " +
+            "where u.funcionario.pessoa.cpf = :cpf")
+    Optional<Usuario> findUsuarioByFuncionario(String cpf);
 }

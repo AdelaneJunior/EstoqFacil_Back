@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.*;
 
@@ -24,16 +25,26 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String,
         implements FuncionarioService {
 
     @Autowired
+    private FuncionarioRepository repository;
+
+    @Autowired
     private PessoaServiceImpl pessoaService;
     Validacoes validacoes = new Validacoes();
 
     @Override
     protected void prepararParaIncluir(Funcionario funcionario) {
-
+        if(funcionario.getCpf() != null) {
+            Optional<Funcionario> funcionarioBD = repository.findById(funcionario.getPessoa().getCpf());
+            if(funcionarioBD.isPresent() ){
+                throw new BusinessException(ERRO_FUNCIONARIO_DUPLICADO);
+            }
+        }
     }
 
     @Override
     protected void validarDados(Funcionario entidade) {
+
+
         if(!validacoes.isEmailValido(entidade.getPessoa().getEmail()))
             throw new BusinessException(ERRO_EMAIL_INVALIDO);
 
