@@ -4,6 +4,7 @@ import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
 import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
 import br.ueg.cons.soft.estoqfacil.enums.TipoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.repository.ProdutoRepository;
@@ -74,16 +75,15 @@ public class ProdutoServiceImpl extends BaseCrudService<Produto, Long, ProdutoRe
 
     }
 
-    public Boolean enviaEmailComPdf(EnviaEmailDTO enviaEmailDTO) {
+    public EnviaEmailDTO enviaEmailComPdf(EnviaEmailDTO enviaEmailDTO) {
         if(!validacoes.isEmailValido(enviaEmailDTO.getEmail()))
-            throw new BusinessException(ERRO_EMAIL_INVALIDO);
-
+            throw new BusinessException(SistemaMessageCode.ERRO_EMAIL_INVALIDO);;
         Thread threadEnvioEmail = new Thread(() -> {
             geraNovoPdf(enviaEmailDTO);
             enviaEmail(enviaEmailDTO.getEmail());
         });
         threadEnvioEmail.start();
-        return true;
+        return enviaEmailDTO;
     }
 
     @Override

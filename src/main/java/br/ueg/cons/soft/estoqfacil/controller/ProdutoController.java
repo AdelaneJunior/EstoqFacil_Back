@@ -2,6 +2,7 @@ package br.ueg.cons.soft.estoqfacil.controller;
 
 import br.ueg.cons.soft.estoqfacil.dto.EnviaEmailDTO;
 import br.ueg.cons.soft.estoqfacil.dto.ProdutoDTO;
+import br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode;
 import br.ueg.cons.soft.estoqfacil.mapper.ProdutoMapperImpl;
 import br.ueg.cons.soft.estoqfacil.model.Produto;
 import br.ueg.cons.soft.estoqfacil.service.impl.ProdutoServiceImpl;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "/api/${app.api.version}/produto")
@@ -30,33 +32,23 @@ public class ProdutoController extends
         CrudController<Produto, ProdutoDTO, Long, ProdutoMapperImpl, ProdutoServiceImpl> {
 
     @PostMapping("envia")
-    @Operation(
-            description = "Método utilizado para realizar a inclusão de um entidade",
-            responses = {@ApiResponse(
-                    responseCode = "200",
-                    description = "Entidade Incluida"
-            ), @ApiResponse(
-                    responseCode = "403",
-                    description = "Acesso negado",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            ), @ApiResponse(
-                    responseCode = "400",
-                    description = "Erro de Negócio",
-                    content = {@Content(
-                            mediaType = "application/json",
-                            schema = @Schema(
-                                    implementation = MessageResponse.class
-                            )
-                    )}
-            )}
+    @Operation(description = "Método utilizado para enviar lista de produtos no email", responses = {
+            @ApiResponse(responseCode = "200", description = "Listagem geral",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "404", description = "Registro não encontrado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Acesso negado",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    }
     )
-    public boolean enviaEmailComPdf(@RequestBody EnviaEmailDTO enviaEmail) {
-        return this.service.enviaEmailComPdf(enviaEmail);
+    public ResponseEntity<EnviaEmailDTO> enviaEmailComPdf(@RequestBody EnviaEmailDTO enviaEmail) {
+        return ResponseEntity.ok(this.service.enviaEmailComPdf(enviaEmail));
     }
 
     @Override
@@ -115,7 +107,7 @@ public class ProdutoController extends
                            schema = @Schema(implementation = MessageResponse.class))),
            @ApiResponse(responseCode = "400", description = "Erro de Negócio",
                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                           schema = @Schema(implementation = MessageResponse.class)))
+                           schema = @Schema(implementation = SistemaMessageCode.class)))
    })
    public ResponseEntity<Page<ProdutoDTO>> listAllPage(@PageableDefault(page = 0, size = 5)  Pageable page){
        Page<Produto> pageEntidade = service.listarTodosPage(page);
