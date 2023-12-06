@@ -8,6 +8,7 @@ import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
 import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
+import br.ueg.prog.webi.api.util.Validacoes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_CLIENTE_DUPLICADO;
-import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_USUARIO_COM_LOGIN;
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.*;
 
 @Service
 public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRepository>
@@ -29,6 +29,8 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
     @Autowired
     private UsuarioMapperImpl usuarioMapper;
+
+    Validacoes validacoes = new Validacoes();
 
     @Override
     protected void prepararParaIncluir(Usuario usuario) {
@@ -41,6 +43,10 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
 
     @Override
     protected void validarDados(Usuario usuario) {
+        if(!validacoes.validarSenha(usuario.getSenha()))
+        {
+            throw new BusinessException(ERRO_SENHA_INVALIDA);
+        }
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String senhaCodificada = bCryptPasswordEncoder.encode(usuario.getSenha());

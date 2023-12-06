@@ -121,7 +121,7 @@ public class InicialRunner implements ApplicationRunner {
 
         Usuario usuario = new Usuario(
                 1L,
-                "admin",
+                "Admin123@",
                 funcionarioAdmin
         );
 

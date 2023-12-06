@@ -75,4 +75,15 @@ public class Validacoes {
         return false;
     }
 
+    public boolean validarSenha(String senha) {
+        // Pelo menos 6 caracteres, pelo menos 3 números, pelo menos 1 letra maiúscula,
+        // e pelo menos 1 caractere alfanumérico
+        String regex = "^(?=.*[0-9].*[0-9].*[0-9])(?=.*[A-Z])(?=.*[a-zA-Z0-9]).{6,}$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(senha);
+
+        return matcher.matches();
+    }
+
 }
