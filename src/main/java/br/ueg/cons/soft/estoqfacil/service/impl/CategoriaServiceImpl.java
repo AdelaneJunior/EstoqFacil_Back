@@ -4,11 +4,14 @@ import br.ueg.cons.soft.estoqfacil.model.Categoria;
 import br.ueg.cons.soft.estoqfacil.repository.CategoriaRepository;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.CategoriaService;
+import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_CATEGORIA_UTILIZADA;
 
 @Service
 public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, CategoriaRepository>
@@ -54,7 +57,7 @@ public class CategoriaServiceImpl extends BaseCrudService<Categoria, Long, Categ
         try {
             excluir = super.excluir(id);
         } catch (DataIntegrityViolationException e) {
-                e.printStackTrace();
+                throw new BusinessException(ERRO_CATEGORIA_UTILIZADA);
         }
 
         return excluir;

@@ -8,7 +8,11 @@ public enum SistemaMessageCode implements MessageCode {
     ERRO_CPF_INVALIDO("MSG-007", 400),
     ERRO_EMAIL_INVALIDO("MSG-008", 400),
     ERRO_CODIGO_BARRA_ZERADO("MSG-010", 400),
-    ERRO_TELEFONE_INVALIDO("MSG-009", 400);
+    ERRO_TELEFONE_INVALIDO("MSG-009", 400),
+
+    ERRO_CATEGORIA_UTILIZADA("MSG-011", 400),
+    ERRO_PRODUTO_MOVIMENTACAO("MSG-012", 400),
+    ERRO_FUNCIONARIO_CARGO("MSG-013", 400);
 
     private final String code;
     private final Integer status;
