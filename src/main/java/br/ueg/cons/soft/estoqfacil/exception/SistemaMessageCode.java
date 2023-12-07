@@ -16,8 +16,10 @@ public enum SistemaMessageCode implements MessageCode {
     ERRO_USUARIO_COM_LOGIN("MSG-014", 400),
     ERRO_CLIENTE_DUPLICADO("MSG-015", 400),
     ERRO_FUNCIONARIO_DUPLICADO("MSG-016", 400),
+    ERRO_SENHA_INVALIDA("MSG-017", 400),
+    ERRO_SAIDA_NEGATIVA("MSG-018", 400)
 
-    ERRO_SENHA_INVALIDA("MSG-017", 400);
+    ;
 
     private final String code;
     private final Integer status;

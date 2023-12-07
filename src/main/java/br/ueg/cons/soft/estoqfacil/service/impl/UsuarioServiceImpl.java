@@ -3,6 +3,7 @@ package br.ueg.cons.soft.estoqfacil.service.impl;
 import br.ueg.cons.soft.estoqfacil.dto.UsuarioDTO;
 import br.ueg.cons.soft.estoqfacil.mapper.UsuarioMapperImpl;
 import br.ueg.cons.soft.estoqfacil.model.Cliente;
+import br.ueg.cons.soft.estoqfacil.model.Funcionario;
 import br.ueg.cons.soft.estoqfacil.model.Usuario;
 import br.ueg.cons.soft.estoqfacil.repository.UsuarioRepository;
 import br.ueg.cons.soft.estoqfacil.service.UsuarioService;
@@ -10,6 +11,7 @@ import br.ueg.prog.webi.api.exception.BusinessException;
 import br.ueg.prog.webi.api.service.BaseCrudService;
 import br.ueg.prog.webi.api.util.Validacoes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,19 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario, Long, UsuarioRe
     @Override
     public List<Usuario> listarTodos() {
         return repository.findAll();
+    }
+
+    @Override
+    public Usuario excluir(Long id) {
+
+        Usuario excluir = null;
+        try {
+            excluir = super.excluir(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new BusinessException(ERRO_FUNCIONARIO_CARGO);
+        }
+
+        return excluir;
     }
 
 }

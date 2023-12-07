@@ -1,6 +1,8 @@
 package br.ueg.cons.soft.estoqfacil.service.impl;
 
 import br.ueg.cons.soft.estoqfacil.dto.RelatorioMovimentacaoDTO;
+import br.ueg.cons.soft.estoqfacil.enums.AcaoMovimentacao;
+import br.ueg.cons.soft.estoqfacil.model.Funcionario;
 import br.ueg.cons.soft.estoqfacil.model.Movimentacao;
 import br.ueg.cons.soft.estoqfacil.repository.MovimentacaoRepository;
 import br.ueg.cons.soft.estoqfacil.service.MovimentacaoService;
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_FUNCIONARIO_DUPLICADO;
 import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_NUMERO_NEGATIVO;
 
 @Service
@@ -33,6 +37,14 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void validarDados(Movimentacao entidade) {
+        if(entidade.getAcao() == AcaoMovimentacao.VENDA || entidade.getAcao() == AcaoMovimentacao.DEVOLUCAO_AO_FORNECEDOR || entidade.getAcao() == AcaoMovimentacao.PRODUTO_QUEBRADO) {
+
+            Optional<Movimentacao> movimentacaoBD = repository.findById(movimentacaoBD.);
+            if(movimentacaoBD.isPresent() ){
+                throw new BusinessException(ERRO_FUNCIONARIO_DUPLICADO);
+            }
+        }
+
         if(entidade.getQuantidade() < 0 ||
                 entidade.getCusto().compareTo(BigDecimal.ONE) < 1 ||
                 entidade.getPreco().compareTo(BigDecimal.ONE) < 1){

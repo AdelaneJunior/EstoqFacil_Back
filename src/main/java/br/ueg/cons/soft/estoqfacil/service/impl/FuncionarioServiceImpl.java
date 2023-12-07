@@ -65,5 +65,16 @@ public class FuncionarioServiceImpl extends BaseCrudService<Funcionario, String,
         return super.incluir(modelo);
     }
 
+    @Override
+    public Funcionario excluir(String cpf) {
 
+        Funcionario excluir = null;
+        try {
+            excluir = super.excluir(cpf);
+        } catch (DataIntegrityViolationException e) {
+            throw new BusinessException(ERRO_FUNCIONARIO_CARGO);
+        }
+
+        return excluir;
+    }
 }

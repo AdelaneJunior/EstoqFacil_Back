@@ -27,7 +27,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
 
     @Query("SELECT new br.ueg.cons.soft.estoqfacil.dto.RelatorioMovimentacaoDTO(" +
             "m.produto.codigo, p.nome, sum(case when m.tipo = 'S' then  m.quantidade else 0 end) as totalSaida," +
-            "sum(case when m.tipo = 'E' then  m.quantidade else 0 end) as totalEntrada, sum(m.preco)" +
+            "sum(case when m.tipo = 'E' then  m.quantidade else 0 end) as totalEntrada, max(m.preco)" +
             ")" +
             "from Movimentacao m inner join fetch Produto p on p.codigo = m.produto.codigo " +
             "group by m.produto.codigo, p.nome " +
