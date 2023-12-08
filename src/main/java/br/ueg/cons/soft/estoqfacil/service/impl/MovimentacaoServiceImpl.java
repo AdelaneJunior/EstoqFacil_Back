@@ -17,8 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_FUNCIONARIO_DUPLICADO;
-import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.ERRO_NUMERO_NEGATIVO;
+import static br.ueg.cons.soft.estoqfacil.exception.SistemaMessageCode.*;
 
 @Service
 public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long, MovimentacaoRepository>
@@ -37,11 +36,16 @@ public class MovimentacaoServiceImpl extends BaseCrudService<Movimentacao, Long,
 
     @Override
     protected void validarDados(Movimentacao entidade) {
-        if(entidade.getAcao() == AcaoMovimentacao.VENDA || entidade.getAcao() == AcaoMovimentacao.DEVOLUCAO_AO_FORNECEDOR || entidade.getAcao() == AcaoMovimentacao.PRODUTO_QUEBRADO) {
+        if(entidade.getAcao() == AcaoMovimentacao.VENDA ||
+                entidade.getAcao() == AcaoMovimentacao.DEVOLUCAO_AO_FORNECEDOR ||
+                entidade.getAcao() == AcaoMovimentacao.PRODUTO_QUEBRADO) {
 
-            Optional<Movimentacao> movimentacaoBD = repository.findById(movimentacaoBD.);
-            if(movimentacaoBD.isPresent() ){
-                throw new BusinessException(ERRO_FUNCIONARIO_DUPLICADO);
+            Long total = (repository.totalProdutosEntrada(entidade.getProduto().getCodigo()))
+                    -
+                    (repository.totalProdutosSaida(entidade.getProduto().getCodigo()));
+            Long validarQuantidade = total - entidade.getQuantidade();
+            if(validarQuantidade < 0 ){
+                throw new BusinessException(ERRO_SAIDA_NEGATIVA);
             }
         }
 
